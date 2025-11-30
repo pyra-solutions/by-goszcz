@@ -11,62 +11,63 @@
     <div class="filters-grid">
       <div class="filter-field">
         <label>Publikator</label>
-        <!-- <p-dropdown
-          [options]="publikatorOptions"
-          [(ngModel)]="filters.publikator"
-          (onChange)="applyFilters()"
-          placeholder="Wybierz publikator">
-        </p-dropdown> -->
+        <p-select
+        [(ngModel)]="filters.publikator"
+        [options]="publikatorOptions"
+        (onChange)="applyFilters()"
+        placeholder="Wybierz publikator"
+        ></p-select>
       </div>
 
       <div class="filter-field">
         <label>Rok</label>
-        <!-- <p-dropdown
-          [options]="lata"
-          [(ngModel)]="filters.rok"
-          (onChange)="applyFilters()"
-          placeholder="Wybierz rok">
-        </p-dropdown> -->
+        <p-select
+        [(ngModel)]="filters.rok"
+        [options]="lata"
+        (onChange)="applyFilters()"
+        placeholder="Wybierz rok"
+        ></p-select>
       </div>
 
       <div class="filter-field">
         <label>Status wykonania</label>
-        <!-- <p-dropdown
-          [options]="statusOptions"
-          [(ngModel)]="filters.status"
-          (onChange)="applyFilters()"
-          placeholder="Status">
-        </p-dropdown> -->
+        <p-select
+        [(ngModel)]="filters.status"
+        [options]="statusOptions"
+        (onChange)="applyFilters()"
+        placeholder="Status"
+        ></p-select>
       </div>
 
       <div class="filter-field">
         <label>Ocena konstytucyjności</label>
-        <!-- <p-dropdown
-          [options]="ocenaOptions"
-          [(ngModel)]="filters.ocena"
-          (onChange)="applyFilters()"
-          placeholder="Ocena">
-        </p-dropdown> -->
+        <p-select
+        [options]="ocenaOptions"
+        [(ngModel)]="filters.ocena"
+        (onChange)="applyFilters()"
+        placeholder="Ocena">
+        </p-select>
       </div>
 
       <div class="filter-field">
         <label>Sygnatura</label>
-        <input
+        <!-- [(ngModel)]="filters.sygnatura" -->
+        <p-input
           pInputText
           type="text"
-          [(value)]="filters.sygnatura"
           (ngModelChange)="applyFilters()"
-          placeholder="np. K 1/23" />
+          placeholder="np. K 1/23"
+        ></p-input>
       </div>
 
       <div class="filter-field wide">
         <label>Fragment tytułu orzeczenia</label>
         <input
-          pInputText
-          type="text"
-          [(value)]="filters.fragmentTytulu"
-          (ngModelChange)="applyFilters()"
-          placeholder="np. wynagrodzenie sędziego" />
+        pInputText
+        type="text"
+        [(value)]="filters.fragmentTytulu"
+        (ngModelChange)="applyFilters()"
+        placeholder="np. wynagrodzenie sędziego" />
       </div>
     </div>
 

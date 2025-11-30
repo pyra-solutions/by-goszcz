@@ -6,14 +6,34 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import Aura from '@primeuix/themes/aura';
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 import Lara from '@primeuix/themes/lara';
-import Material from '@primeuix/themes/material';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, TableModule, TagModule],
-  providers: [provideAnimationsAsync(), providePrimeNG({ theme: { preset: Aura } })],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    TableModule,
+    TagModule,
+    SelectModule,
+    FormsModule,
+    InputTextModule,
+  ],
+  providers: [
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Lara,
+        options: {
+          darkModeSelector: false,
+        },
+      },
+    }),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,14 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { TableModule } from 'primeng/table';
-// import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-
-import { fa, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 interface Orzeczenie {
   lp: number;
