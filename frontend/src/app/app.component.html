@@ -1,2 +1,157 @@
 
-<p>hello</p>
+<div class="page">
+  <header class="page-header">
+    <h1>{{ title }}</h1>
+    <p class="page-subtitle">Lista wygenerowanych przykładowych orzeczeń (dane testowe z Faker).</p>
+  </header>
+
+  <section class="search-panel">
+    <h2>Wyszukaj orzeczenie</h2>
+
+    <div class="filters-grid">
+      <div class="filter-field">
+        <label>Publikator</label>
+        <!-- <p-dropdown
+          [options]="publikatorOptions"
+          [(ngModel)]="filters.publikator"
+          (onChange)="applyFilters()"
+          placeholder="Wybierz publikator">
+        </p-dropdown> -->
+      </div>
+
+      <div class="filter-field">
+        <label>Rok</label>
+        <!-- <p-dropdown
+          [options]="lata"
+          [(ngModel)]="filters.rok"
+          (onChange)="applyFilters()"
+          placeholder="Wybierz rok">
+        </p-dropdown> -->
+      </div>
+
+      <div class="filter-field">
+        <label>Status wykonania</label>
+        <!-- <p-dropdown
+          [options]="statusOptions"
+          [(ngModel)]="filters.status"
+          (onChange)="applyFilters()"
+          placeholder="Status">
+        </p-dropdown> -->
+      </div>
+
+      <div class="filter-field">
+        <label>Ocena konstytucyjności</label>
+        <!-- <p-dropdown
+          [options]="ocenaOptions"
+          [(ngModel)]="filters.ocena"
+          (onChange)="applyFilters()"
+          placeholder="Ocena">
+        </p-dropdown> -->
+      </div>
+
+      <div class="filter-field">
+        <label>Sygnatura</label>
+        <input
+          pInputText
+          type="text"
+          [(value)]="filters.sygnatura"
+          (ngModelChange)="applyFilters()"
+          placeholder="np. K 1/23" />
+      </div>
+
+      <div class="filter-field wide">
+        <label>Fragment tytułu orzeczenia</label>
+        <input
+          pInputText
+          type="text"
+          [(value)]="filters.fragmentTytulu"
+          (ngModelChange)="applyFilters()"
+          placeholder="np. wynagrodzenie sędziego" />
+      </div>
+    </div>
+
+    <div class="search-actions">
+      <button
+        pButton
+        type="button"
+        label="Wyszukaj"
+        icon="pi pi-search"
+        (click)="applyFilters()">
+      </button>
+
+      <button
+        pButton
+        type="button"
+        label="Wyczyść"
+        icon="pi pi-refresh"
+        class="p-button-secondary"
+        (click)="resetFilters()">
+      </button>
+
+      <span class="results-info">
+        Liczba pozycji: {{ filteredOrzeczenia.length }} | Wszystkich: {{ orzeczenia.length }}
+      </span>
+    </div>
+  </section>
+
+  <section class="results-panel">
+    <p-table
+      [value]="filteredOrzeczenia"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10,20,50]"
+      [responsiveLayout]="'scroll'">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 60px;">Lp.</th>
+          <th>Sygnatura</th>
+          <th>Data wydania</th>
+          <th>Publikator</th>
+          <th>Tytuł orzeczenia</th>
+          <th>Ocena konstytucyjności</th>
+          <th>Organ właściwy</th>
+          <th>Status orzeczenia</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ rowIndex + 1 }}</td>
+          <td>
+            <strong>{{ row.sygnatura }}</strong>
+          </td>
+          <td>
+            {{ row.dataWydania | date:'yyyy-MM-dd' }}<br />
+            <small>ogłoszenie: {{ row.dataOgloszenia | date:'yyyy-MM-dd' }}</small>
+          </td>
+          <td>
+            {{ row.publikator }} {{ row.rok }} r. nr {{ row.numer }}, poz. {{ row.pozycja }}
+          </td>
+          <td>{{ row.tytul }}</td>
+          <td>
+            <p-tag
+              [value]="row.ocenaKonstytucyjnosci"
+              [severity]="row.ocenaKonstytucyjnosci === 'zgodny' ? 'success' : 'danger'">
+            </p-tag>
+          </td>
+          <td>{{ row.organWlasciwy }}</td>
+          <td>
+            <p-tag
+              [value]="row.statusOrzeczenia"
+              [severity]="$any(getStatusSeverity(row.statusOrzeczenia))">
+            </p-tag>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8" class="empty-message">
+            Brak orzeczeń spełniających zadane kryteria.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
+</div>
