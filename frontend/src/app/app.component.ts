@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faker } from '@faker-js/faker';
+import { MenuItem } from 'primeng/api';
 
 interface Orzeczenie {
   lp: number;
@@ -28,6 +29,18 @@ interface SelectOption {
   standalone: false,
 })
 export class AppComponent implements OnInit {
+  menuItems: MenuItem[] = [
+    {
+      label: 'Kluby',
+    },
+    {
+      label: 'Prawa',
+    },
+    {
+      label: 'About',
+    },
+  ];
+
   title = 'Orzeczenia Trybunału Konstytucyjnego';
 
   orzeczenia: Orzeczenie[] = [];

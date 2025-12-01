@@ -1,5 +1,42 @@
+<div class="app-root" *transloco="let t">
+  <!-- <header class="app-header">Droga prawna</header> -->
 
-<div class="page">
+  <p-toolbar>
+		<p>{{t('hello')}}</p>
+		<div>
+			<p-menubar [model]="menuItems" />
+			<div>
+				<input type="text" pInputText placeholder="Search" />
+				<p-inputicon class="pi pi-search" />
+			</div>
+      <language-selector></language-selector>
+		</div>
+    <!-- <ng-template #start> -->
+
+		<!-- <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+		<p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+		<p-button icon="pi pi-upload" text severity="secondary" /> -->
+    <!-- </ng-template> -->
+    <!-- <ng-template #center>
+        <p-iconfield iconPosition="left">
+            <p-inputicon class="pi pi-search" />
+            <input type="text" pInputText placeholder="Search" />
+        </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+        <p-splitbutton label="Save" [model]="items" />
+    </ng-template> -->
+  </p-toolbar>
+
+
+  <div class="app-content">
+    <!-- <p-menu [model]="menuItems" /> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+<!-- <div class="page">
   <header class="page-header">
     <h1>{{ title }}</h1>
     <p class="page-subtitle">Lista wygenerowanych przykładowych orzeczeń (dane testowe z Faker).</p>
@@ -51,7 +88,7 @@
 
       <div class="filter-field">
         <label>Sygnatura</label>
-        <!-- [(ngModel)]="filters.sygnatura" -->
+        [(ngModel)]="filters.sygnatura"
         <p-input
           pInputText
           type="text"
@@ -155,4 +192,4 @@
       </ng-template>
     </p-table>
   </section>
-</div>
+</div> -->
