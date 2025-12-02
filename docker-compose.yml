@@ -7,7 +7,7 @@ services:
     volumes:
       - ./backend/app:/app/app
     environment:
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb
+      - "DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb"
     ports:
       - "8000:8000"
     depends_on:
@@ -27,8 +27,8 @@ services:
     container_name: postgres_db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
       POSTGRES_DB: appdb
     ports:
       - "5432:5432"
@@ -40,8 +40,8 @@ services:
     container_name: pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: "${PGADMIN_DEFAULT_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
     ports:
       - "5050:80"
     volumes:
@@ -52,3 +52,4 @@ services:
 volumes:
   pg_data:
   pgadmin_data:
+
