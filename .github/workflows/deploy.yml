@@ -17,7 +17,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 1337
         script: |
-          cd /home/projekt/by-goscz
+          cd /home/projekt/by-goszcz
           git pull
           docker-compose up -d --build
 
