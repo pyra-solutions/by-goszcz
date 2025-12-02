@@ -47,7 +47,7 @@ services:
     ports:
       - "5050:80"
     volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
     depends_on:
       - db
 
@@ -60,4 +60,7 @@ services:
     command: certonly --webroot -w /var/www/certbot --email balmy-alto-satin@duck.com -d pyra-solutions.dedyn.io --agree-tos --no-eff-email --force-renewal
     depends_on:
       - nginx
+
+volumes:
+  pgadmin_data:
 
