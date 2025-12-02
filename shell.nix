@@ -5,7 +5,6 @@
 pkgs.mkShell rec {
   buildInputs = with pkgs; [
     gcc
-    clang
     go
     nodejs_22
     air
