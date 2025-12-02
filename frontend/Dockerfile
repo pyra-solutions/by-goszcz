@@ -2,7 +2,9 @@
 FROM node:22 AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/usr/src/app/.npm \
+    npm set cache /usr/src/app/.npm && \
+    npm ci
 COPY . .
 RUN npm run build
 
