@@ -21,6 +21,8 @@ services:
       - ./backend/app:/app/app
     environment:
       - "DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb"
+    networks:
+      - nginx
     depends_on:
       - db
   
@@ -47,6 +49,8 @@ services:
 
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - nginx
     depends_on:
       - db
 
@@ -63,3 +67,5 @@ services:
 volumes:
   pgadmin_data:
 
+networks:
+  nginx:
