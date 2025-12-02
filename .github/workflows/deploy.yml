@@ -19,5 +19,5 @@ jobs:
         script: |
           cd /home/projekt/by-goszcz
           git pull
-          docker-compose up -d --build
+          docker compose up -d --build
 
