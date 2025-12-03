@@ -10,6 +10,8 @@ services:
       - ./data/certbot-www/:/var/www/certbot/:ro
       - ./data/nginx-logs:/var/log/nginx/
     restart: always
+    networks:
+      - nginx
     depends_on:
       - backend
   
