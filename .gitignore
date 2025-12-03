@@ -3,3 +3,6 @@
 !env.example
 .direnv
 /data/
+.venv
+venv
+__pycache__
