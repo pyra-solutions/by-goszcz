@@ -17,6 +17,6 @@ export class LanguageSelectorComponent {
 
   languageChanged() {
     console.log(this.languageSelected);
-    this.transloco.setActiveLang(this.languageSelected);
+    this.transloco.setActiveLang(this.languageSelected.slice(0, 2));
   }
 }

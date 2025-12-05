@@ -1,0 +1,22 @@
+<p-timeline
+[value]="workflowEvents"
+layout="horizontal"
+align="top"
+class="workflow-timeline"
+>
+<ng-template pTemplate="event" let-event>
+  <div class="timeline-event">
+    <span class="timeline-title">{{ event.status }}</span>
+    <small class="timeline-sub">{{ event.date }}</small>
+  </div>
+</ng-template>
+
+<ng-template pTemplate="marker" let-event>
+  <span
+    class="custom-marker"
+    [ngStyle]="{ 'background-color': event.color }"
+  >
+    <i class="pi" [ngClass]="event.icon"></i>
+  </span>
+</ng-template>
+</p-timeline>

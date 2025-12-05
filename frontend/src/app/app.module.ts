@@ -21,9 +21,18 @@ import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+import { LegislativeTrackerComponent } from './legislative-tracker/legislative-tracker.component';
+import { TimelineModule } from 'primeng/timeline';
+import { LegislativeTimeline } from './legislative-timeline/legislative-timeline.component';
+import { Badge } from 'primeng/badge';
 
 @NgModule({
-  declarations: [AppComponent, LanguageSelectorComponent],
+  declarations: [
+    AppComponent,
+    LanguageSelectorComponent,
+    LegislativeTrackerComponent,
+    LegislativeTimeline,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,6 +51,8 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
     MenubarModule,
     HttpClientModule,
     TranslocoRootModule,
+    TimelineModule,
+    Badge,
   ],
   providers: [
     provideAnimationsAsync(),
