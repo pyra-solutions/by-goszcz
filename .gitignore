@@ -1,4 +1,8 @@
 .env
 .env.*
 !env.example
-
+.direnv
+/data/
+.venv
+venv
+__pycache__

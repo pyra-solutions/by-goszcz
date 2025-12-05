@@ -10,3 +10,9 @@ alembic
 python-multipart
 requests
 
+
+# dev dependencies
+black
+ruff
+mypy
+sqlmodel

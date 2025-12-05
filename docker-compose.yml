@@ -1,57 +1,79 @@
-version: "3.9"
-
 services:
-
+  nginx:
+    build: ./frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/certs:/etc/letsencrypt:ro
+      - ./data/certbot-www/:/var/www/certbot/:ro
+      - ./data/nginx-logs:/var/log/nginx/
+    restart: always
+    networks:
+      - nginx
+    depends_on:
+      - backend
+  
   backend:
     build: ./backend
-    container_name: fastapi_app
+    container_name: backend
     restart: unless-stopped
     volumes:
       - ./backend/app:/app/app
     environment:
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb
-    ports:
-      - "8000:8000"
+      - "DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb"
+    networks:
+      - nginx
+      - db
     depends_on:
       - db
-
-  frontend:
-    build: ./frontend
-    container_name: angular_app
-    restart: unless-stopped
-    ports:
-      - "4200:80"
-    depends_on:
-      - backend
-
+  
   db:
     image: postgres:16
     container_name: postgres_db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
       POSTGRES_DB: appdb
+    networks:
+      - db
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+      - ./data/pg:/var/lib/postgresql/data
+  
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: "${PGADMIN_DEFAULT_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
     ports:
       - "5050:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - nginx
+      - db
     depends_on:
       - db
 
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./data/certs:/etc/letsencrypt
+  #     - ./data/certbot-www:/var/www/certbot
+  #   command: certonly --webroot -w /var/www/certbot --email balmy-alto-satin@duck.com -d pyra-solutions.dedyn.io --agree-tos --no-eff-email --force-renewal
+  #   depends_on:
+  #     - nginx
+
 volumes:
-  pg_data:
   pgadmin_data:
+
+networks:
+  nginx:
+  db:

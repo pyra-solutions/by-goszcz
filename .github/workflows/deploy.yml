@@ -9,19 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Copy application files to server
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        port: 1337
-        source: "./"
-        target: "/home/projekt"
-
     - name: Restart docker-compose
       uses: appleboy/ssh-action@v0.1.8
       with:
@@ -30,7 +17,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 1337
         script: |
-          cd /home/projekt
-          docker-compose down
-          docker-compose up -d --build
+          cd /home/projekt/by-goszcz
+          git pull
+          docker compose up -d --build
 
