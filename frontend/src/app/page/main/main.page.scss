@@ -29,6 +29,17 @@ $bp-sm: 768px;
   flex-grow: 1;
 }
 
+.filters {
+  display: flex;
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
+
+  p-select {
+    width: 200px;
+    margin-right: 10px;
+  }
+}
+
 // przycisk w stylu gov.pl
 .gov-btn {
   display: inline-flex;

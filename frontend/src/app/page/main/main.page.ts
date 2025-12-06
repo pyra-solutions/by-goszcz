@@ -8,6 +8,13 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class MainPage {
+  filters = [
+    'Status',
+    'Tytuł',
+  ]
+
+  date = ['od','do']
+
   constructor(private router: Router) {}
 
   selectProject(index: number) {

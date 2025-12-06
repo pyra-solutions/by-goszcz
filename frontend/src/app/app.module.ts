@@ -30,6 +30,8 @@ import { MainPage } from './page/main/main.page';
 import { ScrollerModule } from 'primeng/scroller';
 import { DetailsPage } from './page/details/details.page';
 import { CardModule } from 'primeng/card';
+import { DatePickerModule } from 'primeng/datepicker';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { CardModule } from 'primeng/card';
     Badge,
     ScrollerModule,
     TimelineModule,
-    CardModule
+    CardModule,
+    DatePickerModule,
+    FloatLabelModule
   ],
   providers: [
     provideAnimationsAsync(),
