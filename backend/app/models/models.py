@@ -80,7 +80,7 @@ class Consults(SQLModel, table=True):
     __tablename__ = "consults"
 
 
-    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    id: int = Field(primary_key=True)
     project_file: str
     form_file: str
     report_file: str
@@ -89,7 +89,7 @@ class Comments(SQLModel, table=True):
     __tablename__ = "comments"
 
 
-    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    project_id: int = Field(primary_key=True)
     consults_id: int = Field(default=None, foreign_key="consults.id")
     name: str
     question_number: str
