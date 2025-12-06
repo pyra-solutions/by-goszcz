@@ -6,21 +6,23 @@
 				<span class="legis-column__count">12 projektów</span>
 		</header>
 		
-		<p-virtualscroller [items]="fakeProjects" [itemSize]="10" scrollHeight="500px" styleClass="border border-surface">
-			<ng-template #item let-item>
-				<!-- @for(project of fakeProjects; track project.name) { -->
-					<!-- (click)="selectProject(project)" -->
-					<legis-project
-					(click)="loadProject()"
-					[selected]="item.selected"
-					[name]="item.name"
-					[source]="item.source"
-					[status]="item.status"
-					[step]="item.step"
-					></legis-project>
-				<!-- } -->
-			</ng-template>
-		</p-virtualscroller>
+		<!-- <p-virtualscroller [items]="fakeProjects" [itemSize]="10" scrollHeight="500px" styleClass="border border-surface"> -->
+			<!-- <ng-template > -->
+		<div class="projects">
+			@for(item of fakeProjects; track item.name) {
+				<!-- (click)="selectProject(project)" -->
+				<legis-project
+				(click)="loadProject()"
+				[selected]="item.selected"
+				[name]="item.name"
+				[source]="item.source"
+				[status]="item.status"
+				[step]="item.step"
+				></legis-project>
+			}
+		</div>
+			<!-- </ng-template> -->
+		<!-- </p-virtualscroller> -->
 	</section>
 
 	<!-- kolumna prawa: dokumenty / szczegóły -->

@@ -248,9 +248,14 @@ $bp-sm: 768px;
 .legis-content {
   display: flex;
   height: 100%;
+
+  // max-height: 70vh;
 }
 
 .legis-column {
+  display: flex;
+  flex-direction: column;
+
   background: transparent;
 
   &__header {
@@ -275,6 +280,14 @@ $bp-sm: 768px;
 .legis-column--projects {
   flex-grow: 1;
   margin-right: 10px;
+  max-height: 100%;
+
+  .projects {
+    overflow: auto;
+    flex-grow: 1;
+    max-height: 75vh; 
+    // max-height: 100%;
+  }
 }
 
 // projekty
