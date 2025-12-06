@@ -1,0 +1,545 @@
+// $app-bg: #e5e7eb;
+// $sidebar-bg: #050816;
+// $border-color: #d1d5db;
+// $panel-bg: #ffffff;
+
+
+
+// Zmienne „gov.pl-owe”
+$gov-primary: #0052a5;
+$gov-primary-dark: #003b7a;
+$gov-accent: #dc143c;
+$gov-bg: #f5f5f5;
+$gov-border: #d5d5d5;
+$gov-text: #1b1b1b;
+$gov-muted: #6a6a6a;
+$gov-radius: 4px;
+$gov-shadow-soft: 0 2px 4px rgba(0, 0, 0, 0.06);
+
+$bp-md: 992px;
+$bp-sm: 768px;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:host {
+  flex-grow: 1;
+}
+
+.filters {
+  display: flex;
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
+
+  p-select {
+    width: 200px;
+    margin-right: 10px;
+  }
+
+  input {
+    width: 400px;
+    margin-right: 10px;
+  }
+}
+
+// przycisk w stylu gov.pl
+.gov-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.2rem;
+  border-radius: $gov-radius;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &--primary {
+    background: $gov-primary;
+    border-color: $gov-primary;
+    color: #fff;
+
+    &:hover {
+      background: $gov-primary-dark;
+      border-color: $gov-primary-dark;
+    }
+  }
+
+  &--secondary {
+    background: #fff;
+    border-color: $gov-primary;
+    color: $gov-primary;
+
+    &:hover {
+      background: rgba($gov-primary, 0.06);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    border-color: $gov-border;
+    color: $gov-text;
+
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+// tag/status
+.gov-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &--in-progress {
+    background: rgba($gov-primary, 0.08);
+    color: $gov-primary;
+  }
+
+  &--sejm {
+    background: rgba($gov-primary, 0.08);
+    color: $gov-primary-dark;
+  }
+
+  &--senat {
+    background: rgba($gov-accent, 0.08);
+    color: $gov-accent;
+  }
+
+  &--finished {
+    background: #e6f5ea;
+    color: #2e7d32;
+  }
+}
+
+// input wyszukiwarki
+.gov-input {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+
+  &__label {
+    margin-bottom: 0.15rem;
+    color: $gov-muted;
+  }
+
+  input {
+    padding: 0.45rem 0.6rem;
+    border-radius: $gov-radius;
+    border: 1px solid $gov-border;
+    font-size: 0.9rem;
+    min-width: 260px;
+
+    &:focus {
+      outline: 2px solid $gov-primary;
+      border-color: $gov-primary;
+    }
+  }
+
+  &--search input {
+    padding-right: 2.2rem;
+  }
+}
+
+// główny layout
+.legis-app {
+  display: flex;
+  min-height: 100vh;
+}
+
+// sidebar
+.legis-sidebar {
+  width: 250px;
+  background: #1f2933;
+  color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1rem;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  &__logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $gov-accent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+
+    a {
+      color: #e5e7eb;
+      padding: 0.45rem 0.6rem;
+      border-radius: $gov-radius;
+      text-decoration: none;
+      font-size: 0.9rem;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      &.is-active {
+        background: #111827;
+        border-left: 3px solid $gov-accent;
+        padding-left: 0.45rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// prawa część
+.legis-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.75rem;
+}
+
+// topbar
+.legis-topbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $gov-border;
+
+  h1 {
+    margin: 0 0 0.25rem;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin: 0;
+    color: $gov-muted;
+    font-size: 0.9rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+
+  .legis-topbar-title {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.legis-content {
+  display: flex;
+  height: 100%;
+
+  // max-height: 70vh;
+}
+
+.legis-column {
+  display: flex;
+  flex-direction: column;
+
+  background: transparent;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .legis-column__count,
+    .legis-column__subtitle {
+      color: $gov-muted;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.legis-column--projects {
+  flex-grow: 1;
+  margin-right: 10px;
+  max-height: 100%;
+
+  .projects {
+    overflow: auto;
+    flex-grow: 1;
+    max-height: 75vh; 
+    // max-height: 100%;
+  }
+}
+
+
+// diagram etapów
+.legis-flow {
+  background: #fff;
+  border-radius: $gov-radius;
+  border: 1px solid $gov-border;
+  padding: 1rem;
+  box-shadow: $gov-shadow-soft;
+
+  &__row {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.75rem;
+
+    &:not(:last-child) {
+      margin-bottom: 0.85rem;
+    }
+  }
+
+  &__step {
+    flex: 1;
+    background: #f9fafb;
+    border-radius: $gov-radius;
+    border: 1px solid $gov-border;
+    padding: 0.6rem 0.7rem;
+    text-align: center;
+    font-size: 0.85rem;
+
+    &.is-done {
+      border-color: #9ca3af;
+      background: #f3f4f6;
+    }
+
+    &.is-current {
+      border-color: $gov-primary;
+      background: rgba($gov-primary, 0.06);
+    }
+
+    &.is-pending {
+      border-style: dashed;
+      background: #fff;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+
+  &__desc {
+    display: block;
+    color: $gov-muted;
+    font-size: 0.78rem;
+  }
+
+  &__connector {
+    width: 26px;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 2px solid $gov-border;
+    }
+  }
+
+  &__legend {
+    margin-top: 0.7rem;
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.78rem;
+    color: $gov-muted;
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 0.25rem;
+
+      &--done {
+        background: #9ca3af;
+      }
+
+      &--current {
+        background: $gov-primary;
+      }
+
+      &--pending {
+        background: #e5e7eb;
+      }
+    }
+  }
+}
+
+// karty po prawej
+.legis-card {
+  background: #fff;
+  border-radius: $gov-radius;
+  border: 1px solid $gov-border;
+  padding: 0.9rem 0.9rem 1rem;
+  box-shadow: $gov-shadow-soft;
+  margin-bottom: 0.75rem;
+  font-size: 0.87rem;
+
+  .legis-card-category {
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin: 0.4rem 0 0.4rem 0;
+    font-size: 0.95rem;
+  }
+
+  p {
+    margin: 0 0 0.3rem;
+    color: $gov-text;
+  }
+
+  .gov-btn {
+    margin-top: 0.4rem;
+  }
+}
+
+.legis-doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      font-size: 0.87rem;
+      color: $gov-primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__meta {
+    display: block;
+    font-size: 0.75rem;
+    color: $gov-muted;
+  }
+}
+
+.legis-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+
+  a {
+    color: $gov-primary;
+    font-size: 0.87rem;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// responsywność
+@media (max-width: $bp-md) {
+  .legis-content {
+    grid-template-columns: 1.1fr 1.3fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "projects flow"
+      "details details";
+  }
+
+  // .legis-column--projects { grid-area: projects; }
+  // .legis-column--flow { grid-area: flow; }
+  // .legis-column--details { grid-area: details; }
+}
+
+@media (max-width: $bp-sm) {
+  .legis-app {
+    flex-direction: column;
+  }
+
+  .legis-sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &__nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+
+      a {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .legis-main {
+    padding: 1rem;
+  }
+
+  .legis-topbar {
+    flex-direction: column;
+    align-items: stretch;
+
+    &__actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      .gov-input input {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+  }
+
+  .legis-content {
+    grid-template-columns: 1fr;
+  }
+}

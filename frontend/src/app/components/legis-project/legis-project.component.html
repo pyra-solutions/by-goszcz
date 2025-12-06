@@ -1,0 +1,12 @@
+
+<div class="legis-project" [ngClass]="selected ? 'is-selected' : ''">
+	<!-- <div class="legis-project__meta" [ngClass]="selected ? 'legis-project.is-selected' : ''"> -->
+	<div class="legis-project__meta">
+		<h3>{{name}}</h3>
+		<p>{{source}}</p>
+	</div>
+	<div class="legis-project__status">
+		<span class="gov-tag" [ngClass]="'gov-tag--' + status">{{status}}</span>
+		<span class="legis-project__step">{{step}}</span>
+	</div>
+</div>

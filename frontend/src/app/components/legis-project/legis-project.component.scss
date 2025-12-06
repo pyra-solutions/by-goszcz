@@ -1,0 +1,92 @@
+$gov-primary: #0052a5;
+$gov-primary-dark: #003b7a;
+$gov-accent: #dc143c;
+$gov-bg: #f5f5f5;
+$gov-border: #d5d5d5;
+$gov-text: #1b1b1b;
+$gov-muted: #6a6a6a;
+$gov-radius: 4px;
+$gov-shadow-soft: 0 2px 4px rgba(0, 0, 0, 0.06);
+
+$bp-md: 992px;
+$bp-sm: 768px;
+
+.legis-project {
+  background: #fff;
+  border-radius: $gov-radius;
+  border: 1px solid $gov-border;
+  padding: 0.7rem 0.75rem;
+  margin-bottom: 0.55rem;
+  box-shadow: $gov-shadow-soft;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  cursor: pointer;
+
+  &.is-selected {
+    border-color: $gov-primary;
+    box-shadow: 0 0 0 2px rgba($gov-primary, 0.12);
+  }
+
+  &__meta {
+    h3 {
+      margin: 0 0 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: $gov-muted;
+    }
+  }
+
+  &__status {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+
+  &__step {
+    font-size: 0.8rem;
+    color: $gov-muted;
+  }
+}
+
+.is-selected {
+  border-color: $gov-primary !important;
+  box-shadow: 0 0 0 2px rgba($gov-primary, 0.12);
+}
+
+.gov-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &--in-progress {
+    background: rgba($gov-primary, 0.08);
+    color: $gov-primary;
+  }
+
+  &--sejm {
+    background: rgba($gov-primary, 0.08);
+    color: $gov-primary-dark;
+  }
+
+  &--senat {
+    background: rgba($gov-accent, 0.08);
+    color: $gov-accent;
+  }
+
+  &--finished {
+    background: #e6f5ea;
+    color: #2e7d32;
+  }
+}
