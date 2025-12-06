@@ -27,6 +27,9 @@ class ActInfo(SQLModel, table=True):
     # additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 class ProcessHeader(SQLModel, table=True):
+    __tablename__ = "process_header"
+
+
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
     u_e: Optional[str]
     e_li: Optional[str]
@@ -53,6 +56,9 @@ class ProcessHeader(SQLModel, table=True):
     urgency_withdraw_date: Optional[datetime]
 
 class SubscriberList(SQLModel, table=True):
+    __tablename__ = "subscriber_list"
+
+
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
     email: str
     categories: list[str]
