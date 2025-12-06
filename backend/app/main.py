@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 from app.database import engine, get_db
 from app.models.models import ActInfo
+from app.models.models import ProcessHeader
 from app.routes import  ai
 from app.routes.ai import ai_clarify_act
 
@@ -65,17 +66,136 @@ def act(address: str, session: Session = Depends(get_db)) -> ActInfo:
     return act
 
 
-# nie ma response type bo to musi być w SQLModel
-@app.get("/processes/{term}")
-async def process(term: int):
-    res = await get_sejm_termterm_processes.asyncio(client=sejm_client,term=term,offset=0,limit=3,sort_by="documentDate")
-    print(res)
-    if not res:
-        raise HTTPException(status_code=404, detail="Process not found")
+## nie ma response type bo to musi być w SQLModel
+#@app.get("/processes/{term}")
+#@app.get("/term{term}/processes", response_model=list[ProcessHeader])
+#def processes(
+#    term: int,
+#    page: int = 1,
+#    page_size: int = 20,
+#    session: Session = Depends(get_db)
+#) -> list[ProcessHeader]:
+#    """
+#    Get processes from database for a given term with pagination.
+#    """
+#    if page < 1:
+#        raise HTTPException(status_code=400, detail="Page must be >= 1")
+#
+#    offset = (page - 1) * page_size
+#
+#    query = select(ProcessHeader).where(ProcessHeader.term == term).offset(offset).limit(page_size)
+#    result = session.exec(query)
+#    processes = list(result.all())
+#
+#    if not processes:
+#        raise HTTPException(status_code=404, detail="No processes found for this term")
+#
+#    return processes
+async def fetch_and_save_processes(term: int, session: Session):
+    """
+    Fetches processes from API and saves them to database if not already present.
+    """
+    offset = 0
+    limit = 100
+    saved_count = 0
+    
+    while True:
+        processes_response = await get_sejm_termterm_processes.asyncio(
+            client=sejm_client,
+            term=term,
+            offset=offset,
+            limit=limit
+        )
+        
+        if not processes_response:
+            break
+        
+        for process_api in processes_response:
+            process_dict = process_api.to_dict()
+            
+            # Check if process already exists in database
+            existing = session.exec(
+                select(ProcessHeader).where(
+                    ProcessHeader.term == term,
+                    ProcessHeader.number == process_dict.get("number")
+                )
+            ).first()
+            
+            if existing:
+                continue
+            
+            process_db = ProcessHeader(
+                term=process_dict.get("term"),
+                number=process_dict.get("number"),
+                title=process_dict.get("title"),
+                title_final=process_dict.get("titleFinal"),
+                description=process_dict.get("description"),
+                document_date=process_dict.get("documentDate"),
+                process_start_date=process_dict.get("processStartDate"),
+                change_date=process_dict.get("changeDate"),
+                document_type=process_dict.get("documentType"),
+                document_type_enum=process_dict.get("documentTypeEnum"),
+                comments=process_dict.get("comments"),
+                web_generated_date=process_dict.get("webGeneratedDate"),
+                closure_date=process_dict.get("closureDate"),
+                address=process_dict.get("address"),
+                display_address=process_dict.get("displayAddress"),
+                eli=process_dict.get("ELI"),
+                passed=process_dict.get("passed"),
+                shorten_procedure=process_dict.get("shortenProcedure"),
+                urgency_status=process_dict.get("urgencyStatus"),
+                urgency_withdraw_date=process_dict.get("urgencyWithdrawDate")
+            )
+            
+            session.add(process_db)
+            saved_count += 1
+        
+        if len(processes_response) < limit:
+            break
+        
+        offset += limit
+    
+    if saved_count > 0:
+        session.commit()
+    
+    return saved_count
 
-    # tutaj to_dict zwraca to jak originalny response, powinno być to najpierw zapisane do bazy danych i z niej zwracane wtedy też typ możemy podać
-    return res[0].to_dict()
 
+@app.get("/term{term}/processes", response_model=list[ProcessHeader])
+async def processes(
+    term: int,
+    page: int = 1,
+    page_size: int = 20,
+    session: Session = Depends(get_db)
+) -> list[ProcessHeader]:
+    """
+    Get processes from database for a given term with pagination.
+    Fetches from API if not in database.
+    """
+    if page < 1:
+        raise HTTPException(status_code=400, detail="Page must be >= 1")
+
+    # Check if we have any processes for this term in database
+    count_query = select(ProcessHeader).where(ProcessHeader.term == term)
+    existing_count = len(list(session.exec(count_query).all()))
+    
+    # If no processes found, fetch from API
+    if existing_count == 0:
+        print(f"No processes found in database for term {term}, fetching from API...")
+        saved = await fetch_and_save_processes(term, session)
+        print(f"Saved {saved} processes to database")
+
+    offset = (page - 1) * page_size
+
+    query = select(ProcessHeader).where(ProcessHeader.term == term).offset(offset).limit(page_size)
+    result = session.exec(query)
+    processes = list(result.all())
+
+    if not processes:
+        raise HTTPException(status_code=404, detail="No processes found for this term")
+
+    return processes
+#
 
 
 #@app.post("/ai")

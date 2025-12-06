@@ -52,7 +52,7 @@ async def main():
     session = Session(engine)
 
     # Fetch all processes for term 10
-    processes = await fetch_all_processes(client, term=10)
+    processes = await fetch_all_processes(client, term=30)
     
     if not processes:
         print("No processes found.")
@@ -60,13 +60,12 @@ async def main():
     
     print(f"\nTotal processes fetched: {len(processes)}")
     print("Saving to database...")
-    
-    for process_api in processes:
+    for i,process_api in enumerate(processes, 1):
         process_dict = process_api.to_dict()
         
         process_db = ProcessHeader(
             #id=None,
-            #u_e=process_dict.get("uE"),
+            #u_e=process_dict.get("ue"),
             #e_li=process_dict.get("ELI"),
             term=process_dict.get("term"),
             number=process_dict.get("number"),
@@ -86,13 +85,17 @@ async def main():
             display_address=process_dict.get("displayAddress"),
             eli=process_dict.get("ELI"),
             passed=process_dict.get("passed"),
-            links=process_dict.get("links", []),
             shorten_procedure=process_dict.get("shortenProcedure"),
             urgency_status=process_dict.get("urgencyStatus"),
             urgency_withdraw_date=process_dict.get("urgencyWithdrawDate")
         )
         
         session.add(process_db)
+        
+        # Commit every 100 records
+        if i % 10 == 0:
+            session.commit()
+            print(f"  Progress: {i}/{len(processes)} processes saved")
     
     session.commit()
     session.close()
