@@ -24,3 +24,32 @@ class ActInfo(SQLModel, table=True):
     status: Optional[str]
 
     # additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+class ProcessHeader(SQLModel, table=True):
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    u_e: Optional[str]
+    e_li: Optional[str]
+    term: Optional[int]
+    number: Optional[str]
+    title: Optional[str]
+    title_final: Optional[str]
+    description: Optional[str]
+    ue: Optional[str]
+    document_date: Optional[date]
+    process_start_date: Optional[date]
+    change_date: Optional[date]
+    document_type: Optional[str]
+    document_type_enum: Optional[str]
+    comments: Optional[str]
+    web_generated_date: Optional[datetime]
+    closure_date: Optional[date]
+    address: Optional[string]
+    display_address: Optional[string]
+    eli: Optional[string]
+    passed: Optional[bool]
+    links: Optional[list]
+    shorten_procedure: Optional[bool]
+    urgency_status: Optional[str]
+    urgency_withdraw_date: Optional[date]
+    prints_considered_jointly: Optional[list]
+    additional_properties: Optional[list]
