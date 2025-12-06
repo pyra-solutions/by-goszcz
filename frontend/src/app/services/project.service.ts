@@ -92,12 +92,9 @@ export class ProjectService {
   fetchSummary(pos: string) {
     return this.http.get(`http://localhost:8000/ai?pos=${pos}`);
   }
+
+  fetchTimeline() {
+    // this.http.get(`http://`)
+  }
 }
 
-
-//start_date?: string
-//end_date?: string
-//project_name?: string
-//state?: string (finished | in_progress )
-//project_pos?: int
-//poll_amount?: int
