@@ -109,7 +109,7 @@ async def main():
                 "text_html":act.text_html,
                 "change_date":act.change_date,
                 "eli":act.eli,
-                "type_":act.type_,
+                "act_type":act.type_,
                 "status":act.status,
                 }
 

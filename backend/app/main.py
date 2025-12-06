@@ -23,7 +23,7 @@ def root():
     return {"message": "Hello World"}
 
 @app.get("/act/{act_id}")
-def acts(act_id: int, session: Session = Depends(get_db)):
+def acts(act_id: int, session: Session = Depends(get_db)) -> ActInfo:
     # Get act from database using ORM
     act = session.get(ActInfo, act_id)  # zmień Hero na Act
     
