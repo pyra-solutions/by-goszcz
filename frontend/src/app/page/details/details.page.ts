@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
+import { ActivatedRoute } from '@angular/router';
 
 interface LegislativeStep {
   title: string;
@@ -18,10 +19,17 @@ interface LegislativeStep {
   standalone: false
 })
 export class DetailsPage {
-
+  
+  pos: string;
   project: Project;
 
-  constructor(private projectSerivce: ProjectService) {
+  constructor(private projectSerivce: ProjectService, private route: ActivatedRoute ) {
+    this.pos = this.route.snapshot.paramMap.get('pos')!;
+
+    this.projectSerivce.fetchSummary(this.pos).subscribe((r)=>{
+      console.log('thisfapodsfk', r) 
+    })
+
     this.project = this.projectSerivce.generateProjects(1)[0];
   }
 

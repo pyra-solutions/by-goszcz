@@ -84,8 +84,11 @@ export class ProjectService {
     return projects;
   }
 
-  fetchProjects() {
-    const pages = 20;
-    return this.http.get(`https://pyra-solutions.dedyn.io/api/acts/${Math.floor(Math.random() * pages)}`);
+  fetchProjects(pageId: number) {
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/acts/${pageId}`);
+  }
+
+  fetchSummary(pos: string) {
+    return this.http.post(`https://pyra-solutions.dedyn.io/api/ai`, {pos});
   }
 }

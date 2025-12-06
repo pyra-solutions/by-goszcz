@@ -1,5 +1,4 @@
 <section class="legis-content">
-	<!-- kolumna lewa: projekty -->
 	<section class="legis-column legis-column--projects" aria-label="Aktualne projekty">
 		<!-- <header class="legis-column__header">
 				<h2>Aktualne projekty</h2>
@@ -18,13 +17,8 @@
 			</p-floatlabel>
 
 			<p-floatlabel>
-				<p-select [showClear]="true"></p-select>
+				<p-select [(ngModel)]="publisherFilter" [showClear]="true" [options]="publisherFilters"></p-select>
 				<label for="over_label">Wnioskodawca</label>
-			</p-floatlabel>
-
-			<p-floatlabel>
-				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateRangeFilter" [showClear]="true"/>
-				<label for="over_label">Zakres dat</label>
 			</p-floatlabel>
 		</div>
 		
@@ -36,6 +30,8 @@
 			[tableStyle]="{ 'min-width': '50rem' }" 
 			selectionMode="single"
 			[(selection)]="selected"
+			[paginator]="true"
+			[rows]="20"
 			>
 				<ng-template #header>
 					<tr>

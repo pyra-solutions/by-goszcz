@@ -9,11 +9,7 @@ import { ProjectService } from './services/project.service';
   standalone: false,
 })
 export class AppComponent implements OnInit{
-  constructor(private router: Router, private projects: ProjectService) {
-    this.projects.fetchProjects().subscribe((r)=>{
-      console.log('res', r)
-    })
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     setInterval(()=>{
