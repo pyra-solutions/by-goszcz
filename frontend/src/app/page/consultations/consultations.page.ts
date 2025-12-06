@@ -13,6 +13,9 @@ export class ConsultationsPage {
 
   titleFilter = signal('');
 
+  // statusFilters = ['Zakończony', 'W trakcie zaplanowany']
+  // statusFilter = signal<ConsultationStatus | null>(null)
+
   selected!: ProjectConsultation;
 
   consultations = signal(PROJECT_CONSULTATIONS);
@@ -20,6 +23,7 @@ export class ConsultationsPage {
   consultationsFiltered = computed(()=>
     this.consultations()
     .filter((c)=>c.project_name.includes(this.titleFilter()))
+    // .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
   )
 
   constructor(private router: Router, private projectService: ProjectService) {

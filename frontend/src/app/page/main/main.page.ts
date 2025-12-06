@@ -11,8 +11,10 @@ import { DateTime, Interval } from 'luxon';
   standalone: false,
 })
 export class MainPage {
+  aiResponse: any;
+
   statusFilters = ALL_PROJECT_STATUSES;
-  publisherFilters: string[] = ['DU', 'MU']
+  publisherFilters: string[] = ['DU', 'MU'];
 
   typeFilters = ['Ustawa', 'Rozporządzenie', 'Obwieszczenie']
   typeFilter = signal(null)
@@ -76,6 +78,10 @@ export class MainPage {
   }
 
   generateAiSummary() {
-
+    this.projectService.fetchSummary(String(this.selected()!.pos!)).subscribe((res: any)=>{
+      console.log('Ai response', res)
+      console.log('Ai response', JSON.parse(res.response.analysis))
+      this.aiResponse = JSON.parse(res.response.analysis)
+    })
   }
 }

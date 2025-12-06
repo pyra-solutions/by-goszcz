@@ -99,6 +99,18 @@
 			<p>{{selected()!.publisher}}</p>
 			<p>{{selected()!.status}}</p>
 			-->
+			<ul>
+				@for(party of aiResponse.affected_parties;track $index) {
+				<li>{{party}}</li>
+				}
+			</ul>
+
+			<ul>
+				@for(party of aiResponse.key_points;track $index) {
+				<li>{{party}}</li>
+				}
+			</ul>
+
 			<button (click)="generateAiSummary()" class="gov-btn gov-btn--secondary gov-btn--full">
 				Wygeneruj
 			</button> 

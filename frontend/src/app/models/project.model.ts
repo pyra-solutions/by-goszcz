@@ -36,13 +36,15 @@ export interface Project {
   status?: ProjectStatus;
 }
 
+export type ConsultationStatus = 'finished' | 'ongoing' | 'planned';
+
 export interface ProjectConsultation {
   submission_date: string;
   project_name: string;
   consultation_id: string;
   start_date: string;
   end_date: string;
-  status: 'finished' | 'ongoing' | 'planned'; // Można rozszerzyć o inne statusy
+  status: ConsultationStatus; // Można rozszerzyć o inne statusy
   poll_amount: number;
   project_pos: number;
 }

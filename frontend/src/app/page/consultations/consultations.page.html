@@ -9,19 +9,20 @@
 			</p-floatlabel>
 
 			<!-- <p-floatlabel>
-				<p-select></p-select>
+				<p-select [(ngModel)]="statusFilter" [options]="statusFilters" [showClear]="true"></p-select>
 				<label for="over_label">Status</label>
 			</p-floatlabel> -->
-<!-- 
+
+			<!-- <p-floatlabel>
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateAnnouncementRangeFilter" [showClear]="true"/>
+				<label for="over_label">Zakres dat wprowadzenia</label>
+			</p-floatlabel>
+
 			<p-floatlabel>
-				<p-select></p-select>
-				<label for="over_label">Wnioskodawca</label>
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateChangeRangeFilter" [showClear]="true"/>
+				<label for="over_label">Zakres dat zmiany</label>
 			</p-floatlabel> -->
-<!-- 
-			<p-floatlabel>
-				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" />
-				<label for="over_label">Zakres dat</label>
-			</p-floatlabel> -->
+
 		</div>
 		
 		<div class="projects">
