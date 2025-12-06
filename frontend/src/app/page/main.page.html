@@ -1,0 +1,68 @@
+<section class="legis-content">
+	<!-- kolumna lewa: projekty -->
+	<section class="legis-column legis-column--projects" aria-label="Aktualne projekty">
+	<header class="legis-column__header">
+			<h2>Aktualne projekty</h2>
+			<span class="legis-column__count">12 projektów</span>
+	</header>
+	
+	@for(project of fakeProjects; track project.name) {
+		<!-- (click)="selectProject(project)" -->
+		<legis-project
+		[selected]="project.selected"
+		[name]="project.name"
+		[source]="project.source"
+		[status]="project.status"
+		[step]="project.step"
+		></legis-project>
+	}
+
+
+	<button class="gov-btn gov-btn--ghost gov-btn--full">
+			Pokaż więcej projektów
+	</button>
+	</section>
+
+	<!-- kolumna prawa: dokumenty / szczegóły -->
+	<section class="legis-column legis-column--details" aria-label="Szczegóły projektu">
+	<header class="legis-column__header">
+			<h2>Szczegółowe informacje</h2>
+	</header>
+
+	<section class="legis-card">
+			<h3>Termin najbliższego posiedzenia</h3>
+			<p>Komisja Finansów Publicznych – 12.12.2025, godz. 10:00</p>
+			<p>Sala 118, budynek C, Sejm RP</p>
+			<button class="gov-btn gov-btn--secondary gov-btn--full">
+			Zobacz porządek obrad
+			</button>
+	</section>
+
+	<section class="legis-card">
+			<h3>Dokumenty</h3>
+			<ul class="legis-doc-list">
+			<li>
+					<a href="#">Projekt ustawy (PDF)</a>
+					<span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span>
+			</li>
+			<li>
+					<a href="#">Uzasadnienie projektu (PDF)</a>
+					<span class="legis-doc-list__meta">Ministerstwo Rozwoju</span>
+			</li>
+			<li>
+					<a href="#">Poprawki Senatu (DOCX)</a>
+					<span class="legis-doc-list__meta">druk nr 1180A</span>
+			</li>
+			</ul>
+	</section>
+
+	<section class="legis-card">
+			<h3>Powiązane informacje</h3>
+			<ul class="legis-links">
+			<li><a href="#">Przebieg procesu w Sejmie</a></li>
+			<li><a href="#">Głosowania posłów</a></li>
+			<li><a href="#">Opinia Biura Analiz Sejmowych</a></li>
+			</ul>
+	</section>
+	</section>
+</section>
