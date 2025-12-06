@@ -1,16 +1,22 @@
 import asyncio
 import time
-from eli_for_polish_acts_client.client import Client
-from eli_for_polish_acts_client.api.listing_acts import get_years, get_acts_in_year, get_publishers
-from eli_for_polish_acts_client.api.act_details import get_act_pdf
-from eli_for_polish_acts_client.models.act_info import ActInfo
+from clienteli.client import Client
+from clienteli.api.listing_acts import get_years, get_acts_in_year, get_publishers
+from clienteli.api.act_details import get_act_pdf
+from clienteli.models.act_info import ActInfo as ActInfoAPI
 import os
 
-async def download_act(semaphore: asyncio.Semaphore, client: Client, act: ActInfo):
+from sqlalchemy import engine
+from sqlmodel import SQLModel, Session
+
+from models.models import ActInfo
+from database import engine
+
+async def download_act(semaphore: asyncio.Semaphore, client: Client, act: ActInfoAPI):
     """
     Downloads a single act.
     """
-    file_path = os.path.join("../data/acts/", f"{act.publisher}_{act.year}_{act.pos}.pdf")
+    file_path = os.path.join("/acts/", f"{act.publisher}_{act.year}_{act.pos}.pdf")
     if os.path.exists(file_path):
         print(f"  - Already downloaded {act.address}")
         return
@@ -49,6 +55,9 @@ async def main():
     semaphore = asyncio.Semaphore(30)
     tasks = []
 
+    SQLModel.metadata.create_all(engine)
+    session =  Session(engine)
+
     publishers_response = await get_publishers.asyncio(client=client)
     if not publishers_response:
         print("Could not fetch publishers.")
@@ -75,15 +84,45 @@ async def main():
                 year=year,
                 publisher=publisher_code
             )
-            print("xxx")
             if not acts_response:
                 print(f"No acts found for year: {year}")
                 continue
             acts_data = acts_response.to_dict()
             
             for act_data in acts_data["items"]:
-                task = asyncio.create_task(download_act(semaphore, client, ActInfo.from_dict(act_data)))
+                print(act_data)
+                act = ActInfoAPI.from_dict(act_data)
+
+                
+                act_dict = {
+                "id": 0,
+                "address":act.address,
+                "publisher":act.publisher,
+                "year":act.year,
+                "volume":act.volume,
+                "pos":act.pos,
+                "title":act.title,
+                "display_address":act.display_address,
+                "promulgation":act.promulgation,
+                "announcement_date":act.announcement_date,
+                "text_pdf":act.text_pdf,
+                "text_html":act.text_html,
+                "change_date":act.change_date,
+                "eli":act.eli,
+                "act_type":act.type_,
+                "status":act.status,
+                }
+
+
+                act = ActInfo.model_validate(act_dict)
+                act.id = None
+                session.add(act)
+                print("ADDED!")
+                
+                task = asyncio.create_task(download_act(semaphore, client, ActInfoAPI.from_dict(act_data)))
                 tasks.append(task)
+
+            session.commit()
 
     await asyncio.gather(*tasks)
     end_time = time.time()

@@ -20,7 +20,7 @@ services:
     container_name: backend
     restart: unless-stopped
     volumes:
-      - ./backend/app:/app/app
+      - ./data/acts:/acts
     environment:
       - "DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb"
     networks:

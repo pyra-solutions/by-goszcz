@@ -3,45 +3,33 @@ from google import genai
 from dotenv import load_dotenv
 from sqlmodel import Session, select
 
-from app.database import get_db
-from app.models.models import Main  # Zaimportuj swój model
+from app.models.models import ActInfo
 
 load_dotenv()
 
 router = APIRouter(prefix="/ai", tags=["AI"])
 
-def ai_test_function():
-    """Function to test AI generation"""
-    client = genai.Client()
-    response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", contents="Explain how AI works in a few words"
-    )
-    return response.text
-
-
-@router.post("/clarify/{act_id}")
-def ai_clarify_act(act_id: int, session: Session = Depends(get_db)):
-    """Use AI to clarify an act from database"""
-    
-    # Get act from database using ORM
-    act = session.get(Main, act_id)  # zmień Hero na Act
+def ai_clarify_act(pos: int, session: Session):
+    """
+    Pobiera dane z bazy według modelu ActInfo dla podanego pos
+    """
+    statement = select(ActInfo).where(ActInfo.pos == pos)
+    act = session.exec(statement).first()
     
     if not act:
-        raise HTTPException(status_code=404, detail="Act not found")
-    
-    # Use AI to clarify
-    client = genai.Client()
-    prompt = f"Wyjaśnij ten akt prawny w prostych słowach zrozumiałych dla osób niezwizanych z środowiskiem prawniczym: {act.tytul}"
-    response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", 
-        contents=prompt
-        #config={
-        #    "response_mime_type": "application/json",
-        #    "response_json_schema": Recipe.model_json_schema(),
-        #}
-    )
+        raise HTTPException(status_code=404, detail=f"Act with pos={pos} not found")
     
     return {
-        "act": act,
-        "clarification": response.text
+        "id": act.id,
+        "eli": act.eli,
+        "title": act.title,
+        "address": act.address,
+        "publisher": act.publisher,
+        "year": act.year,
+        "volume": act.volume,
+        "pos": act.pos,
+        "display_address": act.display_address,
+        "promulgation": act.promulgation,
+        "status": act.status,
+        "act_type": act.act_type
     }
