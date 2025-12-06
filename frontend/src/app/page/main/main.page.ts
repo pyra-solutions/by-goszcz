@@ -8,12 +8,7 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class MainPage {
-  filters = [
-    'Status',
-    'Tytuł',
-  ]
-
-  date = ['od','do']
+  selected: any = false;
 
   constructor(private router: Router) {}
 
@@ -26,10 +21,10 @@ export class MainPage {
     }))
 
     this.fakeProjects[index].selected = true;
-    console.log('fake', this.fakeProjects)
+    this.selected = this.fakeProjects[index];
   }
 
-  loadProject() {
+  goToDetails() {
     this.router.navigateByUrl('details');
   }
 

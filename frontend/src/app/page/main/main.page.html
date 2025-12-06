@@ -8,28 +8,28 @@
 
 		<div class="filters">
 			<p-floatlabel>
+				<input type="text" pInputText />
+				<label for="over_label">Tytuł</label>
+			</p-floatlabel>
+
+			<p-floatlabel>
 				<p-select></p-select>
 				<label for="over_label">Status</label>
 			</p-floatlabel>
 
 			<p-floatlabel>
 				<p-select></p-select>
-				<label for="over_label">Tytuł</label>
+				<label for="over_label">Wnioskodawca</label>
 			</p-floatlabel>
 
 			<p-floatlabel>
 				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" />
-				<label for="over_label">Over Label</label>
+				<label for="over_label">Zakres dat</label>
 			</p-floatlabel>
-
-
 		</div>
 		
-		<!-- <p-virtualscroller [items]="fakeProjects" [itemSize]="10" scrollHeight="500px" styleClass="border border-surface"> -->
-			<!-- <ng-template > -->
 		<div class="projects">
 			@for(item of fakeProjects; track $index; let i = $index) {
-				<!-- (click)="selectProject(project)" -->
 				<legis-project
 				(click)="selectProject(i)"
 				[selected]="item.selected"
@@ -40,8 +40,6 @@
 				></legis-project>
 			}
 		</div>
-			<!-- </ng-template> -->
-		<!-- </p-virtualscroller> -->
 	</section>
 
 	<!-- kolumna prawa: dokumenty / szczegóły -->
@@ -50,29 +48,36 @@
 			<h2>Szczegółowe informacje</h2>
 	</header>
 
+	@if(selected) {
 	<section class="legis-card">
 			<h3>Termin najbliższego posiedzenia</h3>
-			<p>Komisja Finansów Publicznych – 12.12.2025, godz. 10:00</p>
-			<p>Sala 118, budynek C, Sejm RP</p>
-			<button class="gov-btn gov-btn--secondary gov-btn--full">
-			Zobacz porządek obrad
+			<p>{{selected.name}}</p>
+			<p>{{selected.source}}</p>
+			<p>{{selected.status}}</p>
+			<p>{{selected.step}}</p>
+			<!-- <p>Komisja Finansów Publicznych – 12.12.2025, godz. 10:00</p>
+			<p>Sala 118, budynek C, Sejm RP</p> -->
+
+			<button (click)="goToDetails()" class="gov-btn gov-btn--secondary gov-btn--full">
+				Zobacz szczegóły
 			</button>
 	</section>
+	}
 
 	<section class="legis-card">
 			<h3>Dokumenty</h3>
 			<ul class="legis-doc-list">
 			<li>
 					<a href="#">Projekt ustawy (PDF)</a>
-					<span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span>
+					<!-- <span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span> -->
 			</li>
 			<li>
 					<a href="#">Uzasadnienie projektu (PDF)</a>
-					<span class="legis-doc-list__meta">Ministerstwo Rozwoju</span>
+					<!-- <span class="legis-doc-list__meta">Ministerstwo Rozwoju</span> -->
 			</li>
 			<li>
 					<a href="#">Poprawki Senatu (DOCX)</a>
-					<span class="legis-doc-list__meta">druk nr 1180A</span>
+					<!-- <span class="legis-doc-list__meta">druk nr 1180A</span> -->
 			</li>
 			</ul>
 	</section>

@@ -67,7 +67,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     TimelineModule,
     CardModule,
     DatePickerModule,
-    FloatLabelModule
+    FloatLabelModule,
+    InputTextModule
   ],
   providers: [
     provideAnimationsAsync(),
