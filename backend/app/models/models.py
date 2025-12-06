@@ -51,6 +51,7 @@ class ProcessHeader(SQLModel, table=True):
     display_address: Optional[str]
     eli: Optional[str]
     passed: Optional[bool]
+    links: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     shorten_procedure: Optional[bool]
     urgency_status: Optional[str]
     urgency_withdraw_date: Optional[datetime]
