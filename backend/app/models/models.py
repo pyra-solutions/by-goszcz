@@ -20,7 +20,7 @@ class ActInfo(SQLModel, table=True):
     text_pdf: Optional[bool]
     text_html: Optional[bool]
     change_date: Optional[datetime]
-    eli: Optional[str]
+    eli: Optional[str] = Field(sa_column=Column("eli", String, unique=True))
     act_type: Optional[str]
     status: Optional[str]
 

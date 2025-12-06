@@ -1,9 +1,9 @@
 import asyncio
 import time
-from .clienteli.client import Client
-from .clienteli.api.listing_acts import get_years, get_acts_in_year, get_publishers
-from .clienteli.api.act_details import get_act_pdf
-from .clienteli.models.act_info import ActInfo as ActInfoAPI
+from clienteli.client import Client
+from clienteli.api.listing_acts import get_years, get_acts_in_year, get_publishers
+from clienteli.api.act_details import get_act_pdf
+from clienteli.models.act_info import ActInfo as ActInfoAPI
 import os
 
 from sqlalchemy import engine
@@ -16,7 +16,7 @@ async def download_act(semaphore: asyncio.Semaphore, client: Client, act: ActInf
     """
     Downloads a single act.
     """
-    file_path = os.path.join("../data/acts/", f"{act.publisher}_{act.year}_{act.pos}.pdf")
+    file_path = os.path.join("/acts/", f"{act.publisher}_{act.year}_{act.pos}.pdf")
     if os.path.exists(file_path):
         print(f"  - Already downloaded {act.address}")
         return
