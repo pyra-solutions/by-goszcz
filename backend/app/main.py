@@ -58,7 +58,7 @@ async def process(term: int):
 
 
 @app.post("/ai")
-def ai_response(request: AiRequest, session: Session = Depends(get_db)):
-    result =  ai_clarify_act(request.pos,session)
+async def ai_response(request: AiRequest, session: Session = Depends(get_db)):
+    result =  await ai_clarify_act(request.pos,session)
     return {"response": result}
 
