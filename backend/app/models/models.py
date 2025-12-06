@@ -80,7 +80,7 @@ class Consults(SQLModel, table=True):
     __tablename__ = "consults"
 
 
-    project_id: int = Field(primary_key=True, sa_column=Column("project_id", int, unique=True))
+    project_id: int = Field(primary_key=True, sa_column=Column("project_id", String, unique=True))
     project_file: str
     form_file: str
     report_file: str
