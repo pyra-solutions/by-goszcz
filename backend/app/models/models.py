@@ -1,12 +1,10 @@
 from typing import Optional
 from datetime import datetime
-from pydantic import ConfigDict
 from sqlmodel import Field, SQLModel
 
 
 class ActInfo(SQLModel, table=True):
     __tablename__ = "act_info"
-    model_config = ConfigDict(extra='ignore')
 
     
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
@@ -23,7 +21,7 @@ class ActInfo(SQLModel, table=True):
     text_html: Optional[bool]
     change_date: Optional[datetime]
     eli: Optional[str]
-    type_: Optional[str]
+    act_type: Optional[str]
     status: Optional[str]
 
     # additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -38,21 +36,18 @@ class ProcessHeader(SQLModel, table=True):
     title_final: Optional[str]
     description: Optional[str]
     ue: Optional[str]
-    document_date: Optional[date]
-    process_start_date: Optional[date]
-    change_date: Optional[date]
+    document_date: Optional[datetime]
+    process_start_date: Optional[datetime]
+    change_date: Optional[datetime]
     document_type: Optional[str]
     document_type_enum: Optional[str]
     comments: Optional[str]
     web_generated_date: Optional[datetime]
-    closure_date: Optional[date]
-    address: Optional[string]
-    display_address: Optional[string]
-    eli: Optional[string]
+    closure_date: Optional[datetime]
+    address: Optional[str]
+    display_address: Optional[str]
+    eli: Optional[str]
     passed: Optional[bool]
-    links: Optional[list]
     shorten_procedure: Optional[bool]
     urgency_status: Optional[str]
-    urgency_withdraw_date: Optional[date]
-    prints_considered_jointly: Optional[list]
-    additional_properties: Optional[list]
+    urgency_withdraw_date: Optional[datetime]
