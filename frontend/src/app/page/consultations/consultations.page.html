@@ -1,0 +1,61 @@
+<section class="legis-content">
+	<!-- kolumna lewa: projekty -->
+	<section class="legis-column legis-column--projects" aria-label="Aktualne projekty">
+		<header class="legis-column__header">
+				<h2>Aktualne projekty</h2>
+				<span class="legis-column__count">12 projektów</span>
+		</header>
+
+		<div class="filters">
+			<p-floatlabel>
+				<input type="text" pInputText />
+				<label for="over_label">Tytuł</label>
+			</p-floatlabel>
+
+			<p-floatlabel>
+				<p-select></p-select>
+				<label for="over_label">Status</label>
+			</p-floatlabel>
+
+			<p-floatlabel>
+				<p-select></p-select>
+				<label for="over_label">Wnioskodawca</label>
+			</p-floatlabel>
+
+			<p-floatlabel>
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" />
+				<label for="over_label">Zakres dat</label>
+			</p-floatlabel>
+		</div>
+		
+		<div class="projects">
+
+			<p-table 
+			[value]="projects" 
+			showGridlines 
+			[tableStyle]="{ 'min-width': '50rem' }" 
+			selectionMode="single"
+			[(selection)]="selected"
+			>
+				<ng-template #header>
+					<tr>
+						<th>Tytuł</th>
+						<th>Wnioskodawca</th>
+						<th>Status</th>
+						<th>Data</th>
+						<th>Typ</th>
+					</tr>
+				</ng-template>
+				<ng-template #body let-project>
+					<tr [pSelectableRow]="project">
+						<td>{{ project.title }}</td>
+						<td>{{ project.publisher }}</td>
+						<td>{{ project.status }}</td>
+						<td>{{ project.announcement_date | date: 'dd.MM.yyyy'}}</td>
+						<td>{{ project.type }}</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</section>
+</section>
