@@ -1,0 +1,167 @@
+from __future__ import annotations
+
+import datetime
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+from dateutil.parser import isoparse
+
+from ..models.referral_type import ReferralType
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.process_stage import ProcessStage
+
+
+T = TypeVar("T", bound="ProcessStageReferral")
+
+
+@_attrs_define
+class ProcessStageReferral:
+    """referral
+
+    Attributes:
+        stage_name (str | Unset): a name of a stage Example: I czytanie na posiedzeniu Sejmu.
+        date (datetime.date | Unset): a stage date Example: 2019-11-28.
+        children (list[ProcessStage] | Unset): child stages
+        type_ (ReferralType | Unset):
+        committee_code (str | Unset): a committee code or null for Sejm reading Example: ENM.
+        report_date (datetime.date | Unset): recommended date of report Example: 2019-11-12.
+        remarks (str | Unset): remarks
+        stage_type (str | Unset):
+    """
+
+    stage_name: str | Unset = UNSET
+    date: datetime.date | Unset = UNSET
+    children: list[ProcessStage] | Unset = UNSET
+    type_: ReferralType | Unset = UNSET
+    committee_code: str | Unset = UNSET
+    report_date: datetime.date | Unset = UNSET
+    remarks: str | Unset = UNSET
+    stage_type: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        stage_name = self.stage_name
+
+        date: str | Unset = UNSET
+        if not isinstance(self.date, Unset):
+            date = self.date.isoformat()
+
+        children: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.children, Unset):
+            children = []
+            for children_item_data in self.children:
+                children_item = children_item_data.to_dict()
+                children.append(children_item)
+
+        type_: str | Unset = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
+
+        committee_code = self.committee_code
+
+        report_date: str | Unset = UNSET
+        if not isinstance(self.report_date, Unset):
+            report_date = self.report_date.isoformat()
+
+        remarks = self.remarks
+
+        stage_type = self.stage_type
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if stage_name is not UNSET:
+            field_dict["stageName"] = stage_name
+        if date is not UNSET:
+            field_dict["date"] = date
+        if children is not UNSET:
+            field_dict["children"] = children
+        if type_ is not UNSET:
+            field_dict["type"] = type_
+        if committee_code is not UNSET:
+            field_dict["committeeCode"] = committee_code
+        if report_date is not UNSET:
+            field_dict["reportDate"] = report_date
+        if remarks is not UNSET:
+            field_dict["remarks"] = remarks
+        if stage_type is not UNSET:
+            field_dict["stageType"] = stage_type
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.process_stage import ProcessStage
+
+        d = dict(src_dict)
+        stage_name = d.pop("stageName", UNSET)
+
+        _date = d.pop("date", UNSET)
+        date: datetime.date | Unset
+        if isinstance(_date, Unset):
+            date = UNSET
+        else:
+            date = isoparse(_date).date()
+
+        _children = d.pop("children", UNSET)
+        children: list[ProcessStage] | Unset = UNSET
+        if _children is not UNSET:
+            children = []
+            for children_item_data in _children:
+                children_item = ProcessStage.from_dict(children_item_data)
+
+                children.append(children_item)
+
+        _type_ = d.pop("type", UNSET)
+        type_: ReferralType | Unset
+        if isinstance(_type_, Unset):
+            type_ = UNSET
+        else:
+            type_ = ReferralType(_type_)
+
+        committee_code = d.pop("committeeCode", UNSET)
+
+        _report_date = d.pop("reportDate", UNSET)
+        report_date: datetime.date | Unset
+        if isinstance(_report_date, Unset):
+            report_date = UNSET
+        else:
+            report_date = isoparse(_report_date).date()
+
+        remarks = d.pop("remarks", UNSET)
+
+        stage_type = d.pop("stageType", UNSET)
+
+        process_stage_referral = cls(
+            stage_name=stage_name,
+            date=date,
+            children=children,
+            type_=type_,
+            committee_code=committee_code,
+            report_date=report_date,
+            remarks=remarks,
+            stage_type=stage_type,
+        )
+
+        process_stage_referral.additional_properties = d
+        return process_stage_referral
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties
