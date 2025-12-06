@@ -33,7 +33,7 @@
 		</div>
 		
 		<div class="projects">
-
+			<!-- size="small" -->
 			<p-table 
 			[value]="filteredProjects()" 
 			showGridlines 
@@ -41,7 +41,7 @@
 			selectionMode="single"
 			[(selection)]="selected"
 			[paginator]="true"
-			[rows]="20"
+			[rows]="10"
 			>
 				<ng-template #header>
 					<tr>

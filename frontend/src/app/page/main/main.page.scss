@@ -276,9 +276,13 @@ $bp-sm: 768px;
   .projects {
     overflow: auto;
     flex-grow: 1;
-    max-height: 75vh; 
+    max-height: min(75vh, 800px); 
     // max-width: 50vw;
     // max-height: 100%;
+
+    p-table {
+      max-height: min(70vh, 700px); 
+    }
   }
 }
 

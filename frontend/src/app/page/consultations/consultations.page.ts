@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from '../../models/project.model';
+import { Consultation, Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { ProjectService } from '../../services/project.service';
 export class ConsultationsPage {
   selected!: Project;
   projects: Project[] = []
+
+  // consultations: Consultation[] ;
 
   constructor(private router: Router, private projectService: ProjectService) {
     this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
