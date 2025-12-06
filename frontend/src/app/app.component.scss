@@ -40,7 +40,7 @@ $bp-sm: 768px;
 }
 
 aside {
-  width: 10%;
+  width: 200px;
   margin-right: 10px;
   border-right: 1px solid $gov-border;
 
@@ -56,7 +56,8 @@ aside:hover {
   justify-content: center;
   align-items: flex-start;
 
-  flex-grow: 1;
+  // flex-grow: 1;
+  width: calc(100% - 200px);
   height: 100%;
 }
 

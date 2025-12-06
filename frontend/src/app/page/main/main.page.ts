@@ -35,8 +35,9 @@ export class MainPage {
       this.projects.set(p.slice(0, 100));
     })
 
+
     setInterval(()=>{
-      console.log(this.dateRangeFilter());
+      console.log('fasdf', this.selected)
     }, 2500)
   }
 
