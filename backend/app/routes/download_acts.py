@@ -43,8 +43,8 @@ async def main():
     Downloads all acts from the API concurrently, with persistence.
     """
     start_time = time.time()
-    client = Client(base_url="https://api.sejm.gov.pl/eli", timeout=30.0)
-    semaphore = asyncio.Semaphore(50)
+    client = Client(base_url="https://api.sejm.gov.pl/eli", timeout=20.0)
+    semaphore = asyncio.Semaphore(30)
     tasks = []
 
     # Publishers
