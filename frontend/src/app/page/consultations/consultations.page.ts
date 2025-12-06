@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Consultation, Project } from '../../models/project.model';
+import { PROJECT_CONSULTATIONS, ProjectConsultation } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -10,16 +10,22 @@ import { ProjectService } from '../../services/project.service';
   standalone: false,
 })
 export class ConsultationsPage {
-  selected!: Project;
-  projects: Project[] = []
 
-  // consultations: Consultation[] ;
+  titleFilter = signal('');
+
+  // statusFilters = ['Zakończony', 'W trakcie zaplanowany']
+  // statusFilter = signal<ConsultationStatus | null>(null)
+
+  selected!: ProjectConsultation;
+
+  consultations = signal(PROJECT_CONSULTATIONS);
+
+  consultationsFiltered = computed(()=>
+    this.consultations()
+    .filter((c)=>c.project_name.includes(this.titleFilter()))
+    // .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
+  )
 
   constructor(private router: Router, private projectService: ProjectService) {
-    this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
-  }
-
-  goToDetails() {
-    this.router.navigate(['details', this.selected.year, this.selected.pos]);
   }
 }

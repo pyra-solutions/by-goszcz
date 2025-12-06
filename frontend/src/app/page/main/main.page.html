@@ -88,30 +88,35 @@
 				Zobacz szczegóły
 			</button>
 		</div>
+	</section>
 
-		<!-- <div class="legis-card-category">
-			<h3>Dokumenty</h3>
-			<ul class="legis-doc-list">
-			<li>
-				<a href="#">Projekt ustawy (PDF)</a>
-			</li>
-			<li>
-				<a href="#">Uzasadnienie projektu (PDF)</a>
-			</li>
-			<li>
-				<a href="#">Poprawki Senatu (DOCX)</a>
-			</li>
-			</ul>
-		</div>
-
+	<header class="legis-column__header">
+		<h2>Podsumowanie sztucznej inteligencji</h2>
+	</header>
+	<section class="legis-card">
 		<div class="legis-card-category">
-			<h3>Powiązane informacje</h3>
-			<ul class="legis-links">
-			<li><a href="#">Przebieg procesu w Sejmie</a></li>
-			<li><a href="#">Głosowania posłów</a></li>
-			<li><a href="#">Opinia Biura Analiz Sejmowych</a></li>
+			<!-- <p>{{selected()!.title}}</p>
+			<p>{{selected()!.publisher}}</p>
+			<p>{{selected()!.status}}</p>
+			-->
+			<ul>
+				@for(party of aiResponse.affected_parties;track $index) {
+				<li>{{party}}</li>
+				}
 			</ul>
-		</div> -->
+
+			<ul>
+				@for(party of aiResponse.key_points;track $index) {
+				<li>{{party}}</li>
+				}
+			</ul>
+
+			<button (click)="generateAiSummary()" class="gov-btn gov-btn--secondary gov-btn--full">
+				Wygeneruj
+			</button> 
+	
+
+		</div>
 	</section>
 	}
 	</section>

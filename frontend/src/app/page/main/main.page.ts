@@ -11,10 +11,10 @@ import { DateTime, Interval } from 'luxon';
   standalone: false,
 })
 export class MainPage {
-  fetched = false;
+  aiResponse: any;
 
   statusFilters = ALL_PROJECT_STATUSES;
-  publisherFilters: string[] = ['DU', 'MU']
+  publisherFilters: string[] = ['DU', 'MU'];
 
   typeFilters = ['Ustawa', 'Rozporządzenie', 'Obwieszczenie']
   typeFilter = signal(null)
@@ -71,17 +71,17 @@ export class MainPage {
         this.projects.set([...this.projects(), ...p.slice(0, 20)]);
       })
     }
-
-
-    setTimeout(()=>{
-
-      // console.log('fasdf', this.selected()!.change_date)
-      console.log('fasdf', this.projects().map(p=>p.announcement_date))
-    }, 5000)
   }
 
   goToDetails() {
     this.router.navigate(['details', this.selected()!.pos]);
   }
 
+  generateAiSummary() {
+    this.projectService.fetchSummary(String(this.selected()!.pos!)).subscribe((res: any)=>{
+      console.log('Ai response', res)
+      console.log('Ai response', JSON.parse(res.response.analysis))
+      this.aiResponse = JSON.parse(res.response.analysis)
+    })
+  }
 }

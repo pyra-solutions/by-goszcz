@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Consultation, Project, ProjectStatus } from '../models/project.model';
+import { Project, ProjectStatus } from '../models/project.model';
 import { HttpClient } from '@angular/common/http';
 
 export const ALL_PROJECT_STATUSES: ProjectStatus[] = [
@@ -85,60 +85,19 @@ export class ProjectService {
     return projects;
   }
 
-  generateMockConsultations(count: number = 10): Consultation[] {
-    const consultations: Consultation[] = [];
-    const projectNames = [
-      'Rewitalizacja Parku Miejskiego',
-      'Budżet Obywatelski 2025',
-      'Modernizacja Oświetlenia Ulicznego',
-      'Plan Zagospodarowania Przestrzennego',
-      'Strategia Rozwoju Transportu Publicznego',
-      'Budowa Ścieżek Rowerowych',
-      'Program Czyste Powietrze'
-    ];
-    const states: ('finished' | 'in_progress')[] = ['finished', 'in_progress'];
-
-    for (let i = 1; i <= count; i++) {
-      const isFinished = Math.random() < 0.5;
-      const startDate = this.getRandomDate2(new Date(2023, 0, 1), new Date(2024, 11, 31));
-      let endDate: string | undefined = undefined;
-
-      if (isFinished) {
-        // Data zakończenia jest po dacie rozpoczęcia
-        endDate = this.getRandomDate2(new Date(startDate), new Date()).toString();
-      } else {
-        // Jeśli konsultacja trwa, data zakończenia jest opcjonalna/nieustawiona lub przyszła (ale dla uproszczenia w mocku zostawiamy undefined)
-        endDate = undefined;
-      }
-
-      const consultation: Consultation = {
-        start_date: startDate.toISOString().split('T')[0], // Format YYYY-MM-DD
-        end_date: endDate ? endDate.toString().split('T')[0] : undefined,
-        project_name: projectNames[Math.floor(Math.random() * projectNames.length)],
-        state: isFinished ? 'finished' : 'in_progress',
-        project_pos: i, // Numeracja kolejnych projektów
-        poll_amount: isFinished ? Math.floor(Math.random() * 500) + 50 : Math.floor(Math.random() * 100) + 10
-      };
-
-      consultations.push(consultation);
-    }
-
-    return consultations;
-  }
-
-  /**
-   * Pomocnicza funkcja generująca losową datę z danego przedziału.
-   */
-  private getRandomDate2(start: Date, end: Date): Date {
-    const time = start.getTime() + Math.random() * (end.getTime() - start.getTime());
-    return new Date(time);
-  }
-
   fetchProjects(pageId: number) {
     return this.http.get(`https://pyra-solutions.dedyn.io/api/acts/${pageId}`);
   }
 
   fetchSummary(pos: string) {
-    return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
+    return this.http.get(`http://localhost:8000/ai?pos=${pos}`);
   }
 }
+
+
+//start_date?: string
+//end_date?: string
+//project_name?: string
+//state?: string (finished | in_progress )
+//project_pos?: int
+//poll_amount?: int
