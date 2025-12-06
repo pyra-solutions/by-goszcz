@@ -51,3 +51,9 @@ class ProcessHeader(SQLModel, table=True):
     shorten_procedure: Optional[bool]
     urgency_status: Optional[str]
     urgency_withdraw_date: Optional[datetime]
+
+class SubscriberList(SQLModel, table=True):
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    email: str
+    categories: list[str]
+    active: bool
