@@ -1,5 +1,10 @@
-# from eli_for_polish_acts_client.client import Client as EliClient
+from app.clientsejm.models.process_header import ProcessHeader
+from .client.eli_for_polish_acts_client.client import Client as ELIClient
+from .clientsejm.client import Client as SejmClient
+from .clientsejm.api.processes import get_sejm_termterm_processes
+from eli_for_polish_acts_client.client import Client as ELIClient
 from fastapi import Depends, FastAPI, HTTPException
+import httpx
 from sqlmodel import SQLModel, Session
 
 from app.database import engine, get_db
@@ -17,6 +22,9 @@ app = FastAPI()
 
 # app.include_router(ai.router)
 
+eli_client = ELIClient(base_url="https://api.sejm.gov.pl/eli", timeout=httpx.Timeout(10.0))
+sejm_client = SejmClient(base_url="https://api.sejm.gov.pl/", timeout=httpx.Timeout(10.0))
+
 
 @app.get("/")
 def root():
@@ -31,6 +39,19 @@ def acts(act_id: int, session: Session = Depends(get_db)) -> ActInfo:
         raise HTTPException(status_code=404, detail="Act not found")
 
     return act
+
+
+# nie ma response type bo to musi być w SQLModel
+@app.get("/processes/{term}")
+async def process(term: int):
+    res = await get_sejm_termterm_processes.asyncio(client=sejm_client,term=term,offset=0,limit=3,sort_by="documentDate")
+    print(res)
+    if not res:
+        raise HTTPException(status_code=404, detail="Process not found")
+
+    # tutaj to_dict zwraca to jak originalny response, powinno być to najpierw zapisane do bazy danych i z niej zwracane wtedy też typ możemy podać
+    return res[0].to_dict()
+
 
 
 # @app.get("/ai")
