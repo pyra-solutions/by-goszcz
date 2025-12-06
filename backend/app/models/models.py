@@ -65,7 +65,7 @@ class SubscriberList(SQLModel, table=True):
     categories: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     active: bool
 
-class Response(SQLModel, table=true):
+class Response(SQLModel, table=True):
     __tablename__ = "response"
 
     id: int
