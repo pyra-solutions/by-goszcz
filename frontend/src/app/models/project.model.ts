@@ -35,3 +35,12 @@ export interface Project {
   act_type?: string;
   status?: ProjectStatus;
 }
+
+export interface Consultation {
+  start_date?: string;
+  end_date?: string;
+  project_name?: string;
+  state?: "finished" | "in_progress";
+  project_pos?: number;
+  poll_amount?: number;
+}

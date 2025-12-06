@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project, ProjectStatus } from '../models/project.model';
+import { Consultation, Project, ProjectStatus } from '../models/project.model';
 import { HttpClient } from '@angular/common/http';
 
 export const ALL_PROJECT_STATUSES: ProjectStatus[] = [
@@ -34,7 +34,7 @@ export class ProjectService {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  private getRandomDate(startYear: number, endYear: number): Date {
+  private getRandomDate1(startYear: number, endYear: number): Date {
     const start = new Date(startYear, 0, 1).getTime();
     const end = new Date(endYear, 11, 31).getTime();
     const randomTime = start + Math.random() * (end - start);
@@ -62,11 +62,11 @@ export class ProjectService {
       pos: randomPos,
       title: `${titlePrefix} nr ${index + 1}/${randomVolume}/${randomYear} w sprawie ${Math.random() > 0.5 ? 'nowelizacji' : 'utworzenia'} systemu X`,
       display_address: `Dz.U. poz. ${randomPos} z ${randomYear} r.`,
-      promulgation: `Dziennik Urzędowy z dnia ${this.getRandomDate(randomYear, randomYear).toLocaleDateString('pl-PL')}`,
-      announcement_date: this.getRandomDate(randomYear - 1, randomYear),
+      promulgation: `Dziennik Urzędowy z dnia ${this.getRandomDate1(randomYear, randomYear).toLocaleDateString('pl-PL')}`,
+      announcement_date: this.getRandomDate1(randomYear - 1, randomYear),
       text_pdf: Math.random() > 0.3,
       text_html: Math.random() > 0.5,
-      change_date: Math.random() > 0.7 ? this.getRandomDate(randomYear, 2025) : undefined,
+      change_date: Math.random() > 0.7 ? this.getRandomDate1(randomYear, 2025) : undefined,
       eli: `http://eli.example.pl/${randomYear}/${randomVolume}/${randomPos}`,
       act_type: titlePrefix,
       // Losowanie statusu z Twojej listy
@@ -77,12 +77,61 @@ export class ProjectService {
   /**
    * Publiczna metoda do generowania tablicy losowych projektów.
    */
-  public generateProjects(count: number): Project[] {
+  generateProjects(count: number): Project[] {
     const projects: Project[] = [];
     for (let i = 0; i < count; i++) {
       projects.push(this.createRandomProject(i));
     }
     return projects;
+  }
+
+  generateMockConsultations(count: number = 10): Consultation[] {
+    const consultations: Consultation[] = [];
+    const projectNames = [
+      'Rewitalizacja Parku Miejskiego',
+      'Budżet Obywatelski 2025',
+      'Modernizacja Oświetlenia Ulicznego',
+      'Plan Zagospodarowania Przestrzennego',
+      'Strategia Rozwoju Transportu Publicznego',
+      'Budowa Ścieżek Rowerowych',
+      'Program Czyste Powietrze'
+    ];
+    const states: ('finished' | 'in_progress')[] = ['finished', 'in_progress'];
+
+    for (let i = 1; i <= count; i++) {
+      const isFinished = Math.random() < 0.5;
+      const startDate = this.getRandomDate2(new Date(2023, 0, 1), new Date(2024, 11, 31));
+      let endDate: string | undefined = undefined;
+
+      if (isFinished) {
+        // Data zakończenia jest po dacie rozpoczęcia
+        endDate = this.getRandomDate2(new Date(startDate), new Date()).toString();
+      } else {
+        // Jeśli konsultacja trwa, data zakończenia jest opcjonalna/nieustawiona lub przyszła (ale dla uproszczenia w mocku zostawiamy undefined)
+        endDate = undefined;
+      }
+
+      const consultation: Consultation = {
+        start_date: startDate.toISOString().split('T')[0], // Format YYYY-MM-DD
+        end_date: endDate ? endDate.toString().split('T')[0] : undefined,
+        project_name: projectNames[Math.floor(Math.random() * projectNames.length)],
+        state: isFinished ? 'finished' : 'in_progress',
+        project_pos: i, // Numeracja kolejnych projektów
+        poll_amount: isFinished ? Math.floor(Math.random() * 500) + 50 : Math.floor(Math.random() * 100) + 10
+      };
+
+      consultations.push(consultation);
+    }
+
+    return consultations;
+  }
+
+  /**
+   * Pomocnicza funkcja generująca losową datę z danego przedziału.
+   */
+  private getRandomDate2(start: Date, end: Date): Date {
+    const time = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+    return new Date(time);
   }
 
   fetchProjects(pageId: number) {
