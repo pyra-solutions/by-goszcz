@@ -1,9 +1,36 @@
-export type ProjectStatus = 'W TOKU' | 'ZAKOŃCZONY' | 'OCZEKUJE';
+//year+id+text.pdf
+
+export type ProjectStatus =  "akt indywidualny"
+| "akt jednorazowy"
+| "akt objęty tekstem jednolitym"
+| "akt posiada tekst jednolity"
+| "bez statusu"
+| "brak mocy prawnej"
+| "nieobowiązujący - przyczyna nieustalona"
+| "nieobowiązujący - uchylona podstawa prawna"
+| "obowiązujący"
+| "tekst jednolity dla aktu jednorazowego"
+| "uchylony"
+| "uchylony wykazem"
+| "uznany za uchylony"
+| "wydane z naruszeniem prawa"
+| "wygaśnięcie aktu"
 
 export interface Project {
   id: number;
-  title: string;
-  description: string;
-  status: ProjectStatus;
-  updatedAt: Date;
+  address?: string;
+  publisher?: string;
+  year?: number;
+  volume?: number;
+  pos?: number;
+  title?: string;
+  display_address?: string;
+  promulgation?: string;
+  announcement_date?: Date;
+  text_pdf?: boolean;
+  text_html?: boolean;
+  change_date?: Date
+  eli?: string;
+  type?: string;
+  status?: ProjectStatus;
 }

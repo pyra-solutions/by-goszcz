@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Project } from '../../models/project.model';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'main-page',
@@ -8,31 +10,27 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class MainPage {
-  selected: any = false;
+  selected!: Project;
+  projects: Project[] = []
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private projectService: ProjectService) {
+    this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
+  }
 
   selectProject(index: number) {
     console.log('gjasoigd', index)
 
-    this.fakeProjects = this.fakeProjects.map((p)=>({
-      ...p,
-      selected: false
-    }))
+    // this.projects = this.projects.map((p)=>({
+    //   ...p,
+    //   selected: false
+    // }))
 
-    this.fakeProjects[index].selected = true;
-    this.selected = this.fakeProjects[index];
+    // this.projects[index].selected = true;
+    // this.selected = this.projects[index];
   }
 
   goToDetails() {
     this.router.navigateByUrl('details');
   }
 
-  fakeProjects = Array(10).fill({
-    name: 'Zmiana ustawy o systemie oswiaty',
-    source: 'druk nr 1175 MEN',
-    status: 'finished',
-    step: 'dzu poz',
-    selected: false
-  })
 }
