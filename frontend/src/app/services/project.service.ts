@@ -3,6 +3,7 @@ import { Project, ProjectStatus } from '../models/project.model';
 import { HttpClient } from '@angular/common/http';
 
 export const ALL_PROJECT_STATUSES: ProjectStatus[] = [
+  "obowiązujący",
   "akt indywidualny",
   "akt jednorazowy",
   "akt objęty tekstem jednolitym",

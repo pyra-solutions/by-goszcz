@@ -16,6 +16,9 @@ export class MainPage {
   statusFilters = ALL_PROJECT_STATUSES;
   publisherFilters: string[] = ['DU', 'MU']
 
+  typeFilters = ['Ustawa', 'Rozporządzenie', 'Obwieszczenie']
+  typeFilter = signal(null)
+
   statusFilter = signal<ProjectStatus | null>(null)
 
   dateAnnouncementRangeFilter = signal('')
@@ -59,6 +62,7 @@ export class MainPage {
         return true;
       }
     })
+    .filter((p)=>this.typeFilter() == null ? true : p.act_type == this.typeFilter())
   )
 
   constructor(private router: Router, private projectService: ProjectService) {

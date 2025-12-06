@@ -1,6 +1,7 @@
 //year+pos+text.pdf
 
-export type ProjectStatus =  "akt indywidualny"
+export type ProjectStatus = "obowiązujący"
+| "akt indywidualny"
 | "akt jednorazowy"
 | "akt objęty tekstem jednolitym"
 | "akt posiada tekst jednolity"

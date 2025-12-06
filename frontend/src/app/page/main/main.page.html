@@ -1,19 +1,9 @@
 <section class="legis-content">
 	<section class="legis-column legis-column--projects" aria-label="Aktualne projekty">
-		<!-- <header class="legis-column__header">
-				<h2>Aktualne projekty</h2>
-				<span class="legis-column__count">12 projektów</span>
-		</header> -->
-
 		<div class="filters">
 			<p-floatlabel>
 				<input [(ngModel)]="titleFilter" type="text" pInputText />
 				<label for="over_label">Tytuł</label>
-			</p-floatlabel>
-
-			<p-floatlabel>
-				<p-select [(ngModel)]="statusFilter" [options]="statusFilters" [showClear]="true"></p-select>
-				<label for="over_label">Status</label>
 			</p-floatlabel>
 
 			<p-floatlabel>
@@ -22,14 +12,24 @@
 			</p-floatlabel>
 
 			<p-floatlabel>
+				<p-select [(ngModel)]="statusFilter" [options]="statusFilters" [showClear]="true"></p-select>
+				<label for="over_label">Status</label>
+			</p-floatlabel>
+
+			<p-floatlabel>
 				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateAnnouncementRangeFilter" [showClear]="true"/>
 				<label for="over_label">Zakres dat wprowadzenia</label>
 			</p-floatlabel>
 
-			<!-- <p-floatlabel>
+			<p-floatlabel>
 				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateChangeRangeFilter" [showClear]="true"/>
 				<label for="over_label">Zakres dat zmiany</label>
-			</p-floatlabel> -->
+			</p-floatlabel>
+
+			<p-floatlabel>
+				<p-select [(ngModel)]="typeFilter" [options]="typeFilters" [showClear]="true"></p-select>
+				<label for="over_label">Typ</label>
+			</p-floatlabel>
 		</div>
 		
 		<div class="projects">
@@ -37,7 +37,7 @@
 			<p-table 
 			[value]="filteredProjects()" 
 			showGridlines 
-			[tableStyle]="{ 'min-width': '50rem' }" 
+			[tableStyle]="{ 'min-width': '50rem'}" 
 			selectionMode="single"
 			[(selection)]="selected"
 			[paginator]="true"
