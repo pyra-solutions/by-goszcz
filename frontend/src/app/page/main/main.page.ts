@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal, Signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from '../../models/project.model';
-import { ProjectService } from '../../services/project.service';
+import { Project, ProjectStatus } from '../../models/project.model';
+import { ALL_PROJECT_STATUSES, ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'main-page',
@@ -10,27 +10,35 @@ import { ProjectService } from '../../services/project.service';
   standalone: false,
 })
 export class MainPage {
+  statusFilters = ALL_PROJECT_STATUSES;
+  statusFilter = signal<ProjectStatus | null>(null)
+
+  dateRangeFilter = signal('')
+  beginRangeDate = computed(()=>this.dateRangeFilter()[0])
+  beginRangeEnd = computed(()=>this.dateRangeFilter()[1])
+
   selected!: Project;
-  projects: Project[] = []
+
+  titleFilter = signal('')
+
+  projects = signal<Project[]>([]);
+
+  filteredProjects = computed(()=>
+    this.projects()
+    .filter((p)=>p.title!.includes(this.titleFilter()))
+    .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
+  )
 
   constructor(private router: Router, private projectService: ProjectService) {
-    this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
-  }
+    this.projects.set(this.projectService.generateProjects(50).map((p)=>({...p, selected: false})))
 
-  selectProject(index: number) {
-    console.log('gjasoigd', index)
-
-    // this.projects = this.projects.map((p)=>({
-    //   ...p,
-    //   selected: false
-    // }))
-
-    // this.projects[index].selected = true;
-    // this.selected = this.projects[index];
+    setInterval(()=>{
+      console.log(this.dateRangeFilter());
+    }, 2500)
   }
 
   goToDetails() {
-    this.router.navigateByUrl('details');
+    this.router.navigate(['details', this.selected.year, this.selected.pos]);
   }
 
 }

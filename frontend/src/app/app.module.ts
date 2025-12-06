@@ -32,6 +32,7 @@ import { DetailsPage } from './page/details/details.page';
 import { CardModule } from 'primeng/card';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { ConsultationsPage } from './page/consultations/consultations.page';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     LegisProjectComponent,
     LegisTopbarComponent,
     MainPage,
-    DetailsPage
+    DetailsPage,
+    ConsultationsPage
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../models/project.model';
 
 interface LegislativeStep {
   title: string;
@@ -16,6 +18,13 @@ interface LegislativeStep {
   standalone: false
 })
 export class DetailsPage {
+
+  project: Project;
+
+  constructor(private projectSerivce: ProjectService) {
+    this.project = this.projectSerivce.generateProjects(1)[0];
+  }
+
   steps: LegislativeStep[] = [
     {
       title: 'Inicjatywa ustawodawcza i wniesienie projektu ustawy',
@@ -82,27 +91,4 @@ export class DetailsPage {
     }
   ];
 
-  getSeverity(step: LegislativeStep): 'success' | 'info' | 'warning' {
-    switch (step.status) {
-      case 'zakończony':
-        return 'success';
-      case 'w toku':
-        return 'warning';
-      default:
-        return 'info';
-    }
-  }
-
-  getChamberLabel(chamber: LegislativeStep['chamber']): string {
-    switch (chamber) {
-      case 'Sejm':
-        return 'Sejm RP';
-      case 'Senat':
-        return 'Senat RP';
-      case 'Prezydent':
-        return 'Prezydent RP';
-      default:
-        return 'Inne podmioty';
-    }
-  }
 }
