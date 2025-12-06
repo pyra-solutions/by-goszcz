@@ -4,8 +4,8 @@
 
     <div class="container">
       <aside class="menu">
-        <p (click)="goto('home')">Lista projektów</p> 
-        <p (click)="goto('consultations')">Konsultacje społeczne</p>
+        <p (click)="goto('home')" [ngClass]="getRoute() == '/home' ? 'page-selected' : ''">Lista projektów</p> 
+        <p (click)="goto('consultations')" [ngClass]="getRoute() == '/consultations' ? 'page-selected' : ''">Konsultacje społeczne</p>
       </aside>
       <div class="main-content">
         <router-outlet></router-outlet>

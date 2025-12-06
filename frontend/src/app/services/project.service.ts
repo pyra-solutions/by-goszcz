@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Project, ProjectStatus } from '../models/project.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class ProjectService {
     "wygaśnięcie aktu"
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private getRandomInt(min: number, max: number): number {
     min = Math.ceil(min);
@@ -81,5 +82,9 @@ export class ProjectService {
       projects.push(this.createRandomProject(i));
     }
     return projects;
+  }
+
+  fetchProjects() {
+    return this.http.get('https://pyra-solutions.dedyn.io/api');
   }
 }
