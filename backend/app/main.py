@@ -11,6 +11,7 @@ from app.models.models import ActInfo, Comment, Consultation
 from app.models.models import ProcessHeader
 from app.routes import  ai
 from app.routes.ai import ai_clarify_act
+from fastapi.middleware.cors import CORSMiddleware
 
 
 def create_db_and_tables():
@@ -29,6 +30,14 @@ sejm_client = SejmClient(base_url="https://api.sejm.gov.pl/", timeout=httpx.Time
 ##ID aktu
 #class AiRequest(BaseModel):
 #    pos: int
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],           # <--- allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],           # <--- allow all HTTP methods
+    allow_headers=["*"],           # <--- allow all headers
+)
 
 @app.get("/")
 def root():
