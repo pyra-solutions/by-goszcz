@@ -26,7 +26,7 @@ import { LegislativeTimeline } from './legislative-timeline/legislative-timeline
 import { Badge } from 'primeng/badge';
 import { LegisProjectComponent } from './components/legis-project/legis-project.component';
 import { LegisTopbarComponent } from './components/legis-topbar/legis-topbar.component';
-import { MainPage } from './page/main.page';
+import { MainPage } from './page/main/main.page';
 import { ScrollerModule } from 'primeng/scroller';
 
 @NgModule({
