@@ -13,10 +13,15 @@ export class ConsultationsPage {
   selected!: Project;
   projects: Project[] = []
 
-  // consultations: Consultation[] ;
+  consultations: Consultation[] = []
 
   constructor(private router: Router, private projectService: ProjectService) {
     this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
+    // this.consultations = this.projectService.generateConsultationsData(50);
+
+    setTimeout(()=>{
+      console.log('fasdfa', this.consultations)
+    }, 2500)
   }
 
   goToDetails() {
