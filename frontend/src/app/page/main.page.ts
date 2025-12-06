@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class MainPage {
   // selected: false, 
-  fakeProjects = Array(5).fill({
+  fakeProjects = Array(50).fill({
     name: 'Zmiana ustawy o systemie oswiaty',
     source: 'druk nr 1175 MEN',
     status: 'finished',
