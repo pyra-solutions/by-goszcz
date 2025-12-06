@@ -89,6 +89,6 @@ export class ProjectService {
   }
 
   fetchSummary(pos: string) {
-    return this.http.post(`https://pyra-solutions.dedyn.io/api/ai`, {pos});
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
   }
 }

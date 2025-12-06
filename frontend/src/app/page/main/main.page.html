@@ -20,6 +20,16 @@
 				<p-select [(ngModel)]="publisherFilter" [showClear]="true" [options]="publisherFilters"></p-select>
 				<label for="over_label">Wnioskodawca</label>
 			</p-floatlabel>
+
+			<p-floatlabel>
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateAnnouncementRangeFilter" [showClear]="true"/>
+				<label for="over_label">Zakres dat wprowadzenia</label>
+			</p-floatlabel>
+
+			<!-- <p-floatlabel>
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateChangeRangeFilter" [showClear]="true"/>
+				<label for="over_label">Zakres dat zmiany</label>
+			</p-floatlabel> -->
 		</div>
 		
 		<div class="projects">
@@ -38,7 +48,8 @@
 						<th>Tytuł</th>
 						<th>Wnioskodawca</th>
 						<th>Status</th>
-						<th>Data</th>
+						<th>Data wprowadzenia</th>
+						<th>Data ostatniej zmiany</th>
 						<th>Typ</th>
 					</tr>
 				</ng-template>
@@ -48,6 +59,7 @@
 						<td>{{ project.publisher }}</td>
 						<td>{{ project.status }}</td>
 						<td>{{ project.announcement_date | date: 'dd.MM.yyyy'}}</td>
+						<td>{{ project.change_date | date: 'dd.MM.yyyy'}}</td>
 						<td>{{ project.act_type }}</td>
 					</tr>
 				</ng-template>
@@ -57,17 +69,17 @@
 
 	<!-- kolumna prawa: dokumenty / szczegóły -->
 	<section class="legis-column legis-column--details" aria-label="Szczegóły projektu">
-		@if(selected) {
+	@if(selected()) {
 	<header class="legis-column__header">
-			<h2>Szczegółowe informacje</h2>
+		<h2>Szczegółowe informacje</h2>
 	</header>
 
 	<section class="legis-card">
 		<div class="legis-card-category">
-			<h3>Termin najbliższego posiedzenia</h3>
-			<p>{{selected.title}}</p>
-			<p>{{selected.publisher}}</p>
-			<p>{{selected.status}}</p>
+			<!-- <h3>Termin najbliższego posiedzenia</h3> -->
+			<p>{{selected()!.title}}</p>
+			<p>{{selected()!.publisher}}</p>
+			<p>{{selected()!.status}}</p>
 			<!-- <p>{{selected.step}}</p> -->
 			<!-- <p>Komisja Finansów Publicznych – 12.12.2025, godz. 10:00</p>
 			<p>Sala 118, budynek C, Sejm RP</p> -->
@@ -77,20 +89,17 @@
 			</button>
 		</div>
 
-		<div class="legis-card-category">
+		<!-- <div class="legis-card-category">
 			<h3>Dokumenty</h3>
 			<ul class="legis-doc-list">
 			<li>
 				<a href="#">Projekt ustawy (PDF)</a>
-				<!-- <span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span> -->
 			</li>
 			<li>
 				<a href="#">Uzasadnienie projektu (PDF)</a>
-				<!-- <span class="legis-doc-list__meta">Ministerstwo Rozwoju</span> -->
 			</li>
 			<li>
 				<a href="#">Poprawki Senatu (DOCX)</a>
-				<!-- <span class="legis-doc-list__meta">druk nr 1180A</span> -->
 			</li>
 			</ul>
 		</div>
@@ -102,7 +111,7 @@
 			<li><a href="#">Głosowania posłów</a></li>
 			<li><a href="#">Opinia Biura Analiz Sejmowych</a></li>
 			</ul>
-		</div>
+		</div> -->
 	</section>
 	}
 	</section>

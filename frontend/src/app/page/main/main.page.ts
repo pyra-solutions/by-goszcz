@@ -2,6 +2,7 @@ import { Component, computed, signal, Signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Project, ProjectStatus } from '../../models/project.model';
 import { ALL_PROJECT_STATUSES, ProjectService } from '../../services/project.service';
+import { DateTime, Interval } from 'luxon';
 
 @Component({
   selector: 'main-page',
@@ -17,12 +18,15 @@ export class MainPage {
 
   statusFilter = signal<ProjectStatus | null>(null)
 
-  dateRangeFilter = signal('')
-  beginRangeDate = computed(()=>this.dateRangeFilter()[0])
-  beginRangeEnd = computed(()=>this.dateRangeFilter()[1])
+  dateAnnouncementRangeFilter = signal('')
+  beginAnnouncementRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[0] as any as Date)
+  endAnnouncementRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[1] as any as Date)
 
+  dateChangeRangeFilter = signal('')
+  beginChangeRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[0] as any as Date)
+  endChangeRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[1] as any as Date)
 
-  selected!: Project;
+  selected = signal<Project | null>(null);
 
   titleFilter = signal('')
   publisherFilter = signal(null);
@@ -34,6 +38,27 @@ export class MainPage {
     .filter((p)=>p.title!.includes(this.titleFilter()))
     .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
     .filter((p)=>this.publisherFilter() == null ? true : p.publisher == this.publisherFilter())
+    .filter((p)=> {
+      if(this.beginAnnouncementRangeDate() && this.endAnnouncementRangeDate()) {
+        const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
+        const edate = DateTime.fromJSDate(this.endAnnouncementRangeDate())
+        const sdate = DateTime.fromJSDate(this.beginAnnouncementRangeDate())
+
+        console.log(pdate.toISO(), edate.toISO(), sdate.toISO())
+  
+        // return (Interval.fromDateTimes(sdate, edate) as any).includes(pdate)
+        return Interval.fromDateTimes(sdate, edate).contains(pdate)
+      } 
+      else if(this.beginAnnouncementRangeDate()) {
+        const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
+        const exactDate = DateTime.fromJSDate(new Date(this.beginAnnouncementRangeDate()))
+
+        return pdate.toISODate() == exactDate.toISODate();
+      }
+      else {
+        return true;
+      }
+    })
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
@@ -44,13 +69,15 @@ export class MainPage {
     }
 
 
-    setInterval(()=>{
-      console.log('fasdf', this.selected, this.publisherFilter())
-    }, 2500)
+    setTimeout(()=>{
+
+      // console.log('fasdf', this.selected()!.change_date)
+      console.log('fasdf', this.projects().map(p=>p.announcement_date))
+    }, 5000)
   }
 
   goToDetails() {
-    this.router.navigate(['details', this.selected.pos]);
+    this.router.navigate(['details', this.selected()!.pos]);
   }
 
 }
