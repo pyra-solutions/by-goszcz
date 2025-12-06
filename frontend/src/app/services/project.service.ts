@@ -41,9 +41,6 @@ export class ProjectService {
     return new Date(randomTime);
   }
 
-  /**
-   * Tworzy pojedynczy, losowy obiekt Project, używając nowych statusów.
-   */
   private createRandomProject(index: number): Project {
     const types = ["Uchwała", "Rozporządzenie", "Ustawa", "Dyrektywa"];
     const publishers = ["Ministerstwo Cyfryzacji", "Kancelaria Sejmu", "Prezydent RP", "Rada Ministrów"];
@@ -74,9 +71,6 @@ export class ProjectService {
     };
   }
 
-  /**
-   * Publiczna metoda do generowania tablicy losowych projektów.
-   */
   generateProjects(count: number): Project[] {
     const projects: Project[] = [];
     for (let i = 0; i < count; i++) {
@@ -94,7 +88,16 @@ export class ProjectService {
   }
 
   fetchTimeline() {
-    // this.http.get(`http://`)
+    return this.http.get(`http://localhost:8000/term10/processes`)
   }
+
+  fetchConsultations(pageId: number) {
+    // return this.http.get(`https://pyra-solutions.dedyn.io/api/consultations/${pageId}?page_size=20`)
+    return this.http.get(`http://localhost:8000/consultations/${pageId}?page_size=20`)
+  }
+
+  // fetchComments() {
+  //   return this.http.get('http://localhost:8000/term10/processes');
+  // }
 }
 

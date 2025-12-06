@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { TimelineModule } from 'primeng/timeline';
-import { LegislativeTimeline } from './legislative-timeline/legislative-timeline.component';
 import { Badge } from 'primeng/badge';
 import { LegisProjectComponent } from './components/legis-project/legis-project.component';
 import { LegisTopbarComponent } from './components/legis-topbar/legis-topbar.component';
@@ -42,7 +41,6 @@ import { ConsultationCommentsComponent } from './page/comments/comments.page';
   declarations: [
     AppComponent,
     LanguageSelectorComponent,
-    LegislativeTimeline,
     LegisProjectComponent,
     LegisTopbarComponent,
     MainPage,

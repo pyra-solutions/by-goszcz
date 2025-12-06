@@ -39,31 +39,37 @@
 						<th>Tytuł</th>
 						<!-- <th>Wnioskodawca</th> -->
 						<!-- <th>Status</th> -->
+						<th>Status</th>
 						<th>Data startowa</th>
 						<th>Data końcowa</th>
 						<th>Data wprowadzenia</th>
-						<th>PDF</th>
+						<!-- <th>PDF</th> -->
 						<th>DOCX(word)</th>
 					</tr>
 				</ng-template>
 				<ng-template #body let-consultation>
 					<tr [pSelectableRow]="consultation" (click)="openComments()">
 						<td>{{ consultation.project_name }}</td>
-						<td>{{ consultation.start_date }}</td>
-						<td>{{ consultation.end_date }}</td>
-						<td>{{ consultation.submission_date }}</td>
+						<td>{{ mapStatus(consultation.status) }}</td>
+						<td>{{ consultation.start_date | date: 'dd.MM.yyyy' }}</td>
+						<td>{{ consultation.end_date | date: 'dd.MM.yyyy'}}</td>
+						<td>{{ consultation.submission_date | date: 'dd.MM.yyyy' }}</td>
 						<td>
-							<a href="https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-RPW-40474-2025">
+							<a [href]="getPdfLink(consultation.consultation_id)">
+								DOCX 
+								<!-- <img src="assets/icon_pdf.gif" />  -->
+							</a>
+							<!-- <a href="https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-RPW-40474-2025">
 								PDF 
 								<img src="assets/icon_pdf.gif" /> 
-							</a>
+							</a> -->
 						</td>
-						<td>
+						<!-- <td>
 							<a href="https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-RPW-40474-2025">
 								DOCX 
 								<img src="assets/icon_rtf.gif" /> 
 							</a>
-						</td>
+						</td> -->
 					</tr>
 				</ng-template>
 			</p-table>
