@@ -34,6 +34,9 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ConsultationsPage } from './page/consultations/consultations.page';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { PanelModule } from 'primeng/panel';
+import { ConsultationCommentsComponent } from './page/comments/comments.page';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
     LegisTopbarComponent,
     MainPage,
     DetailsPage,
-    ConsultationsPage
+    ConsultationsPage,
+    ConsultationCommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
     DatePickerModule,
     FloatLabelModule,
     InputTextModule,
-    ProgressBarModule
+    ProgressBarModule,
+    PanelModule,
+    AccordionModule,
   ],
   providers: [
     provideAnimationsAsync(),

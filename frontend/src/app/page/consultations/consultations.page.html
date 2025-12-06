@@ -47,7 +47,7 @@
 					</tr>
 				</ng-template>
 				<ng-template #body let-consultation>
-					<tr [pSelectableRow]="consultation">
+					<tr [pSelectableRow]="consultation" (click)="openComments()">
 						<td>{{ consultation.project_name }}</td>
 						<td>{{ consultation.start_date }}</td>
 						<td>{{ consultation.end_date }}</td>

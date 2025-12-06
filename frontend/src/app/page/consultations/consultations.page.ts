@@ -28,4 +28,8 @@ export class ConsultationsPage {
 
   constructor(private router: Router, private projectService: ProjectService) {
   }
+  
+  openComments() {
+    this.router.navigateByUrl('comments');
+  }
 }
