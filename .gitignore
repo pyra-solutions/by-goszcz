@@ -1,6 +1,4 @@
 .env
-.env.*
-!env.example
 .direnv
 /data/
 .venv
