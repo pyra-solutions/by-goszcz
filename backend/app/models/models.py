@@ -103,3 +103,31 @@ class ResponseProcesses(SQLModel, table=True):
     analysis: str
 
 
+class Consultation(SQLModel, table=True):
+    __tablename__ = "consultations"
+
+    id: int = Field(primary_key=True)
+    publisher: str
+    project_name: str
+    description: str
+    status: str # "finished"|"in_progress"
+    submission_date: datetime
+    start_date: datetime
+    end_date: datetime
+
+    consultation_id: str # RPW/34467/2025
+
+    project_pos: Optional[int]
+    poll_amount: Optional[int]
+
+
+class Comment(SQLModel, table=True):
+    __tablename__ = "comments"
+
+    id: int = Field(primary_key=True)
+    consultation_id: str
+    question: str
+    comment_text: str
+    author: str
+    poll_number: str
+
