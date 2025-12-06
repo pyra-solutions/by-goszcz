@@ -1,4 +1,4 @@
-//year+id+text.pdf
+//year+pos+text.pdf
 
 export type ProjectStatus =  "akt indywidualny"
 | "akt jednorazowy"

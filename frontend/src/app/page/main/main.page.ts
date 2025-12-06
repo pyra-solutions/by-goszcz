@@ -17,20 +17,7 @@ export class MainPage {
     this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
   }
 
-  selectProject(index: number) {
-    console.log('gjasoigd', index)
-
-    // this.projects = this.projects.map((p)=>({
-    //   ...p,
-    //   selected: false
-    // }))
-
-    // this.projects[index].selected = true;
-    // this.selected = this.projects[index];
-  }
-
   goToDetails() {
-    this.router.navigateByUrl('details');
+    this.router.navigate(['details', this.selected.year, this.selected.pos]);
   }
-
 }
