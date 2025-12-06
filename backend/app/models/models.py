@@ -3,8 +3,8 @@ from datetime import date
 from sqlmodel import Field, SQLModel
 
 
-class Act(SQLModel, table=True):
-    __tablename__ = "act"
+class ActInfo(SQLModel, table=True):
+    __tablename__ = "act_info"
     
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
     address: Optional[str]
