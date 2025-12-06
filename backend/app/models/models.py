@@ -76,24 +76,5 @@ class Response(SQLModel, table=True):
     pdf_url: str
     analysis: str
 
-class Consults(SQLModel, table=True):
-    __tablename__ = "consults"
-
-
-    project_id: int = Field(primary_key=True, sa_column=Column("project_id", Integer, unique=True))
-    project_file: str
-    form_file: str
-    report_file: str
-
-class Comments(SQLModel, table=True):
-    __tablename__ = "comments"
-
-
-    project_id: int = Field(primary_key=True)
-    consults_id: int = Field(default=None, foreign_key="consults.project_id")
-    name: str
-    question_number: str
-    comment: str
-
 
 
