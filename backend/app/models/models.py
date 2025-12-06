@@ -68,11 +68,32 @@ class SubscriberList(SQLModel, table=True):
 class Response(SQLModel, table=True):
     __tablename__ = "response"
 
+
     id: int = Field(primary_key=True)
     eli: str
     title: str
     pos: int
     pdf_url: str
     analysis: str
+
+class Consults(SQLModel, table=True):
+    __tablename__ = "consults"
+
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    project_file: str
+    form_file: str
+    report_file: str
+
+class Comments(SQLModel, table=True):
+    __tablename__ = "comments"
+
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    consults_id: int = Field(default=None, foreign_key="consults.id")
+    name: str
+    question_number: str
+    comment: str
+
 
 
