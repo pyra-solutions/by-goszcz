@@ -1,10 +1,10 @@
 <section class="legis-content">
 	<!-- kolumna lewa: projekty -->
 	<section class="legis-column legis-column--projects" aria-label="Aktualne projekty">
-		<header class="legis-column__header">
+		<!-- <header class="legis-column__header">
 				<h2>Aktualne projekty</h2>
 				<span class="legis-column__count">12 projektów</span>
-		</header>
+		</header> -->
 
 		<div class="filters">
 			<p-floatlabel>
@@ -13,17 +13,17 @@
 			</p-floatlabel>
 
 			<p-floatlabel>
-				<p-select></p-select>
+				<p-select [(ngModel)]="statusFilter" [options]="statusFilters" [showClear]="true"></p-select>
 				<label for="over_label">Status</label>
 			</p-floatlabel>
 
 			<p-floatlabel>
-				<p-select></p-select>
+				<p-select [showClear]="true"></p-select>
 				<label for="over_label">Wnioskodawca</label>
 			</p-floatlabel>
 
 			<p-floatlabel>
-				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" />
+				<p-datepicker inputId="over_label" showIcon iconDisplay="input" selectionMode="range" [(ngModel)]="dateRangeFilter" [showClear]="true"/>
 				<label for="over_label">Zakres dat</label>
 			</p-floatlabel>
 		</div>
@@ -68,7 +68,7 @@
 				></legis-project>
 			} -->
 		</div>
-	</section>
+	</section> 
 
 	<!-- kolumna prawa: dokumenty / szczegóły -->
 	<section class="legis-column legis-column--details" aria-label="Szczegóły projektu">
@@ -96,16 +96,16 @@
 			<h3>Dokumenty</h3>
 			<ul class="legis-doc-list">
 			<li>
-					<a href="#">Projekt ustawy (PDF)</a>
-					<!-- <span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span> -->
+				<a href="#">Projekt ustawy (PDF)</a>
+				<!-- <span class="legis-doc-list__meta">wersja z dnia 10.11.2025</span> -->
 			</li>
 			<li>
-					<a href="#">Uzasadnienie projektu (PDF)</a>
-					<!-- <span class="legis-doc-list__meta">Ministerstwo Rozwoju</span> -->
+				<a href="#">Uzasadnienie projektu (PDF)</a>
+				<!-- <span class="legis-doc-list__meta">Ministerstwo Rozwoju</span> -->
 			</li>
 			<li>
-					<a href="#">Poprawki Senatu (DOCX)</a>
-					<!-- <span class="legis-doc-list__meta">druk nr 1180A</span> -->
+				<a href="#">Poprawki Senatu (DOCX)</a>
+				<!-- <span class="legis-doc-list__meta">druk nr 1180A</span> -->
 			</li>
 			</ul>
 		</div>

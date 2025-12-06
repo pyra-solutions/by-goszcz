@@ -2,28 +2,28 @@ import { Injectable } from '@angular/core';
 import { Project, ProjectStatus } from '../models/project.model';
 import { HttpClient } from '@angular/common/http';
 
+export const ALL_PROJECT_STATUSES: ProjectStatus[] = [
+  "akt indywidualny",
+  "akt jednorazowy",
+  "akt objęty tekstem jednolitym",
+  "akt posiada tekst jednolity",
+  "bez statusu",
+  "brak mocy prawnej",
+  "nieobowiązujący - przyczyna nieustalona",
+  "nieobowiązujący - uchylona podstawa prawna",
+  "obowiązujący",
+  "tekst jednolity dla aktu jednorazowego",
+  "uchylony",
+  "uchylony wykazem",
+  "uznany za uchylony",
+  "wydane z naruszeniem prawa",
+  "wygaśnięcie aktu"
+];
+
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  // Definicja stałej listy wszystkich dostępnych statusów
-  private readonly ALL_PROJECT_STATUSES: ProjectStatus[] = [
-    "akt indywidualny",
-    "akt jednorazowy",
-    "akt objęty tekstem jednolitym",
-    "akt posiada tekst jednolity",
-    "bez statusu",
-    "brak mocy prawnej",
-    "nieobowiązujący - przyczyna nieustalona",
-    "nieobowiązujący - uchylona podstawa prawna",
-    "obowiązujący",
-    "tekst jednolity dla aktu jednorazowego",
-    "uchylony",
-    "uchylony wykazem",
-    "uznany za uchylony",
-    "wydane z naruszeniem prawa",
-    "wygaśnięcie aktu"
-  ];
 
   constructor(private http: HttpClient) { }
 
@@ -69,7 +69,7 @@ export class ProjectService {
       eli: `http://eli.example.pl/${randomYear}/${randomVolume}/${randomPos}`,
       type: titlePrefix,
       // Losowanie statusu z Twojej listy
-      status: this.ALL_PROJECT_STATUSES[this.getRandomInt(0, this.ALL_PROJECT_STATUSES.length - 1)],
+      status: ALL_PROJECT_STATUSES[this.getRandomInt(0, ALL_PROJECT_STATUSES.length - 1)],
     };
   }
 

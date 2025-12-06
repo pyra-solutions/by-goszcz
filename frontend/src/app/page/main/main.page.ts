@@ -1,7 +1,7 @@
 import { Component, computed, signal, Signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from '../../models/project.model';
-import { ProjectService } from '../../services/project.service';
+import { Project, ProjectStatus } from '../../models/project.model';
+import { ALL_PROJECT_STATUSES, ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'main-page',
@@ -10,6 +10,13 @@ import { ProjectService } from '../../services/project.service';
   standalone: false,
 })
 export class MainPage {
+  statusFilters = ALL_PROJECT_STATUSES;
+  statusFilter = signal<ProjectStatus | null>(null)
+
+  dateRangeFilter = signal('')
+  beginRangeDate = computed(()=>this.dateRangeFilter()[0])
+  beginRangeEnd = computed(()=>this.dateRangeFilter()[1])
+
   selected!: Project;
 
   titleFilter = signal('')
@@ -17,14 +24,16 @@ export class MainPage {
   projects = signal<Project[]>([]);
 
   filteredProjects = computed(()=>
-    this.projects().filter((p)=>p.title!.includes(this.titleFilter()))
+    this.projects()
+    .filter((p)=>p.title!.includes(this.titleFilter()))
+    .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
     this.projects.set(this.projectService.generateProjects(50).map((p)=>({...p, selected: false})))
 
     setInterval(()=>{
-      console.log(this.titleFilter())
+      console.log(this.dateRangeFilter());
     }, 2500)
   }
 
