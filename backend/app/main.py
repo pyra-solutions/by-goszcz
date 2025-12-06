@@ -25,9 +25,9 @@ eli_client = ELIClient(base_url="https://api.sejm.gov.pl/eli", timeout=httpx.Tim
 sejm_client = SejmClient(base_url="https://api.sejm.gov.pl/", timeout=httpx.Timeout(10.0))
 
 
-#ID aktu
-class AiRequest(BaseModel):
-    pos: int
+##ID aktu
+#class AiRequest(BaseModel):
+#    pos: int
 
 @app.get("/")
 def root():
@@ -78,8 +78,12 @@ async def process(term: int):
 
 
 
-@app.post("/ai")
-async def ai_response(request: AiRequest, session: Session = Depends(get_db)):
-    result =  await ai_clarify_act(request.pos,session)
-    return {"response": result}
+#@app.post("/ai")
+#async def ai_response(request: AiRequest, session: Session = Depends(get_db)):
+#    result =  await ai_clarify_act(request.pos,session)
+#    return {"response": result}
 
+@app.get("/ai")
+async def ai_response(pos: int, session: Session = Depends(get_db)):
+    result = await ai_clarify_act(pos, session)
+    return {"response": result}
