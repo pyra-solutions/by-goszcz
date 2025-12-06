@@ -30,7 +30,10 @@ export class MainPage {
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
-    this.projects.set(this.projectService.generateProjects(50).map((p)=>({...p, selected: false})))
+    // this.projects.set(this.projectService.generateProjects(50).map((p)=>({...p, selected: false})))
+    this.projectService.fetchProjects().subscribe((p: any)=>{
+      this.projects.set(p.slice(0, 100));
+    })
 
     setInterval(()=>{
       console.log(this.dateRangeFilter());

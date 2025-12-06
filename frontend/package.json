@@ -32,6 +32,7 @@
     "@faker-js/faker": "^10.1.0",
     "@jsverse/transloco": "^8.2.0",
     "@primeuix/themes": "^2.0.1",
+    "luxon": "^3.7.2",
     "primeicons": "^7.0.0",
     "primeng": "^20.3.0",
     "zone.js": "^0.15.1"

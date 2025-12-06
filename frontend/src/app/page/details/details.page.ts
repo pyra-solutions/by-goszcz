@@ -19,10 +19,10 @@ interface LegislativeStep {
 })
 export class DetailsPage {
 
-  project: Project;
+  project!: Project;
 
   constructor(private projectSerivce: ProjectService) {
-    this.project = this.projectSerivce.generateProjects(1)[0];
+    // this.project = this.projectSerivce.generateProjects(1)[0];
   }
 
   steps: LegislativeStep[] = [

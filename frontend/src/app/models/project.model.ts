@@ -31,6 +31,6 @@ export interface Project {
   text_html?: boolean;
   change_date?: Date
   eli?: string;
-  type?: string;
+  act_type?: string;
   status?: ProjectStatus;
 }

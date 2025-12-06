@@ -24,7 +24,7 @@ export class LegislativeTimeline implements OnInit {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.projects = this.projectService.generateProjects(12);
+    // this.projects = this.projectService.generateProjects(12);
     this.selectedProject = this.projects[0];
 
     // statyczny timeline – możesz potem powiązać daty z projektem

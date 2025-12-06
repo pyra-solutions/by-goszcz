@@ -14,7 +14,7 @@ export class ConsultationsPage {
   projects: Project[] = []
 
   constructor(private router: Router, private projectService: ProjectService) {
-    this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
+    // this.projects = this.projectService.generateProjects(50).map((p)=>({...p, selected: false}))
   }
 
   goToDetails() {
