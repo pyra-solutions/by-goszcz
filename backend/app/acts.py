@@ -1,9 +1,9 @@
 import asyncio
 import time
-from eli_for_polish_acts_client.client import Client
-from eli_for_polish_acts_client.api.listing_acts import get_years, get_acts_in_year, get_publishers
-from eli_for_polish_acts_client.api.act_details import get_act_pdf
-from eli_for_polish_acts_client.models.act_info import ActInfo as ActInfoAPI
+from .clienteli.client import Client
+from .clienteli.api.listing_acts import get_years, get_acts_in_year, get_publishers
+from .clienteli.api.act_details import get_act_pdf
+from .clienteli.models.act_info import ActInfo as ActInfoAPI
 import os
 
 from sqlalchemy import engine
