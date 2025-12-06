@@ -1,43 +1,26 @@
 from typing import Optional
-from datetime import datetime
+from datetime import date
 from sqlmodel import Field, SQLModel
 
 
-class Main(SQLModel, table=True):
-    __tablename__ = "main"
+class Act(SQLModel, table=True):
+    __tablename__ = "act"
     
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
-    status_dokumentu_id: int = Field(foreign_key="status.id")
-    typ_dokumentu_id: int
-    wnioskodawca_id: int
-    tytul: str
-    data_dokumentu: datetime
-    file_path: str
-    api_address: Optional[str] = None
+    address: Optional[str]
+    publisher: Optional[str]
+    year: Optional[int]
+    volume: Optional[int]
+    pos: Optional[int]
+    title: Optional[str]
+    display_address: Optional[str]
+    promulgation: Optional[date]
+    announcement_date: Optional[date]
+    text_pdf: Optional[bool]
+    text_html: Optional[bool]
+    change_date: Optional[date]
+    eli: Optional[str]
+    type_: Optional[str]
+    status: Optional[str]
 
-
-
-class StatusDokumentu(SQLModel, table=True):
-    __tablename__ = "status_dokumentu"
-    
-    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
-    status: str = Field(max_length=128)
-
-
-class TypDokumentu(SQLModel, table=True):
-    __tablename__ = "typ_dokumentu"
-    
-    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
-    status: str = Field(max_length=128)
-
-
-
-class Wnioskodawca(SQLModel, table=True):
-    __tablename__ = "wnioskodawca"
-    
-    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
-    status: str = Field(max_length=128)
-
-
-
-
+    # additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
