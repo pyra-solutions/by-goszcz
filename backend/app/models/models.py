@@ -64,3 +64,15 @@ class SubscriberList(SQLModel, table=True):
     email: str
     categories: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     active: bool
+
+class Response(SQLModel, table=true):
+    __tablename__ = "response"
+
+    id: int
+    eli: str
+    title: str
+    pos: int
+    pdf_url: str
+    analysis: str
+
+
