@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import  List, Optional
 from datetime import datetime
-from sqlmodel import Field, SQLModel
+from sqlmodel import ARRAY, Column, Field, SQLModel, String
 
 
 class ActInfo(SQLModel, table=True):
@@ -61,5 +61,5 @@ class SubscriberList(SQLModel, table=True):
 
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
     email: str
-    categories: list[str]
+    categories: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     active: bool
