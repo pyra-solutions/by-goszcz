@@ -7,8 +7,8 @@ from sqlmodel import SQLModel, Session
 
 from app.database import engine, get_db
 from app.models.models import ActInfo
-# from app.routes import  ai
-# from app.routes.ai import ai_test_function
+from app.routes import  ai
+from app.routes.ai import ai_clarify_act
 
 
 def create_db_and_tables():
@@ -23,6 +23,10 @@ app = FastAPI()
 eli_client = ELIClient(base_url="https://api.sejm.gov.pl/eli", timeout=httpx.Timeout(10.0))
 sejm_client = SejmClient(base_url="https://api.sejm.gov.pl/", timeout=httpx.Timeout(10.0))
 
+
+#ID aktu
+class AiRequest(BaseModel):
+    pos: int
 
 @app.get("/")
 def root():
@@ -52,12 +56,8 @@ async def process(term: int):
 
 
 
-# @app.get("/ai")
-# def ai_response():
-#     result =  ai_test_function()
-#     return {"response": result}
-#
-#
-# def ai_clarification():
-#     result =  ai_clarification()
-#     return {"response": result}
+@app.get("/ai")
+def ai_response(request: AiRequest):
+    result =  ai_clarify_act(request.pos)
+    return {"response": result}
+

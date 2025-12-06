@@ -19,7 +19,7 @@ def ai_test_function():
 
 
 @router.post("/clarify/{act_id}")
-def ai_clarify_act(act_id: int, session: Session = Depends(get_db)):
+def ai_clarify_act(pos: int, session: Session = Depends(get_db)):
     """Use AI to clarify an act from database"""
     
     # Get act from database using ORM
