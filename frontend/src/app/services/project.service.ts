@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Consultation, Project, ProjectStatus } from '../models/project.model';
+import { Project, ProjectStatus } from '../models/project.model';
 import { HttpClient } from '@angular/common/http';
 
 export const ALL_PROJECT_STATUSES: ProjectStatus[] = [
@@ -90,7 +90,7 @@ export class ProjectService {
   }
 
   fetchSummary(pos: string) {
-    return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
+    return this.http.get(`http://localhost:8000/ai?pos=${pos}`);
   }
 }
 

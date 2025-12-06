@@ -11,8 +11,6 @@ import { DateTime, Interval } from 'luxon';
   standalone: false,
 })
 export class MainPage {
-  fetched = false;
-
   statusFilters = ALL_PROJECT_STATUSES;
   publisherFilters: string[] = ['DU', 'MU']
 
@@ -71,17 +69,13 @@ export class MainPage {
         this.projects.set([...this.projects(), ...p.slice(0, 20)]);
       })
     }
-
-
-    setTimeout(()=>{
-
-      // console.log('fasdf', this.selected()!.change_date)
-      console.log('fasdf', this.projects().map(p=>p.announcement_date))
-    }, 5000)
   }
 
   goToDetails() {
     this.router.navigate(['details', this.selected()!.pos]);
   }
 
+  generateAiSummary() {
+
+  }
 }
