@@ -94,4 +94,12 @@ class Comments(SQLModel, table=True):
     question_number: str
     comment: str
 
+class ResponseProcesses(SQLModel, table=True):
+    __tablename__ = "response_processes"
+
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    eli: str
+    analysis: str
+
 
