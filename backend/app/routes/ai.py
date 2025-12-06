@@ -10,7 +10,7 @@ def ai_test_function():
     """Function to test AI generation"""
     client = genai.Client()
     response = client.models.generate_content(
-        model="gemini-2.5-flash", contents="Explain how AI works in a few words"
+        model="gemini-2.5-flash-lite", contents="Explain how AI works in a few words"
     )
     return response.text
 
