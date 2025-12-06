@@ -524,3 +524,8 @@ $bp-sm: 768px;
     grid-template-columns: 1fr;
   }
 }
+
+.ai-response {
+  height: 350px;
+  overflow-y: auto;
+}

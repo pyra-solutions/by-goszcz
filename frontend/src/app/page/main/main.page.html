@@ -54,7 +54,7 @@
 					</tr>
 				</ng-template>
 				<ng-template #body let-project>
-					<tr [pSelectableRow]="project">
+					<tr [pSelectableRow]="project" (click)="refreshSelected()">
 						<td>{{ project.title }}</td>
 						<td>{{ project.publisher }}</td>
 						<td>{{ project.status }}</td>
@@ -87,37 +87,38 @@
 			<button (click)="goToDetails()" class="gov-btn gov-btn--secondary gov-btn--full">
 				Zobacz szczegóły
 			</button>
+
+			<button (click)="generateAiSummary()" class="gov-btn gov-btn--secondary gov-btn--full">
+				Wygeneruj podsumowanie AI
+			</button> 
 		</div>
+		<p-progressbar *ngIf="generatingSummary" mode="indeterminate" [style]="{ height: '6px' }" />
 	</section>
 
+	@if(aiResponse) {
 	<header class="legis-column__header">
-		<h2>Podsumowanie sztucznej inteligencji</h2>
+		<h2>Podsumowanie sztucznej inteligencji dla pliku</h2>
 	</header>
+
+
 	<section class="legis-card">
-		<div class="legis-card-category">
-			<!-- <p>{{selected()!.title}}</p>
-			<p>{{selected()!.publisher}}</p>
-			<p>{{selected()!.status}}</p>
-			-->
+		<div class="ai-response">
+			<h3>Wpływ na</h3>
 			<ul>
 				@for(party of aiResponse.affected_parties;track $index) {
 				<li>{{party}}</li>
 				}
 			</ul>
 
+			<h3>Najważniejsze punkty</h3>
 			<ul>
 				@for(party of aiResponse.key_points;track $index) {
 				<li>{{party}}</li>
 				}
 			</ul>
-
-			<button (click)="generateAiSummary()" class="gov-btn gov-btn--secondary gov-btn--full">
-				Wygeneruj
-			</button> 
-	
-
 		</div>
 	</section>
+	}
 	}
 	</section>
 </section>

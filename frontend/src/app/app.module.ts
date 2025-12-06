@@ -33,6 +33,7 @@ import { CardModule } from 'primeng/card';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ConsultationsPage } from './page/consultations/consultations.page';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ConsultationsPage } from './page/consultations/consultations.page';
     CardModule,
     DatePickerModule,
     FloatLabelModule,
-    InputTextModule
+    InputTextModule,
+    ProgressBarModule
   ],
   providers: [
     provideAnimationsAsync(),

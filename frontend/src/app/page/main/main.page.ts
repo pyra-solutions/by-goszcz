@@ -11,7 +11,9 @@ import { DateTime, Interval } from 'luxon';
   standalone: false,
 })
 export class MainPage {
+  generatingSummary = false;
   aiResponse: any;
+  aiSummaryFileName: string = '';
 
   statusFilters = ALL_PROJECT_STATUSES;
   publisherFilters: string[] = ['DU', 'MU'];
@@ -73,15 +75,23 @@ export class MainPage {
     }
   }
 
+  refreshSelected() {
+    this.aiResponse = null;
+  }
+
   goToDetails() {
     this.router.navigate(['details', this.selected()!.pos]);
   }
 
   generateAiSummary() {
+    this.aiSummaryFileName = this.selected()!.title!
+    this.generatingSummary = true;
+
     this.projectService.fetchSummary(String(this.selected()!.pos!)).subscribe((res: any)=>{
       console.log('Ai response', res)
       console.log('Ai response', JSON.parse(res.response.analysis))
       this.aiResponse = JSON.parse(res.response.analysis)
+      this.generatingSummary = false;
     })
   }
 }
