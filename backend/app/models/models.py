@@ -1,6 +1,6 @@
 from typing import  List, Optional
 from datetime import datetime
-from sqlmodel import ARRAY, Column, Field, SQLModel, String
+from sqlmodel import ARRAY, Column, Field, SQLModel, String, Integer, create_engine
 
 
 class ActInfo(SQLModel, table=True):
@@ -64,3 +64,34 @@ class SubscriberList(SQLModel, table=True):
     email: str
     categories: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     active: bool
+
+class Response(SQLModel, table=True):
+    __tablename__ = "response"
+
+
+    id: int = Field(primary_key=True)
+    eli: str
+    title: str
+    pos: int
+    pdf_url: str
+    analysis: str
+
+class Consults(SQLModel, table=True):
+    __tablename__ = "consults"
+
+    project_id: int = Field(default=None, primary_key=True)
+    project_url: str
+    form_url: str
+    report_url: str
+
+class Comments(SQLModel, table=True):
+    __tablename__ = "comments"
+
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    consults_id: int | None = Field(default=None, foreign_key="consults.project_id")
+    person_name: str
+    question_number: str
+    comment: str
+
+

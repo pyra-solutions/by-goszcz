@@ -90,7 +90,6 @@ async def main():
             acts_data = acts_response.to_dict()
             
             for act_data in acts_data["items"]:
-                print(act_data)
                 act = ActInfoAPI.from_dict(act_data)
 
                 
@@ -117,7 +116,6 @@ async def main():
                 act = ActInfo.model_validate(act_dict)
                 act.id = None
                 session.add(act)
-                print("ADDED!")
                 
                 task = asyncio.create_task(download_act(semaphore, client, ActInfoAPI.from_dict(act_data)))
                 tasks.append(task)
