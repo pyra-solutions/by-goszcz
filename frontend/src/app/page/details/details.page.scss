@@ -1,0 +1,193 @@
+// Kolory inspirowane gov.pl
+$gov-primary: #12407f;
+$gov-primary-dark: #0b274a;
+$gov-accent: #d4213d;
+$gov-bg: #f5f7fa;
+$gov-border: #d1d5db;
+$gov-text: #111827;
+
+.legislation-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: $gov-text;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  background: linear-gradient(135deg, $gov-primary, $gov-primary-dark);
+  color: #ffffff;
+  padding: 2.5rem 1.5rem;
+
+  &__content {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  &__subtitle {
+    max-width: 720px;
+    font-size: 0.95rem;
+    opacity: 0.95;
+    margin: 0;
+  }
+}
+
+.page-content {
+  flex: 1;
+  padding: 2rem 1.5rem 3rem;
+  background-color: $gov-bg;
+
+  .timeline-section {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+}
+
+/* Najważniejsze – timeline z linią pośrodku i kartami lewo/prawo */
+:host ::ng-deep {
+  .legislation-timeline.p-timeline.p-timeline-vertical.p-timeline-align-alternate {
+    .p-timeline-event {
+      /* trochę większy odstęp między wydarzeniami */
+      margin-bottom: 1.5rem;
+    }
+
+    /* separator z linią pośrodku */
+    .p-timeline-event-separator {
+      position: relative;
+      flex: 0 0 60px; // szerokość „kolumny” z linią
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .p-timeline-event-marker {
+      position: relative;
+      z-index: 2; // nad linią
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .p-timeline-event-connector {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background-color: lighten($gov-primary, 20%);
+    }
+
+    /* Połówki po lewej i prawej */
+    .p-timeline-event-opposite,
+    .p-timeline-event-content {
+      flex: 1 1 50%;
+    }
+
+    /* PrimeNG samo ustawia naprzemiennie – my tylko dodajemy padding */
+    .p-timeline-event-opposite {
+      padding: 0 1.5rem 0 0;
+    }
+
+    .p-timeline-event-content {
+      padding: 0 0 0 1.5rem;
+    }
+
+    /* Na małych ekranach – wszystko pod linią, bez lewo/prawo */
+    @media (max-width: 768px) {
+      .p-timeline-event-opposite {
+        display: none;
+      }
+
+      .p-timeline-event-content {
+        padding: 0 0 0 1rem;
+      }
+
+      .p-timeline-event-separator {
+        flex-basis: 40px;
+      }
+    }
+  }
+
+  /* Styl markerów (kółko + mała etykieta dnia) */
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+
+    &__dot {
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      background-color: $gov-accent;
+      border: 3px solid #ffffff;
+      box-shadow: 0 0 0 2px rgba($gov-accent, 0.25);
+    }
+
+    &__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: $gov-primary-dark;
+      background-color: #ffffff;
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      border: 1px solid $gov-border;
+      white-space: nowrap;
+    }
+  }
+
+  /* Karty po bokach linii */
+  .timeline-card.p-card {
+    border-radius: 0.75rem;
+    border: 1px solid $gov-border;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    background-color: #ffffff;
+
+    .p-card-body {
+      padding: 1rem 1.2rem;
+    }
+
+    .p-card-content {
+      padding: 0;
+    }
+  }
+}
+
+.timeline-card {
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    color: $gov-primary-dark;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #374151;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 1.8rem 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .page-content {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+}

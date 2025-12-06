@@ -28,6 +28,8 @@ import { LegisProjectComponent } from './components/legis-project/legis-project.
 import { LegisTopbarComponent } from './components/legis-topbar/legis-topbar.component';
 import { MainPage } from './page/main/main.page';
 import { ScrollerModule } from 'primeng/scroller';
+import { DetailsPage } from './page/details/details.page';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ScrollerModule } from 'primeng/scroller';
     LegislativeTimeline,
     LegisProjectComponent,
     LegisTopbarComponent,
-    MainPage
+    MainPage,
+    DetailsPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,9 @@ import { ScrollerModule } from 'primeng/scroller';
     TranslocoRootModule,
     TimelineModule,
     Badge,
-    ScrollerModule
+    ScrollerModule,
+    TimelineModule,
+    CardModule
   ],
   providers: [
     provideAnimationsAsync(),
