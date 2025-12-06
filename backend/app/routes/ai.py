@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from sqlmodel import Session, select
 
 from app.database import get_db
-from app.models.models import Main  # Zaimportuj swój model
 
 load_dotenv()
 

@@ -1,10 +1,13 @@
 from typing import Optional
-from datetime import date
+from datetime import datetime
+from pydantic import ConfigDict
 from sqlmodel import Field, SQLModel
 
 
 class ActInfo(SQLModel, table=True):
     __tablename__ = "act_info"
+    model_config = ConfigDict(extra='ignore')
+
     
     id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
     address: Optional[str]
@@ -14,11 +17,11 @@ class ActInfo(SQLModel, table=True):
     pos: Optional[int]
     title: Optional[str]
     display_address: Optional[str]
-    promulgation: Optional[date]
-    announcement_date: Optional[date]
+    promulgation: Optional[datetime]
+    announcement_date: Optional[datetime]
     text_pdf: Optional[bool]
     text_html: Optional[bool]
-    change_date: Optional[date]
+    change_date: Optional[datetime]
     eli: Optional[str]
     type_: Optional[str]
     status: Optional[str]
