@@ -11,6 +11,7 @@
 				<!-- @for(project of fakeProjects; track project.name) { -->
 					<!-- (click)="selectProject(project)" -->
 					<legis-project
+					(click)="loadProject()"
 					[selected]="item.selected"
 					[name]="item.name"
 					[source]="item.source"
