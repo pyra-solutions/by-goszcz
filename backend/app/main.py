@@ -1,8 +1,6 @@
-from app.clientsejm.models.process_header import ProcessHeader
-from .client.eli_for_polish_acts_client.client import Client as ELIClient
+from .clienteli.client import Client as ELIClient
 from .clientsejm.client import Client as SejmClient
 from .clientsejm.api.processes import get_sejm_termterm_processes
-from eli_for_polish_acts_client.client import Client as ELIClient
 from fastapi import Depends, FastAPI, HTTPException
 import httpx
 from sqlmodel import SQLModel, Session
