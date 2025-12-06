@@ -24,6 +24,7 @@ services:
       - ./data/acts:/acts
     environment:
       - "DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/appdb"
+      - "GEMINI_API_KEY=${GEMINI_API_KEY}"
     networks:
       - nginx
       - db
