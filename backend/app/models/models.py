@@ -90,7 +90,7 @@ class Comments(SQLModel, table=True):
 
 
     project_id: int = Field(primary_key=True)
-    consults_id: int = Field(default=None, foreign_key="consults.id")
+    consults_id: int = Field(default=None, foreign_key="consults.project_id")
     name: str
     question_number: str
     comment: str
