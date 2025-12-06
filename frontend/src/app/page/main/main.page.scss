@@ -416,8 +416,12 @@ $bp-sm: 768px;
   margin-bottom: 0.75rem;
   font-size: 0.87rem;
 
+  .legis-card-category {
+    margin-bottom: 10px;
+  }
+
   h3 {
-    margin: 0 0 0.4rem;
+    margin: 0.4rem 0 0.4rem 0;
     font-size: 0.95rem;
   }
 
