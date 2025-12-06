@@ -9,10 +9,10 @@
 		<!-- <p-virtualscroller [items]="fakeProjects" [itemSize]="10" scrollHeight="500px" styleClass="border border-surface"> -->
 			<!-- <ng-template > -->
 		<div class="projects">
-			@for(item of fakeProjects; track item.name) {
+			@for(item of fakeProjects; track $index; let i = $index) {
 				<!-- (click)="selectProject(project)" -->
 				<legis-project
-				(click)="loadProject()"
+				(click)="selectProject(i)"
 				[selected]="item.selected"
 				[name]="item.name"
 				[source]="item.source"

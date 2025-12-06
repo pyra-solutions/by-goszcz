@@ -55,6 +55,11 @@ $bp-sm: 768px;
   }
 }
 
+.is-selected {
+  border-color: $gov-primary !important;
+  box-shadow: 0 0 0 2px rgba($gov-primary, 0.12);
+}
+
 .gov-tag {
   display: inline-flex;
   align-items: center;

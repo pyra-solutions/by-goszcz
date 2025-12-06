@@ -7,9 +7,15 @@ import { Component, Input } from '@angular/core';
   standalone: false,
 })
 export class LegisProjectComponent {
-  @Input() selected = false;
+  @Input({required: true}) selected = false;
   @Input({required: true}) name!: string;
   @Input({required: true}) source!: string;
   @Input({required: true}) status!: string;
   @Input({required: true}) step!: string;
+
+  // constructor() {
+  //   setInterval(()=>{
+  //     console.log('goajdog', this.selected)
+  //   }, 2500)
+  // }
 }

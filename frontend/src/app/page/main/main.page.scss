@@ -290,50 +290,6 @@ $bp-sm: 768px;
   }
 }
 
-// projekty
-.legis-project {
-  background: #fff;
-  border-radius: $gov-radius;
-  border: 1px solid $gov-border;
-  padding: 0.7rem 0.75rem;
-  margin-bottom: 0.55rem;
-  box-shadow: $gov-shadow-soft;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
-  cursor: pointer;
-
-  &.is-selected {
-    border-color: $gov-primary;
-    box-shadow: 0 0 0 2px rgba($gov-primary, 0.12);
-  }
-
-  &__meta {
-    h3 {
-      margin: 0 0 0.2rem;
-      font-size: 0.95rem;
-    }
-
-    p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: $gov-muted;
-    }
-  }
-
-  &__status {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.25rem;
-  }
-
-  &__step {
-    font-size: 0.8rem;
-    color: $gov-muted;
-  }
-}
 
 // diagram etapów
 .legis-flow {

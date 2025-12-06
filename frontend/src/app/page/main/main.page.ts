@@ -10,14 +10,27 @@ import { Router } from '@angular/router';
 export class MainPage {
   constructor(private router: Router) {}
 
+  selectProject(index: number) {
+    console.log('gjasoigd', index)
+
+    this.fakeProjects = this.fakeProjects.map((p)=>({
+      ...p,
+      selected: false
+    }))
+
+    this.fakeProjects[index].selected = true;
+    console.log('fake', this.fakeProjects)
+  }
+
   loadProject() {
     this.router.navigateByUrl('details');
   }
 
-  fakeProjects = Array(50).fill({
+  fakeProjects = Array(10).fill({
     name: 'Zmiana ustawy o systemie oswiaty',
     source: 'druk nr 1175 MEN',
     status: 'finished',
-    step: 'dzu poz'
+    step: 'dzu poz',
+    selected: false
   })
 }
