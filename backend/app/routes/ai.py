@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException
 from google import genai
 from dotenv import load_dotenv
@@ -23,12 +24,17 @@ class ActSummary(BaseModel):
     summary: str
 
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if GEMINI_API_KEY is None:
+    raise ValueError("GEMINI_API_KEY environment variable not set")
+
 async def ai_clarify_act(pos: int, session: Session):
     """
     Pobiera dane z bazy według modelu ActInfo dla podanego pos,
     parsuje PDF z API Sejmu i analizuje go przez Gemini
     """
-    genai_client = genai.Client()
+    genai_client = genai.Client(api_key=GEMINI_API_KEY)
 
     statement = select(ActInfo).where(ActInfo.pos == pos)
     act = session.exec(statement).first()
