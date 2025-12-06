@@ -10,7 +10,6 @@ charset-normalizer==3.4.4
 cli_helpers==2.7.0
 click==8.2.1
 configobj==5.0.9
--e git+ssh://git@github.com/pyra-solutions/by-goszcz.git@ff25e7f7fd4e5503e8e2f47cacc9a876e752221e#egg=eli_for_polish_acts_client&subdirectory=backend/app/client
 fastapi==0.123.5
 google-auth==2.43.0
 google-genai==1.53.0
