@@ -8,7 +8,7 @@
 
 		<div class="filters">
 			<p-floatlabel>
-				<input type="text" pInputText />
+				<input [(ngModel)]="titleFilter" type="text" pInputText />
 				<label for="over_label">Tytuł</label>
 			</p-floatlabel>
 
@@ -31,7 +31,7 @@
 		<div class="projects">
 
 			<p-table 
-			[value]="projects" 
+			[value]="filteredProjects()" 
 			showGridlines 
 			[tableStyle]="{ 'min-width': '50rem' }" 
 			selectionMode="single"
