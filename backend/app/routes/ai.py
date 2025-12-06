@@ -3,21 +3,13 @@ from google import genai
 from dotenv import load_dotenv
 from sqlmodel import Session, select
 
-from app.database import get_db
+from app.models.models import ActInfo
 
 load_dotenv()
 
 router = APIRouter(prefix="/ai", tags=["AI"])
 
-def ai_test_function():
-    """Function to test AI generation"""
-    client = genai.Client()
-    response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", contents="Explain how AI works in a few words"
-    )
-    return response.text
-
-
+def ai_clarify_act(pos: int, session: Session):
     """
     Pobiera dane z bazy według modelu ActInfo dla podanego pos
     """
