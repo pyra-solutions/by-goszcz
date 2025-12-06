@@ -33,21 +33,31 @@ class AiRequest(BaseModel):
 def root():
     return {"message": "Hello World"}
 
-@app.get("/acts")
-def acts(session: Session = Depends(get_db)) -> list[ActInfo]:
-    # Get act from database using ORM
-    act = session.exec(select(ActInfo))  # zmień Hero na Act
-    acts = list(act.all())
-    
+@app.get("/acts/{page}", response_model=list[ActInfo])
+def acts(
+    page: int,
+    page_size: int = 20,
+    session: Session = Depends(get_db)
+) -> list[ActInfo]:
+
+    if page < 1:
+        raise HTTPException(status_code=400, detail="Page must be >= 1")
+
+    offset = (page - 1) * page_size
+
+    query = select(ActInfo).offset(offset).limit(page_size)
+    result = session.exec(query)
+    acts = list(result.all())
+
     if not acts:
-        raise HTTPException(status_code=404, detail="Acts not found")
+        raise HTTPException(status_code=404, detail="No acts on this page")
 
     return acts
 
-@app.get("/act/{act_id}")
-def act(act_id: int, session: Session = Depends(get_db)) -> ActInfo:
+@app.get("/act/{address}")
+def act(address: str, session: Session = Depends(get_db)) -> ActInfo:
     # Get act from database using ORM
-    act = session.get(ActInfo, act_id)  # zmień Hero na Act
+    act = session.get(ActInfo, {"address": address})
     
     if not act:
         raise HTTPException(status_code=404, detail="Act not found")
