@@ -14,14 +14,6 @@ app = FastAPI()
 app.include_router(ai.router)
 
 
-#@app.on_event("startup")
-#def on_startup():
-#    create_db_and_tables()
-#
-#
-#app.include_router(heroes.router)
-
-
 @app.get("/")
 def root():
     return {"message": "Hello World"}
@@ -29,4 +21,9 @@ def root():
 @app.get("/ai")
 def ai_response():
     result =  ai_test_function()
+    return {"response": result}
+
+
+def ai_clarification():
+    result =  ai_clarification()
     return {"response": result}
