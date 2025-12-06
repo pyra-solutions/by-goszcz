@@ -4,6 +4,7 @@ from .clientsejm.api.processes import get_sejm_termterm_processes
 from fastapi import Depends, FastAPI, HTTPException
 import httpx
 from sqlmodel import SQLModel, Session
+from pydantic import BaseModel
 
 from app.database import engine, get_db
 from app.models.models import ActInfo
@@ -56,8 +57,8 @@ async def process(term: int):
 
 
 
-@app.get("/ai")
-def ai_response(request: AiRequest):
-    result =  ai_clarify_act(request.pos)
+@app.post("/ai")
+def ai_response(request: AiRequest, session: Session = Depends(get_db)):
+    result =  ai_clarify_act(request.pos,session)
     return {"response": result}
 
