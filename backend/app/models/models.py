@@ -113,3 +113,37 @@ class Comment(SQLModel, table=True):
     author: str
     poll_number: str
 
+class ProcessDetails(SQLModel, table=True):
+    __tablename__ = "process_details"
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    term: Optional[int]
+    number: Optional[str]
+    title: Optional[str]
+    description: Optional[str]
+    u_e: Optional[str]
+    document_date: Optional[datetime.datetime]
+    change_date: Optional[datetime.datetime]
+    web_generated_date: Optional[datetime.datetime]
+    process_start_date: Optional[datetime.datetime]
+    document_type: Optional[str]
+    document_type_enum: Optional[str]
+    comments: Optional[str]
+    prints_considered_jointly: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
+    title_final: Optional[str]
+    closure_date: Optional[datetime.datetime]
+    address: Optional[str]
+    display_address: Optional[str]
+    e_li: Optional[str]
+    passed: Optional[bool]
+    links: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
+    shorten_procedure: Optional[bool]
+    urgency_status: Optional[str]
+    urgency_withdraw_date: Optional[datetime.datetime]
+    other_documents: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
+    rcl_num: Optional[str]
+    rcl_link: Optional[str]
+    legislative_committee: Optional[bool]
+    principle_of_subsidiarity: Optional[bool]
+    stages: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
+    
