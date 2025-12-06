@@ -68,7 +68,7 @@ class SubscriberList(SQLModel, table=True):
 class Response(SQLModel, table=True):
     __tablename__ = "response"
 
-    id: int
+    id: int = Field(primary_key=True)
     eli: str
     title: str
     pos: int
