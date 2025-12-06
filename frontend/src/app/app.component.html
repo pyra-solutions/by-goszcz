@@ -2,8 +2,15 @@
   <main class="legis-main">
     <legis-topbar></legis-topbar>
 
-    <!-- <main-page></main-page> -->
-     <router-outlet></router-outlet>
+    <div class="container">
+      <aside class="menu">
+        <p (click)="goto('home')">Lista projektów</p> 
+        <p (click)="goto('consultations')">Konsultacje społeczne</p>
+      </aside>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </main>
 </div>
 1

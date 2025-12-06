@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,9 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  // selected: false, 
-  fakeProjects = Array(5).fill({
-    name: 'Zmiana ustawy o systemie oswiaty',
-    source: 'druk nr 1175 MEN',
-    status: 'finished',
-    step: 'dzu poz'
-  })
+  constructor(private router: Router) {}
+
+  goto(route: string) {
+    this.router.navigateByUrl(route);
+  }
 }

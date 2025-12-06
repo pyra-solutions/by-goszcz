@@ -7,7 +7,8 @@ $gov-border: #d1d5db;
 $gov-text: #111827;
 
 .legislation-page {
-  min-height: 100vh;
+  max-height: 80vh;
+  overflow-y: auto;
   background-color: #ffffff;
   color: $gov-text;
   display: flex;
