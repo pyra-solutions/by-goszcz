@@ -7,7 +7,7 @@ from sqlmodel import SQLModel, Session, select
 from pydantic import BaseModel
 
 from app.database import engine, get_db
-from app.models.models import ActInfo
+from app.models.models import ActInfo, Comment, Consultation
 from app.models.models import ProcessHeader
 from app.routes import  ai
 from app.routes.ai import ai_clarify_act
@@ -65,6 +65,57 @@ def act(address: str, session: Session = Depends(get_db)) -> ActInfo:
 
     return act
 
+
+@app.get("/comments-by-consultation-id/{consultation_id}", response_model=list[Comment])
+def comments_by_consultation_id(
+    consultation_id: int,
+    session: Session = Depends(get_db)
+) -> list[Comment]:
+
+    query = select(Comment).where(consultation_id=consultation_id)
+    result = session.exec(query)
+    comments = list(result.all())
+
+    if not comments:
+        raise HTTPException(status_code=404, detail="No comments for this project id")
+
+    return comments
+
+@app.get("/consultations-by-project-id/{project_id}", response_model=list[Consultation])
+def consultations_by_project_id(
+    project_id: int,
+    session: Session = Depends(get_db)
+) -> list[Consultation]:
+
+    query = select(Consultation).where(project_pos=project_id)
+    result = session.exec(query)
+    consultations = list(result.all())
+
+    if not consultations:
+        raise HTTPException(status_code=404, detail="No consultations for this project id")
+
+    return consultations
+
+@app.get("/consultations/{page}", response_model=list[Consultation])
+def consultations(
+    page: int,
+    page_size: int = 20,
+    session: Session = Depends(get_db)
+) -> list[Consultation]:
+
+    if page < 1:
+        raise HTTPException(status_code=400, detail="Page must be >= 1")
+
+    offset = (page - 1) * page_size
+
+    query = select(Consultation).offset(offset).limit(page_size)
+    result = session.exec(query)
+    consultations = list(result.all())
+
+    if not consultations:
+        raise HTTPException(status_code=404, detail="No consultations on this page")
+
+    return consultations
 
 ## nie ma response type bo to musi być w SQLModel
 #@app.get("/processes/{term}")
