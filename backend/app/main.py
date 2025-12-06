@@ -3,7 +3,7 @@ from .clientsejm.client import Client as SejmClient
 from .clientsejm.api.processes import get_sejm_termterm_processes
 from fastapi import Depends, FastAPI, HTTPException
 import httpx
-from sqlmodel import SQLModel, Session
+from sqlmodel import SQLModel, Session, select
 from pydantic import BaseModel
 
 from app.database import engine, get_db
@@ -33,8 +33,19 @@ class AiRequest(BaseModel):
 def root():
     return {"message": "Hello World"}
 
+@app.get("/acts")
+def acts(session: Session = Depends(get_db)) -> list[ActInfo]:
+    # Get act from database using ORM
+    act = session.exec(select(ActInfo))  # zmień Hero na Act
+    acts = list(act.all())
+    
+    if not acts:
+        raise HTTPException(status_code=404, detail="Acts not found")
+
+    return acts
+
 @app.get("/act/{act_id}")
-def acts(act_id: int, session: Session = Depends(get_db)) -> ActInfo:
+def act(act_id: int, session: Session = Depends(get_db)) -> ActInfo:
     # Get act from database using ORM
     act = session.get(ActInfo, act_id)  # zmień Hero na Act
     
