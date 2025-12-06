@@ -43,7 +43,8 @@
 						<th>Wnioskodawca</th>
 						<th>Status</th>
 						<th>Data</th>
-						<th>Typ</th>
+						<th>PDF</th>
+						<th>DOCX(word)</th>
 					</tr>
 				</ng-template>
 				<ng-template #body let-project>
@@ -52,7 +53,18 @@
 						<td>{{ project.publisher }}</td>
 						<td>{{ project.status }}</td>
 						<td>{{ project.announcement_date | date: 'dd.MM.yyyy'}}</td>
-						<td>{{ project.type }}</td>
+						<td>
+							<a href="https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-RPW-40474-2025">
+								PDF 
+								<img src="assets/icon_pdf.gif" /> 
+							</a>
+						</td>
+						<td>
+							<a href="https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-RPW-40474-2025">
+								DOCX 
+								<img src="assets/icon_rtf.gif" /> 
+							</a>
+						</td>
 					</tr>
 				</ng-template>
 			</p-table>
