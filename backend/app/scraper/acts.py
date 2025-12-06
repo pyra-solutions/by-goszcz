@@ -1,6 +1,5 @@
 import asyncio
 import time
-import json
 from eli_for_polish_acts_client.client import Client
 from eli_for_polish_acts_client.api.listing_acts import get_years, get_acts_in_year, get_publishers
 from eli_for_polish_acts_client.api.act_details import get_act_pdf
@@ -11,10 +10,12 @@ async def download_act(semaphore: asyncio.Semaphore, client: Client, act: ActInf
     """
     Downloads a single act.
     """
-    file_path = os.path.join("acts", f"{act.publisher}_{act.year}_{act.pos}.pdf")
+    file_path = os.path.join("../data/acts/", f"{act.publisher}_{act.year}_{act.pos}.pdf")
     if os.path.exists(file_path):
         print(f"  - Already downloaded {act.address}")
         return
+
+    print(act)
 
     async with semaphore:
         try:
@@ -37,77 +38,52 @@ async def download_act(semaphore: asyncio.Semaphore, client: Client, act: ActInf
         except Exception as e:
             print(f"    - Error downloading {act.address}: {e}")
 
-
-async def download_year(year: int):
+async def main():
+    """
+    Downloads all acts from the API concurrently, with persistence.
+    """
+    FROM = 2024
+    TO = 2025
+    start_time = time.time()
     client = Client(base_url="https://api.sejm.gov.pl/eli", timeout=20.0)
     semaphore = asyncio.Semaphore(30)
     tasks = []
 
-    # Publishers
-    publishers_file = "api_responses/publishers.json"
-    if os.path.exists(publishers_file):
-        with open(publishers_file, "r") as f:
-            publishers_data = json.load(f)
-    else:
-        publishers_response = await get_publishers.asyncio(client=client)
-        if not publishers_response:
-            print("Could not fetch publishers.")
-            return
-        publishers_data = [p.to_dict() for p in publishers_response]
-        with open(publishers_file, "w") as f:
-            json.dump(publishers_data, f)
+    publishers_response = await get_publishers.asyncio(client=client)
+    if not publishers_response:
+        print("Could not fetch publishers.")
+        return
+    publishers_data = [p.to_dict() for p in publishers_response]
 
     for publisher_data in publishers_data:
         publisher_code = publisher_data["code"]
         print(f"Fetching for publisher: {publisher_code}")
 
-        # Years
-        years_file = f"api_responses/years/{publisher_code}.json"
-        if os.path.exists(years_file):
-            with open(years_file, "r") as f:
-                years_data = json.load(f)
-        else:
-            years_response = await get_years.asyncio(client=client, publisher=publisher_code)
-            if not years_response:
-                print(f"Could not fetch years for publisher: {publisher_code}")
-                continue
-            years_data = years_response.to_dict()
-            os.makedirs(os.path.dirname(years_file), exist_ok=True)
-            with open(years_file, "w") as f:
-                json.dump(years_data, f)
+        years_response = await get_years.asyncio(client=client, publisher=publisher_code)
+        if not years_response:
+            print(f"Could not fetch years for publisher: {publisher_code}")
+            continue
+        years_data = years_response.to_dict()
         
         for year in years_data["years"]:
+            if not (FROM <= year and year >= TO):
+                continue
             print(f"Fetching acts for year: {year}")
 
-            # Acts
-            acts_dir = f"api_responses/acts/{publisher_code}"
-            os.makedirs(acts_dir, exist_ok=True)
-            acts_file = f"{acts_dir}/{year}.json"
-
-            if os.path.exists(acts_file):
-                with open(acts_file, "r") as f:
-                    acts_data = json.load(f)
-            else:
-                acts_response = await get_acts_in_year.asyncio(
-                    client=client,
-                    year=year,
-                    publisher=publisher_code
-                )
-                if not acts_response:
-                    print(f"No acts found for year: {year}")
-                    continue
-                acts_data = acts_response.to_dict()
-                with open(acts_file, "w") as f:
-                    json.dump(acts_data, f)
+            acts_response = await get_acts_in_year.asyncio(
+                client=client,
+                year=year,
+                publisher=publisher_code
+            )
+            print("xxx")
+            if not acts_response:
+                print(f"No acts found for year: {year}")
+                continue
+            acts_data = acts_response.to_dict()
             
             for act_data in acts_data["items"]:
                 task = asyncio.create_task(download_act(semaphore, client, ActInfo.from_dict(act_data)))
                 tasks.append(task)
-
-async def main():
-    """
-    Downloads all acts from the API concurrently, with persistence.
-    """
 
     await asyncio.gather(*tasks)
     end_time = time.time()
