@@ -51,6 +51,8 @@
 // consultation-comments.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ProjectService } from '../../services/project.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface ConsultationComment {
   nr_pyt: number;
@@ -70,12 +72,22 @@ interface CommentGroup {
   standalone: false,
 })
 export class ConsultationCommentsComponent implements OnChanges, OnInit {
+  consultationId!: string;
+
   @Input() comments: ConsultationComment[] = [];
 
   groupedComments: CommentGroup[] = [];
 
+  constructor(private projectService: ProjectService, private route: ActivatedRoute) {
+    this.consultationId = this.route.snapshot.paramMap.get('conId')!;
+  }
+
   // 1. Dodałem metodę ngOnInit do inicjalizacji danych demo
   ngOnInit(): void {
+    this.projectService.fetchComments(this.consultationId.replaceAll('/', '-')).subscribe((r)=>{
+      console.log('fkasodpfka', r)
+    })
+
     // Jeśli nie przekazano komentarzy z zewnątrz (np. z backendu), załaduj demo
     if (!this.comments || this.comments.length === 0) {
       this.comments = this.getDemoComments();

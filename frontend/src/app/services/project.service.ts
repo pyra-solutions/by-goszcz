@@ -84,20 +84,23 @@ export class ProjectService {
   }
 
   fetchSummary(pos: string) {
-    return this.http.get(`http://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
   }
 
   fetchTimeline() {
-    return this.http.get(`http://localhost:8000/term10/processes`)
+    // return this.http.get(`http://localhost:8000/term10/processes`)
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/term10/processes`)
   }
 
   fetchConsultations(pageId: number) {
-    // return this.http.get(`https://pyra-solutions.dedyn.io/api/consultations/${pageId}?page_size=20`)
-    return this.http.get(`http://localhost:8000/consultations/${pageId}?page_size=20`)
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/consultations/${pageId}?page_size=20`)
+    // return this.http.get(`http://localhost:8000/consultations/${pageId}?page_size=20`)
   }
 
-  // fetchComments() {
-  //   return this.http.get('http://localhost:8000/term10/processes');
-  // }
+  fetchComments(consultationId: string) {
+    //HTTPS!
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/comments-by-consultation-id/${consultationId}`)
+    // return this.http.get(`http://localhost:8000/comments-by-consultation-id/${consultationId}`);
+  }
 }
 
