@@ -62,15 +62,16 @@ async def main():
     print("Saving to database...")
     for i,process_api in enumerate(processes, 1):
         process_dict = process_api.to_dict()
+        print(process_dict)
         
         process_db = ProcessHeader(
             #id=None,
             #u_e=process_dict.get("ue"),
             #e_li=process_dict.get("ELI"),
-            term=process_dict.get("term"),
-            number=process_dict.get("number"),
-            title=process_dict.get("title"),
-            title_final=process_dict.get("titleFinal"),
+            term=process_dict.get("term"),#
+            number=process_dict.get("number"),#
+            title=process_dict.get("title"),#
+            title_final=process_dict.get("titleFinal"),#
             description=process_dict.get("description"),
             ue=process_dict.get("ue"),
             document_date=process_dict.get("documentDate"),
