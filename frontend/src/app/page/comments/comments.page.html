@@ -1,47 +1,15 @@
-<!-- consultation-comments.component.html -->
-<div class="consultation-comments">
-  <div class="cc-header">
-    <h2>Komentarze do konsultacji</h2>
-    <p class="cc-subtitle">Lista komentarzy pogrupowanych według numeru pytania.</p>
+<h3>Komentarze {{consultationId}}</h3>
+
+<div class="comments-container" *ngIf="comments?.length; else noComments">
+  <div class="comment-card" *ngFor="let c of comments">
+    
+    <p class="comment-question">Pytanie #{{ c.question }}</p>
+
+    <p class="comment-text">"{{ c.comment_text }}"</p>
+    <p class="comment-author">— {{ c.author }}</p>
   </div>
-
-  <ng-container *ngIf="groupedComments?.length; else noComments">
-    <div class="cc-group"
-         *ngFor="let group of groupedComments">
-      <div class="cc-group-header">
-        <div class="cc-group-title">
-          <span class="cc-group-label">Pytanie nr</span>
-          <span class="cc-group-number">{{ group.nr_pyt }}</span>
-        </div>
-        <div class="cc-group-count">
-          {{ group.comments.length }} komentarz(y)
-        </div>
-      </div>
-
-      <div class="cc-group-body">
-        <div class="cc-comment-card"
-             *ngFor="let c of group.comments">
-          <div class="cc-comment-header">
-            <div class="cc-avatar">
-              {{ c.fullname[0] }}
-            </div>
-            <div class="cc-author-info">
-              <div class="cc-author-name">{{ c.fullname }}</div>
-              <div class="cc-author-meta">Pytanie nr {{ c.nr_pyt }}</div>
-            </div>
-          </div>
-
-          <div class="cc-comment-content">
-            {{ c.comment }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-template #noComments>
-    <div class="cc-empty">
-      Brak komentarzy dla tej konsultacji.
-    </div>
-  </ng-template>
 </div>
+
+<ng-template #noComments>
+  <p class="no-comments">Brak komentarzy do wyświetlenia.</p>
+</ng-template>
