@@ -47,6 +47,6 @@ export class ConsultationsPage {
   }
   
   openComments() {
-    this.router.navigateByUrl('comments');
+    this.router.navigate(['comments', this.selected.consultation_id]);
   }
 }

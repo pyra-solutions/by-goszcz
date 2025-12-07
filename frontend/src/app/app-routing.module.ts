@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'home', component: MainPage},
   {path: 'consultations', component: ConsultationsPage},
   {path: 'details/:pos', component: DetailsPage},
-  {path: 'comments', component: ConsultationCommentsComponent},
+  {path: 'comments/:conId', component: ConsultationCommentsComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}, 
 ];
 
