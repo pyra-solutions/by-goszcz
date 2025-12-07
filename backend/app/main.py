@@ -257,7 +257,7 @@ async def processes(
 
     return processes
 
-app.get("/term{term}/processes/{num}")
+@app.get("/term{term}/processes/{num}")
 async def process_details(
     term: int,
     num: str,
