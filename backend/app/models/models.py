@@ -184,6 +184,8 @@ class ProcessDetails(SQLModel, table=True):
     rcl_link: Optional[str]
     legislative_committee: Optional[bool]
     principle_of_subsidiarity: Optional[bool]
+    stages: List[dict] = Field(default=None, sa_column=Column(JSON))
+    links: List[dict] = Field(default=None, sa_column=Column(JSON))
 
 class LegislationAct(SQLModel, table=True):
     __tablename__ = "legislation_acts"
@@ -197,3 +199,5 @@ class LegislationAct(SQLModel, table=True):
     link: str = Field(unique=True)
     status: Optional[str]
     category_id: int
+    stages: List[dict] = Field(default=None, sa_column=Column(JSON))
+    sejm_id: Optional[str]
