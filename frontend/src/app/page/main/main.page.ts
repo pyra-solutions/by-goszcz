@@ -16,7 +16,7 @@ export class MainPage {
   aiSummaryFileName: string = '';
 
   statusFilters = ALL_PROJECT_STATUSES;
-  publisherFilters: string[] = ['DU', 'MU'];
+  publisherFilters: string[] = ['DU', 'MP'];
 
   typeFilters = ['Ustawa', 'Rozporządzenie', 'Obwieszczenie']
   typeFilter = signal(null)
@@ -68,7 +68,7 @@ export class MainPage {
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
-    for(let i = 1; i < 25; i++) {
+    for(let i = 1; i < 100; i++) {
       this.projectService.fetchProjects(i).subscribe((p: any)=>{
         this.projects.set([...this.projects(), ...p.slice(0, 20)]);
       })
