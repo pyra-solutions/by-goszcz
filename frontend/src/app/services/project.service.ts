@@ -84,7 +84,7 @@ export class ProjectService {
   }
 
   fetchSummary(pos: string) {
-    return this.http.get(`http://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
   }
 
   fetchTimeline() {
@@ -96,8 +96,8 @@ export class ProjectService {
     return this.http.get(`http://localhost:8000/consultations/${pageId}?page_size=20`)
   }
 
-  // fetchComments() {
-  //   return this.http.get('http://localhost:8000/term10/processes');
-  // }
+  fetchComments(consultationId: number) {
+    return this.http.get('http://localhost:8000/term10/processes');
+  }
 }
 
