@@ -54,7 +54,7 @@
 						<td>{{ consultation.end_date | date: 'dd.MM.yyyy'}}</td>
 						<td>{{ consultation.submission_date | date: 'dd.MM.yyyy' }}</td>
 						<td>
-							<a [href]="getPdfLink(consultation.consultation_id)">
+							<a [href]="getPdfLink(consultation.consultation_id)" target="_blank">
 								PDF 
 							</a>
 						</td>
