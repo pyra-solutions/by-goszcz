@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { PROJECT_CONSULTATIONS, ProjectConsultation } from '../../models/project.model';
+import { ProjectConsultation } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
