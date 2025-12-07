@@ -20,6 +20,13 @@ def create_db_and_tables():
 
 create_db_and_tables()
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],           # <--- allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],           # <--- allow all HTTP methods
+    allow_headers=["*"],           # <--- allow all headers
+)
 
 # app.include_router(ai.router)
 
@@ -31,13 +38,6 @@ sejm_client = SejmClient(base_url="https://api.sejm.gov.pl/", timeout=httpx.Time
 #class AiRequest(BaseModel):
 #    pos: int
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],           # <--- allow all origins
-    allow_credentials=True,
-    allow_methods=["*"],           # <--- allow all HTTP methods
-    allow_headers=["*"],           # <--- allow all headers
-)
 
 @app.get("/")
 def root():
@@ -75,13 +75,14 @@ def act(address: str, session: Session = Depends(get_db)) -> ActInfo:
     return act
 
 
+# use - instead of / in id
 @app.get("/comments-by-consultation-id/{consultation_id}", response_model=list[Comment])
 def comments_by_consultation_id(
-    consultation_id: int,
+    consultation_id: str,
     session: Session = Depends(get_db)
 ) -> list[Comment]:
 
-    query = select(Comment).where(consultation_id=consultation_id)
+    query = select(Comment).where(Comment.consultation_id==consultation_id.replace("-","/"))
     result = session.exec(query)
     comments = list(result.all())
 
@@ -96,7 +97,7 @@ def consultations_by_project_id(
     session: Session = Depends(get_db)
 ) -> list[Consultation]:
 
-    query = select(Consultation).where(project_pos=project_id)
+    query = select(Consultation).where(Consultation.project_pos == project_id)
     result = session.exec(query)
     consultations = list(result.all())
 
