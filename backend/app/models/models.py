@@ -1,6 +1,6 @@
 from typing import  List, Optional
 from datetime import datetime
-from sqlmodel import ARRAY, Column, Field, SQLModel, String, Integer, create_engine
+from sqlmodel import ARRAY,JSON, Column, Field, SQLModel, String, Integer, create_engine
 
 
 class ActInfo(SQLModel, table=True):
@@ -136,14 +136,13 @@ class ProcessDetails(SQLModel, table=True):
     display_address: Optional[str]
     e_li: Optional[str]
     passed: Optional[bool]
-    links: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     shorten_procedure: Optional[bool]
     urgency_status: Optional[str]
     urgency_withdraw_date: Optional[datetime]
-    other_documents: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
     rcl_num: Optional[str]
     rcl_link: Optional[str]
     legislative_committee: Optional[bool]
     principle_of_subsidiarity: Optional[bool]
-    stages: List[str] = Field(default=None, sa_column=Column(ARRAY(String())))
-    
+    links: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
+    stages: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
+    other_documents: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
