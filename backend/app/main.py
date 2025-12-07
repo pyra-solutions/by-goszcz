@@ -542,16 +542,16 @@ async def process_details(
     Get detailed process information for a specific term and process number.
     Fetches from API if not in database.
     """
-    # Check if process details exist in database
-    query = select(ProcessDetails).where(
-        ProcessDetails.term == term,
-        ProcessDetails.number == num
-    )
-    existing = session.exec(query).first()
-    
-    if existing:
-        # Convert to dict to return full data
-        return existing.model_dump()
+    # # Check if process details exist in database
+    # query = select(ProcessDetails).where(
+    #     ProcessDetails.term == term,
+    #     ProcessDetails.number == num
+    # )
+    # existing = session.exec(query).first()
+    #
+    # if existing:
+    #     # Convert to dict to return full data
+    #     return existing.model_dump()
     
     # If not found, fetch from API
     print(f"Process details not found in database for term {term}, number {num}, fetching from API...")
@@ -567,45 +567,45 @@ async def process_details(
             raise HTTPException(status_code=404, detail=f"Process {num} not found for term {term}")
         
         process_dict = process_response.to_dict()
+        #
+        # # Return the full API response as-is
+        # # Store simplified version in database for future reference
+        # process_details_db = ProcessDetails(
+        #     term=process_dict.get("term"),
+        #     number=process_dict.get("number"),
+        #     title=process_dict.get("title"),
+        #     description=process_dict.get("description"),
+        #     u_e=process_dict.get("UE"),
+        #     document_date=process_dict.get("documentDate"),
+        #     change_date=process_dict.get("changeDate"),
+        #     web_generated_date=process_dict.get("webGeneratedDate"),
+        #     process_start_date=process_dict.get("processStartDate"),
+        #     document_type=process_dict.get("documentType"),
+        #     document_type_enum=process_dict.get("documentTypeEnum"),
+        #     comments=process_dict.get("comments"),
+        #     prints_considered_jointly=process_dict.get("printsConsideredJointly", []),
+        #     title_final=process_dict.get("titleFinal"),
+        #     closure_date=process_dict.get("closureDate"),
+        #     address=process_dict.get("address"),
+        #     display_address=process_dict.get("displayAddress"),
+        #     e_li=process_dict.get("ELI"),
+        #     passed=process_dict.get("passed"),
+        #     shorten_procedure=process_dict.get("shortenProcedure"),
+        #     urgency_status=process_dict.get("urgencyStatus"),
+        #     urgency_withdraw_date=process_dict.get("urgencyWithdrawDate"),
+        #     other_documents=process_dict.get("otherDocuments", []),
+        #     rcl_num=process_dict.get("rclNum"),
+        #     rcl_link=process_dict.get("rclLink"),
+        #     legislative_committee=process_dict.get("legislativeCommittee"),
+        #     principle_of_subsidiarity=process_dict.get("principleOfSubsidiarity"),
+        #     stages=process_dict.get("stages", []),
+        #     links=process_dict.get("links", [])    
+        #     )
         
-        # Return the full API response as-is
-        # Store simplified version in database for future reference
-        process_details_db = ProcessDetails(
-            term=process_dict.get("term"),
-            number=process_dict.get("number"),
-            title=process_dict.get("title"),
-            description=process_dict.get("description"),
-            u_e=process_dict.get("UE"),
-            document_date=process_dict.get("documentDate"),
-            change_date=process_dict.get("changeDate"),
-            web_generated_date=process_dict.get("webGeneratedDate"),
-            process_start_date=process_dict.get("processStartDate"),
-            document_type=process_dict.get("documentType"),
-            document_type_enum=process_dict.get("documentTypeEnum"),
-            comments=process_dict.get("comments"),
-            prints_considered_jointly=process_dict.get("printsConsideredJointly", []),
-            title_final=process_dict.get("titleFinal"),
-            closure_date=process_dict.get("closureDate"),
-            address=process_dict.get("address"),
-            display_address=process_dict.get("displayAddress"),
-            e_li=process_dict.get("ELI"),
-            passed=process_dict.get("passed"),
-            shorten_procedure=process_dict.get("shortenProcedure"),
-            urgency_status=process_dict.get("urgencyStatus"),
-            urgency_withdraw_date=process_dict.get("urgencyWithdrawDate"),
-            other_documents=process_dict.get("otherDocuments", []),
-            rcl_num=process_dict.get("rclNum"),
-            rcl_link=process_dict.get("rclLink"),
-            legislative_committee=process_dict.get("legislativeCommittee"),
-            principle_of_subsidiarity=process_dict.get("principleOfSubsidiarity"),
-            stages=process_dict.get("stages", []),
-            links=process_dict.get("links", [])    
-            )
-        
-        session.add(process_details_db)
-        session.commit()
-        
-        print(f"Saved process details for term {term}, number {num}")
+        # session.add(process_details_db)
+        # session.commit()
+        #
+        # print(f"Saved process details for term {term}, number {num}")
         
         # Return full API response
         return process_dict
