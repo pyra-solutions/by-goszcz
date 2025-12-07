@@ -87,9 +87,9 @@ export class ProjectService {
     return this.http.get(`https://pyra-solutions.dedyn.io/api/ai?pos=${pos}`);
   }
 
-  fetchTimeline() {
+  fetchTimeline(id: number) {
     // return this.http.get(`http://localhost:8000/term10/processes`)
-    return this.http.get(`https://pyra-solutions.dedyn.io/api/term10/processes`)
+    return this.http.get(`https://pyra-solutions.dedyn.io/api/term10/processes/${id}`)
   }
 
   fetchConsultations(pageId: number) {
