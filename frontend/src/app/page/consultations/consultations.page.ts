@@ -41,7 +41,7 @@ export class ConsultationsPage {
   }}
 
   getPdfLink(consultationId: string) {
-    return `https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-${consultationId.replaceAll('/','-')}`
+    return `https://orka.sejm.gov.pl/Druki10ka.nsf/dok?OpenAgent&10-${consultationId.replaceAll('/','-')}`
   }
 
   mapStatus(status: string) {

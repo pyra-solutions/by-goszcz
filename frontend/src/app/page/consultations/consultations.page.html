@@ -43,19 +43,19 @@
 						<th>Data startowa</th>
 						<th>Data końcowa</th>
 						<th>Data wprowadzenia</th>
-						<th>DOCX(word)</th>
+						<th>PDF</th>
 					</tr>
 				</ng-template>
 				<ng-template #body let-consultation>
-					<tr [pSelectableRow]="consultation" (click)="openComments()">
-						<td>{{ consultation.project_name }}</td>
+					<tr [pSelectableRow]="consultation">
+						<td  (click)="openComments()">{{ consultation.project_name }}</td>
 						<td>{{ mapStatus(consultation.status) }}</td>
 						<td>{{ consultation.start_date | date: 'dd.MM.yyyy' }}</td>
 						<td>{{ consultation.end_date | date: 'dd.MM.yyyy'}}</td>
 						<td>{{ consultation.submission_date | date: 'dd.MM.yyyy' }}</td>
 						<td>
 							<a [href]="getPdfLink(consultation.consultation_id)">
-								DOCX 
+								PDF 
 							</a>
 						</td>
 					</tr>
