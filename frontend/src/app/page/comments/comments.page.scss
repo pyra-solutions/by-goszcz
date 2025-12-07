@@ -1,6 +1,9 @@
 /* consultation-comments.component.scss */
 
 .consultation-comments {
+  max-height: min(700px, 70vh);
+  overflow-y: auto;
+
   max-width: 900px;
   margin: 0 auto;
   padding: 24px;
