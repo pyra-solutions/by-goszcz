@@ -32,11 +32,13 @@ export class ConsultationsPage {
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
-    this.projectService.fetchConsultations(1).subscribe((r: any)=>{
+    for(let i = 1; i < 100; i++) {
+      this.projectService.fetchConsultations(i).subscribe((r: any)=>{
       console.log('consulttations', r)
-      this.consultations.set(r)
+      this.consultations.set([...this.consultations(), ...r])
     })
-  }
+
+  }}
 
   getPdfLink(consultationId: string) {
     return `https://orka.sejm.gov.pl/Druki10ka.nsf/dok1?OpenAgent&10-${consultationId.replaceAll('/','-')}`
