@@ -28,7 +28,7 @@ def parse_date(date_str):
 
 def scrape_category(dept_id, session):
     # Using pSize=10 to fetch at least 5 items without overloading
-    url = f"{BASE_URL}/lista?pSize=10&deptId={dept_id}"
+    url = f"{BASE_URL}/lista?pSize=0&deptId={dept_id}"
     
     print(f"Scraping category {dept_id}...")
     try:
@@ -49,9 +49,6 @@ def scrape_category(dept_id, session):
         
         count = 0
         for row in data_rows:
-            if count >= 5:
-                break
-            
             cols = row.find_all('td')
             if len(cols) < 5:
                 continue
