@@ -35,7 +35,9 @@ import { ConsultationsPage } from './page/consultations/consultations.page';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
+import { DialogModule } from 'primeng/dialog';
 import { ConsultationCommentsComponent } from './page/comments/comments.page';
+
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import { ConsultationCommentsComponent } from './page/comments/comments.page';
     ProgressBarModule,
     PanelModule,
     AccordionModule,
+    DialogModule,
   ],
   providers: [
     provideAnimationsAsync(),
@@ -91,4 +94,4 @@ import { ConsultationCommentsComponent } from './page/comments/comments.page';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
