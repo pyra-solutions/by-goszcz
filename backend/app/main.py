@@ -75,13 +75,14 @@ def act(address: str, session: Session = Depends(get_db)) -> ActInfo:
     return act
 
 
+# use - instead of / in id
 @app.get("/comments-by-consultation-id/{consultation_id}", response_model=list[Comment])
 def comments_by_consultation_id(
-    consultation_id: int,
+    consultation_id: str,
     session: Session = Depends(get_db)
 ) -> list[Comment]:
 
-    query = select(Comment).where(Comment.consultation_id==consultation_id)
+    query = select(Comment).where(Comment.consultation_id==consultation_id.replace("-","/"))
     result = session.exec(query)
     comments = list(result.all())
 
