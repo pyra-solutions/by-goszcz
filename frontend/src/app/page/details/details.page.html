@@ -28,11 +28,11 @@
         <ng-template pTemplate="content" let-step>
           <p-card class="timeline-card">
             <h3 class="timeline-card__title">
-              {{ step }}
+              {{ step.text }}
             </h3>
-            <!-- <p class="timeline-card__description">
+            <p class="timeline-card__description">
               {{ step.date | date: 'dd.MM.yyyy'}}
-            </p> -->
+            </p>
           </p-card>
         </ng-template>
       </p-timeline>

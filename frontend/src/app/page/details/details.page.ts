@@ -61,7 +61,7 @@ export class DetailsPage {
     ]
   }
 
-  steps: string[] = []
+  steps: {text: string, date: Date}[] = []
 
 
   id = this.randomInt(0, 5);
@@ -75,17 +75,17 @@ export class DetailsPage {
     // this.projectSerivce.fetchTimeline(this.id).pipe(map((o: any)=>o.stages)).subscribe((r: any)=>{
     // console.log('thisfapodsfk', r) 
     this.steps = [
-      this.mock.beg[this.randomInt(0,this.mock.beg.length-1)], 
-      this.mock.beg[this.randomInt(0,this.mock.beg.length-1)],
+      { text: this.mock.beg[this.randomInt(0,this.mock.beg.length-1)], date: this.randomDate(new Date(2025, 0, 1), new Date(2025, 2, 1)) }, 
+      { text: this.mock.beg[this.randomInt(0,this.mock.beg.length-1)], date: this.randomDate(new Date(2025, 2, 1), new Date(2025, 4, 1)) },
       
-      this.mock.mid1[this.randomInt(0, this.mock.mid1.length-1)],
-      this.mock.mid1[this.randomInt(0, this.mock.mid1.length-1)],
+      { text: this.mock.mid1[this.randomInt(0, this.mock.mid1.length-1)], date: this.randomDate(new Date(2025, 4, 1), new Date(2025, 6, 1)) },
+      { text: this.mock.mid1[this.randomInt(0, this.mock.mid1.length-1)], date: this.randomDate(new Date(2025, 6, 1), new Date(2025, 8, 1)) },
 
-      this.mock.mid2[this.randomInt(0, this.mock.mid2.length-1)],
-      this.mock.mid2[this.randomInt(0, this.mock.mid2.length-1)],
+      { text: this.mock.mid2[this.randomInt(0, this.mock.mid2.length-1)], date: this.randomDate(new Date(2025, 8, 1), new Date(2025, 9, 1)) },
+      { text: this.mock.mid2[this.randomInt(0, this.mock.mid2.length-1)], date: this.randomDate(new Date(2025, 9, 1), new Date(2025, 10, 1)) },
 
-      this.mock.end[this.randomInt(0, this.mock.end.length-1)],
-      this.mock.end[this.randomInt(0, this.mock.end.length-1)],
+      { text: this.mock.end[this.randomInt(0, this.mock.end.length-1)], date: this.randomDate(new Date(2025, 10, 1), new Date(2025, 11, 1)) },
+      { text: this.mock.end[this.randomInt(0, this.mock.end.length-1)], date: this.randomDate(new Date(2025, 11, 1), new Date(2025, 11, 31)) },
     ]
     // })
 
@@ -94,5 +94,9 @@ export class DetailsPage {
 
   randomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  randomDate(start: Date, end: Date): Date {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   }
 }
