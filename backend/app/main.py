@@ -1,6 +1,6 @@
 from .clienteli.client import Client as ELIClient
 from .clientsejm.client import Client as SejmClient
-from .clientsejm.api.processes import get_sejm_termterm_processes, get_sejm_termterm_processesnum
+from .clientsejm.api.processes import get_sejm_termterm_processes, get_sejm_termterm_processes_num
 from fastapi import Depends, FastAPI, HTTPException
 import httpx
 from sqlmodel import SQLModel, Session, select
@@ -282,7 +282,7 @@ async def process_details(
     print(f"Process details not found in database for term {term}, number {num}, fetching from API...")
     
     try:
-        process_response = await get_sejm_termterm_processesnum.asyncio(
+        process_response = await get_sejm_termterm_processes_num.asyncio(
             client=sejm_client,
             term=term,
             num=num
