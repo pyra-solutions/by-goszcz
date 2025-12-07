@@ -32,7 +32,6 @@ $bp-sm: 768px;
 .filters {
   display: flex;
   flex-wrap: wrap;
-  width: max(70%, 1000px);
   padding-top: 1.5rem;
   margin-bottom: 1rem;
 
@@ -276,12 +275,12 @@ $bp-sm: 768px;
   .projects {
     overflow: auto;
     flex-grow: 1;
-    max-height: min(75vh, 800px); 
+    max-height: min(75vh, 800px);
     // max-width: 50vw;
     // max-height: 100%;
 
     p-table {
-      max-height: min(70vh, 700px); 
+      max-height: min(70vh, 700px);
     }
   }
 }
