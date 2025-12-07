@@ -184,7 +184,16 @@ class ProcessDetails(SQLModel, table=True):
     rcl_link: Optional[str]
     legislative_committee: Optional[bool]
     principle_of_subsidiarity: Optional[bool]
-    # JSON columns for complex nested data
-    links: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
-    stages: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
-    other_documents: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
+
+class LegislationAct(SQLModel, table=True):
+    __tablename__ = "legislation_acts"
+
+    id: int = Field(sa_column_kwargs={"name": "id_serial"}, primary_key=True)
+    title: str
+    applicant: Optional[str]
+    number: Optional[str]
+    date_created: Optional[datetime]
+    date_modified: Optional[datetime]
+    link: str = Field(unique=True)
+    status: Optional[str]
+    category_id: int
