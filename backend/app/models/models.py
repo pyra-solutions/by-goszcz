@@ -1,7 +1,7 @@
 from typing import  List, Optional
 from datetime import datetime
 from sqlmodel import ARRAY,JSON, Column, Field, SQLModel, String, Integer, create_engine
-
+from pydantic import BaseModel
 
 class ActInfo(SQLModel, table=True):
     __tablename__ = "act_info"
@@ -113,6 +113,47 @@ class Comment(SQLModel, table=True):
     author: str
     poll_number: str
 
+# Pydantic models for nested structures (nie są tabelami w bazie)
+class Link(BaseModel):
+    href: str
+    rel: str
+
+class Voting(BaseModel):
+    abstain: Optional[int] = None
+    date: Optional[datetime] = None
+    description: Optional[str] = None
+    kind: Optional[str] = None
+    links: Optional[List[Link]] = None
+    majorityType: Optional[str] = None
+    majorityVotes: Optional[int] = None
+    no: Optional[int] = None
+    notParticipating: Optional[int] = None
+    present: Optional[int] = None
+    sitting: Optional[int] = None
+    sittingDay: Optional[int] = None
+    term: Optional[int] = None
+    title: Optional[str] = None
+    totalVoted: Optional[int] = None
+    votingNumber: Optional[int] = None
+    yes: Optional[int] = None
+
+class StageChild(BaseModel):
+    date: Optional[datetime] = None
+    stageName: Optional[str] = None
+    committeeCode: Optional[str] = None
+    stageType: Optional[str] = None
+    type: Optional[str] = None
+    voting: Optional[Voting] = None
+
+class Stage(BaseModel):
+    date: Optional[datetime] = None
+    stageName: Optional[str] = None
+    printNumber: Optional[str] = None
+    stageType: Optional[str] = None
+    decision: Optional[str] = None
+    sittingNum: Optional[int] = None
+    children: Optional[List[StageChild]] = None
+
 class ProcessDetails(SQLModel, table=True):
     __tablename__ = "process_details"
 
@@ -143,6 +184,7 @@ class ProcessDetails(SQLModel, table=True):
     rcl_link: Optional[str]
     legislative_committee: Optional[bool]
     principle_of_subsidiarity: Optional[bool]
+    # JSON columns for complex nested data
     links: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
     stages: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
     other_documents: Optional[List[dict]] = Field(default=None, sa_column=Column(JSON))
