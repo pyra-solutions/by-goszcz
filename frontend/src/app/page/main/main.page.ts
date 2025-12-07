@@ -96,6 +96,6 @@ export class MainPage {
   }
 
   goToPDF(adress: string, eli: string){
-    return `https://isap.sejm.gov.pl/isap.nsf/download.xsp/${eli}/O/${adress.replaceAll('/','-')}.pdf` 
+    open(`https://isap.sejm.gov.pl/isap.nsf/download.xsp/${eli}/O/${adress.replaceAll('/','-')}.pdf` ,'_blank')
   }
 }
