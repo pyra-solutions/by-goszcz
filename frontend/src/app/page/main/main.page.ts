@@ -20,16 +20,17 @@ export class MainPage {
 
   typeFilters = ['Ustawa', 'Rozporządzenie', 'Obwieszczenie']
   typeFilter = signal(null)
+  visible = 0
 
   statusFilter = signal<ProjectStatus | null>(null)
 
   dateAnnouncementRangeFilter = signal('')
-  beginAnnouncementRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[0] as any as Date)
-  endAnnouncementRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[1] as any as Date)
+  beginAnnouncementRangeDate = computed<Date>(() => this.dateAnnouncementRangeFilter()?.[0] as any as Date)
+  endAnnouncementRangeDate = computed<Date>(() => this.dateAnnouncementRangeFilter()?.[1] as any as Date)
 
   dateChangeRangeFilter = signal('')
-  beginChangeRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[0] as any as Date)
-  endChangeRangeDate = computed<Date>(()=>this.dateAnnouncementRangeFilter()?.[1] as any as Date)
+  beginChangeRangeDate = computed<Date>(() => this.dateAnnouncementRangeFilter()?.[0] as any as Date)
+  endChangeRangeDate = computed<Date>(() => this.dateAnnouncementRangeFilter()?.[1] as any as Date)
 
   selected = signal<Project | null>(null);
 
@@ -38,33 +39,33 @@ export class MainPage {
 
   projects = signal<Project[]>([]);
 
-  filteredProjects = computed(()=>
+  filteredProjects = computed(() =>
     this.projects()
-    .filter((p)=>p.title!.includes(this.titleFilter()))
-    .filter((p)=>this.statusFilter() == null ? true : p.status == this.statusFilter())
-    .filter((p)=>this.publisherFilter() == null ? true : p.publisher == this.publisherFilter())
-    .filter((p)=> {
-      if(this.beginAnnouncementRangeDate() && this.endAnnouncementRangeDate()) {
-        const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
-        const edate = DateTime.fromJSDate(this.endAnnouncementRangeDate())
-        const sdate = DateTime.fromJSDate(this.beginAnnouncementRangeDate())
+      .filter((p) => p.title!.includes(this.titleFilter()))
+      .filter((p) => this.statusFilter() == null ? true : p.status == this.statusFilter())
+      .filter((p) => this.publisherFilter() == null ? true : p.publisher == this.publisherFilter())
+      .filter((p) => {
+        if (this.beginAnnouncementRangeDate() && this.endAnnouncementRangeDate()) {
+          const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
+          const edate = DateTime.fromJSDate(this.endAnnouncementRangeDate())
+          const sdate = DateTime.fromJSDate(this.beginAnnouncementRangeDate())
 
-        console.log(pdate.toISO(), edate.toISO(), sdate.toISO())
-  
-        // return (Interval.fromDateTimes(sdate, edate) as any).includes(pdate)
-        return Interval.fromDateTimes(sdate, edate).contains(pdate)
-      } 
-      else if(this.beginAnnouncementRangeDate()) {
-        const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
-        const exactDate = DateTime.fromJSDate(new Date(this.beginAnnouncementRangeDate()))
+          console.log(pdate.toISO(), edate.toISO(), sdate.toISO())
 
-        return pdate.toISODate() == exactDate.toISODate();
-      }
-      else {
-        return true;
-      }
-    })
-    .filter((p)=>this.typeFilter() == null ? true : p.act_type == this.typeFilter())
+          // return (Interval.fromDateTimes(sdate, edate) as any).includes(pdate)
+          return Interval.fromDateTimes(sdate, edate).contains(pdate)
+        }
+        else if (this.beginAnnouncementRangeDate()) {
+          const pdate = DateTime.fromJSDate(new Date(p.announcement_date!))
+          const exactDate = DateTime.fromJSDate(new Date(this.beginAnnouncementRangeDate()))
+
+          return pdate.toISODate() == exactDate.toISODate();
+        }
+        else {
+          return true;
+        }
+      })
+      .filter((p) => this.typeFilter() == null ? true : p.act_type == this.typeFilter())
   )
 
   constructor(private router: Router, private projectService: ProjectService) {
@@ -73,6 +74,14 @@ export class MainPage {
         this.projects.set([...this.projects(), ...p.slice(0, 20)]);
       })
     }
+  }
+
+  subscribeTo(project: number, event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.visible = project;
+
   }
 
   refreshSelected() {
@@ -87,7 +96,7 @@ export class MainPage {
     this.aiSummaryFileName = this.selected()!.title!
     this.generatingSummary = true;
 
-    this.projectService.fetchSummary(String(this.selected()!.pos!)).subscribe((res: any)=>{
+    this.projectService.fetchSummary(String(this.selected()!.pos!)).subscribe((res: any) => {
       console.log('Ai response', res)
       console.log('Ai response', JSON.parse(res.response.analysis))
       this.aiResponse = JSON.parse(res.response.analysis)

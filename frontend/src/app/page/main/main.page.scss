@@ -528,3 +528,12 @@ $bp-sm: 768px;
   height: 350px;
   overflow-y: auto;
 }
+
+.pi-envelope {
+  padding:2px;
+  border-radius: 5px;
+  &:hover {
+    color: blue;
+    background: lightblue;
+  }
+}

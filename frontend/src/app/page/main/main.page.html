@@ -31,13 +31,13 @@
 				<label for="over_label">Typ</label>
 			</p-floatlabel>
 		</div>
-		
+
 		<div class="projects">
 			<!-- size="small" -->
-			<p-table 
-			[value]="filteredProjects()" 
-			showGridlines 
-			[tableStyle]="{ 'min-width': '50rem'}" 
+			<p-table
+			[value]="filteredProjects()"
+			showGridlines
+			[tableStyle]="{ 'min-width': '50rem'}"
 			selectionMode="single"
 			[(selection)]="selected"
 			[paginator]="true"
@@ -51,6 +51,7 @@
 						<th>Data wprowadzenia</th>
 						<th>Data ostatniej zmiany</th>
 						<th>Typ</th>
+						<th><i class="pi pi-envelope" style="font-size: 1rem"></i></th>
 					</tr>
 				</ng-template>
 				<ng-template #body let-project>
@@ -61,11 +62,45 @@
 						<td>{{ project.announcement_date | date: 'dd.MM.yyyy'}}</td>
 						<td>{{ project.change_date | date: 'dd.MM.yyyy'}}</td>
 						<td>{{ project.act_type }}</td>
+            <td>
+              <i class="pi pi-envelope" style="font-size: 1rem" (click)="subscribeTo(project.id,$event)"></i>
+<p-dialog
+  header="Powiadamiaj mnie o zmianiach"
+  [modal]="true"
+  [visible]="visible === project.id"
+  [style]="{ width: '40rem' }"
+  (close)="visible = 0"
+>
+    <span style="color: #6b7280; display: block; margin-bottom: 2rem;">
+        {{ project.title }}
+    </span>
+
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+        <label
+            for="email"
+            style="font-weight: 600; width: 6rem;"
+        >
+            Email
+        </label>
+        <input
+            pInputText
+            id="email"
+            type="email"
+            autocomplete="email"
+            style="flex: 1;"
+        />
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <p-button label="Zasubskrybuj" (click)="visible = 42424242"></p-button>
+    </div>
+</p-dialog>
+            </td>
 					</tr>
 				</ng-template>
 			</p-table>
 		</div>
-	</section> 
+	</section>
 
 	<!-- kolumna prawa: dokumenty / szczegóły -->
 	<section class="legis-column legis-column--details" aria-label="Szczegóły projektu">
@@ -83,7 +118,7 @@
 			<!-- <p>{{selected.step}}</p> -->
 			<!-- <p>Komisja Finansów Publicznych – 12.12.2025, godz. 10:00</p>
 			<p>Sala 118, budynek C, Sejm RP</p> -->
-	
+
 			<button (click)="goToDetails()" class="gov-btn gov-btn--secondary gov-btn--full">
 				Zobacz szczegóły
 			</button>
@@ -100,6 +135,20 @@
 		<h2>Podsumowanie sztucznej inteligencji dla pliku</h2>
 	</header>
 
+<p-dialog
+  header="Powiadamiaj mnie o zmianiach"
+  [modal]="true"
+  [visible]="visible === 42424242"
+  [style]="{ width: '40rem' }"
+  (hide)="visible = 0"
+>
+    <div style="font-weight: bold; font-size: 1rem">
+      Zasubskrybowano!
+    </div>
+    <div>
+    Dostaniesz powiadomienia o aktualizacjach drogą mailową
+    </div>
+</p-dialog>
 
 	<section class="legis-card">
 		<div class="ai-response">
@@ -122,3 +171,4 @@
 	}
 	</section>
 </section>
+
