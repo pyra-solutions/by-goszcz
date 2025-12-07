@@ -80,7 +80,7 @@ export class MainPage {
   }
 
   goToDetails() {
-    this.router.navigate(['details', this.selected()!.pos]);
+    this.router.navigate(['details', this.selected()!.pos, this.selected()!.title]);
   }
 
   generateAiSummary() {

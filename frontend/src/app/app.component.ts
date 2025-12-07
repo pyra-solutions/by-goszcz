@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectService } from './services/project.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +17,21 @@ export class AppComponent implements OnInit{
   }
 
   getRoute() {
-    return this.router.url;
+    return this.router.url.split('/')[1];
   }
 
+
+  isHomeActive() {
+    const route = this.getRoute();
+
+    return route == 'home' || route == 'details'
+  }
+
+  isConsultationsActive() {
+    const route = this.getRoute();
+
+    return route == 'consultations' || route == 'comments'
+  }
 
   goto(route: string) {
     this.router.navigateByUrl(route);

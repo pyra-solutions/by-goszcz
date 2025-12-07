@@ -5,7 +5,7 @@
         Proces legislacyjny
       </h1>
       <p class="page-header__subtitle">
-        {{project.title}} 
+        {{title}} 
         <!-- Przykładowy timeline z linią pośrodku i kartami po lewej oraz prawej stronie. -->
       </p>
     </div>
@@ -19,23 +19,20 @@
         align="alternate"
         class="legislation-timeline"
       >
-        <!-- Marker na środku linii (kółko + etykieta dnia) -->
         <ng-template pTemplate="marker" let-step>
           <div class="timeline-marker">
             <div class="timeline-marker__dot"></div>
-            <!-- <span class="timeline-marker__label">{{ step.day }}</span> -->
           </div>
         </ng-template>
 
-        <!-- Karta z danymi – PrimeNG automatycznie przeplata je lewo/prawo -->
         <ng-template pTemplate="content" let-step>
           <p-card class="timeline-card">
             <h3 class="timeline-card__title">
-              {{ step.title }}
+              {{ step }}
             </h3>
-            <p class="timeline-card__description">
-              {{ step.document_date | date: 'dd.MM.yyyy'}}
-            </p>
+            <!-- <p class="timeline-card__description">
+              {{ step.date | date: 'dd.MM.yyyy'}}
+            </p> -->
           </p-card>
         </ng-template>
       </p-timeline>

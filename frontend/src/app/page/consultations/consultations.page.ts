@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { PROJECT_CONSULTATIONS, ProjectConsultation } from '../../models/project.model';
+import { ProjectConsultation } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -47,6 +47,11 @@ export class ConsultationsPage {
   }
   
   openComments() {
-    this.router.navigate(['comments', this.selected.consultation_id]);
+    if(this.selected.status != 'finished') {
+      alert('Nie można podejrzeć komentarzy nie ukończonych konsultacji')
+    }
+    else {
+      this.router.navigate(['comments', this.selected.consultation_id]);
+    }
   }
 }
