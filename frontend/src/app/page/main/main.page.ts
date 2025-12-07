@@ -94,4 +94,8 @@ export class MainPage {
       this.generatingSummary = false;
     })
   }
+
+  goToPDF(adress: string, eli: string){
+    return `https://isap.sejm.gov.pl/isap.nsf/download.xsp/${eli}/O/${adress.replaceAll('/','-')}.pdf` 
+  }
 }
