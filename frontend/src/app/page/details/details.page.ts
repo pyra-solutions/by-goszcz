@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-import { Project } from '../../models/project.model';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 
@@ -19,13 +18,15 @@ interface SejmDocument {
 })
 export class DetailsPage {
   pos: string;
-  project: Project;
+  title: string;
+
   steps: SejmDocument[] = []
 
   id = this.randomInt(0, 5);
 
   constructor(private projectSerivce: ProjectService, private route: ActivatedRoute ) {
     this.pos = this.route.snapshot.paramMap.get('pos')!;
+    this.title = this.route.snapshot.paramMap.get('title')!;
 
     console.log('faksopdfak', this.id)
 
@@ -34,7 +35,7 @@ export class DetailsPage {
       this.steps = r;
     })
 
-    this.project = this.projectSerivce.generateProjects(1)[0];
+    // this.project = this.projectSerivce.generateProjects(1)[0];
   }
 
   randomInt(min: number, max: number): number {

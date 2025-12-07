@@ -8,7 +8,7 @@ import { ConsultationCommentsComponent } from './page/comments/comments.page';
 const routes: Routes = [
   {path: 'home', component: MainPage},
   {path: 'consultations', component: ConsultationsPage},
-  {path: 'details/:pos', component: DetailsPage},
+  {path: 'details/:pos/:title', component: DetailsPage},
   {path: 'comments/:conId', component: ConsultationCommentsComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}, 
 ];
