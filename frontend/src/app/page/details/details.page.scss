@@ -6,6 +6,10 @@ $gov-bg: #f5f7fa;
 $gov-border: #d1d5db;
 $gov-text: #111827;
 
+:host {
+  width:100%;
+}
+
 .legislation-page {
   max-height: 80vh;
   overflow-y: auto;
