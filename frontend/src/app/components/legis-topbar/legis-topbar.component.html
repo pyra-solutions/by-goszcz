@@ -2,7 +2,64 @@
 <header class="legis-topbar">
 	<img src="assets/polska.svg" class="poland"/>
 	<div class="legis-topbar-title">
-	<h1>Ścieżka legislacyjna w Polsce</h1>
-	<p>Przegląd aktualnych projektów ustaw i etapów prac.</p>
+		<h1>Ścieżka legislacyjna w Polsce</h1>
+		<p>Przegląd aktualnych projektów ustaw i etapów prac.</p>
+	</div>
+	<div class="accessibility-controls">
+		<div class="control-group">
+			<span class="control-label">czcionka:</span>
+			<button 
+				(click)="setFontSize('small')" 
+				class="font-btn" 
+				[class.active]="fontSize === 'small'"
+				aria-label="Mała czcionka">
+				A
+			</button>
+			<button 
+				(click)="setFontSize('medium')" 
+				class="font-btn medium" 
+				[class.active]="fontSize === 'medium'"
+				aria-label="Średnia czcionka">
+				A
+			</button>
+			<button 
+				(click)="setFontSize('large')" 
+				class="font-btn large" 
+				[class.active]="fontSize === 'large'"
+				aria-label="Duża czcionka">
+				A
+			</button>
+		</div>
+		<div class="control-group">
+			<span class="control-label">kontrast:</span>
+			<button 
+				(click)="setContrast('normal')" 
+				class="contrast-btn normal" 
+				[class.active]="contrastMode === 'normal'"
+				aria-label="Normalny kontrast">
+				A
+			</button>
+			<button 
+				(click)="setContrast('black')" 
+				class="contrast-btn black" 
+				[class.active]="contrastMode === 'black'"
+				aria-label="Czarno-biały kontrast">
+				A
+			</button>
+			<button 
+				(click)="setContrast('yellow')" 
+				class="contrast-btn yellow" 
+				[class.active]="contrastMode === 'yellow'"
+				aria-label="Czarno-żółty kontrast">
+				A
+			</button>
+			<button 
+				(click)="setContrast('white')" 
+				class="contrast-btn white" 
+				[class.active]="contrastMode === 'white'"
+				aria-label="Żółto-czarny kontrast">
+				<span class="contrast-icon">🖉</span>
+			</button>
+		</div>
 	</div>
 </header>

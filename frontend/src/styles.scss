@@ -16,3 +16,106 @@ body {
   color: $gov-text;
   overflow-y: hidden;
 }
+
+// Rozmiary czcionki
+body.font-small {
+  font-size: 14px;
+}
+
+body.font-medium {
+  font-size: 16px;
+}
+
+body.font-large {
+  font-size: 18px;
+}
+
+// Tryby kontrastu - standardy gov.pl
+body.contrast-black {
+  background: #000 !important;
+  color: #fff !important;
+
+  * {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+
+  a, button:not(.contrast-btn):not(.font-btn) {
+    color: #fff !important;
+    text-decoration: underline;
+    
+    &:hover, &:focus {
+      background: #fff !important;
+      color: #000 !important;
+    }
+  }
+
+  input, select, textarea {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+  }
+
+  img:not(.poland) {
+    filter: invert(1);
+  }
+}
+
+body.contrast-yellow {
+  background: #000 !important;
+  color: #ffff00 !important;
+
+  * {
+    background: #000 !important;
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+  }
+
+  a, button:not(.contrast-btn):not(.font-btn) {
+    color: #ffff00 !important;
+    text-decoration: underline;
+    
+    &:hover, &:focus {
+      background: #ffff00 !important;
+      color: #000 !important;
+    }
+  }
+
+  input, select, textarea {
+    background: #000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  img:not(.poland) {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+body.contrast-white {
+  background: #ffff00 !important;
+  color: #000 !important;
+
+  * {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+
+  a, button:not(.contrast-btn):not(.font-btn) {
+    color: #000 !important;
+    text-decoration: underline;
+    
+    &:hover, &:focus {
+      background: #000 !important;
+      color: #ffff00 !important;
+    }
+  }
+
+  input, select, textarea {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border: 2px solid #000 !important;
+  }
+}

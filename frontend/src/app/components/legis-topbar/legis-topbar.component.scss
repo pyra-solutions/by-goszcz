@@ -34,5 +34,86 @@ $gov-border: #d5d5d5;
   .legis-topbar-title {
     display: flex;
     flex-direction: column;
+    flex: 1;
+  }
+}
+
+.accessibility-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-left: auto;
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .control-label {
+    font-size: 0.75rem;
+    color: $gov-muted;
+    margin-right: 0.25rem;
+  }
+
+  .font-btn, .contrast-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+
+    &:hover {
+      border-color: #999;
+    }
+
+    &.active {
+      border-color: #000;
+      border-width: 2px;
+    }
+
+    &.medium {
+      font-size: 0.9rem;
+    }
+
+    &.large {
+      font-size: 1.1rem;
+    }
+  }
+
+  .contrast-btn {
+    &.normal {
+      background: white;
+      color: #000;
+    }
+
+    &.black {
+      background: #000;
+      color: white;
+      border-color: #000;
+    }
+
+    &.yellow {
+      background: #000;
+      color: #ffff00;
+      border-color: #000;
+    }
+
+    &.white {
+      background: #ffff00;
+      color: #000;
+      border-color: #000;
+      
+      .contrast-icon {
+        font-size: 1rem;
+      }
+    }
   }
 }
